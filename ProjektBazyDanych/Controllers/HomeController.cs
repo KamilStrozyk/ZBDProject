@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 
 namespace ProjektBazyDanych.Controllers
@@ -15,15 +12,38 @@ namespace ProjektBazyDanych.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            using (var db = new connectionString())
+            {
+                var animal = new Animal
+                {
+                    name = "Przemek",
+                    sex = "man",
+                    age = 21,
+                    origin = "XDD"
+                };
+
+                db.Animals.Add(animal);
+                db.SaveChanges();
+            }
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            string message = "";
+            using (var db = new connectionString())
+            {
+                var query = from animal in db.Animals
+                            orderby animal.name
+                            select animal;
 
+                foreach (var item in query)
+                {
+                    message += item.name + ";";
+                }
+            }
+            ViewBag.Message = message;
             return View();
         }
     }
