@@ -16,3 +16,4 @@ namespace ProjektBazyDanych.Repository.Interface
 
         void Save();
     }
+}

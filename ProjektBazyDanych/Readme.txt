@@ -10,6 +10,7 @@ Foldery:
 	Controllers- tutaj piszesz obsługę akcji prosto z widoków, Controller musi być dla każdej encji z widokiem
 				 Akcje controllera mają wywoływać metody będące w logice, 
 	Logic- tu trzymasz logikę dla controllerów, tu znajduje się odniesienie do bazy i do repozytorium
+		Interface- tak dla zasady, żeby był 
 	Repository
 		Interface- tutaj masz interfejsy dla customowych repozytoriów
 		W samym folderze robisz po prostu repo:
