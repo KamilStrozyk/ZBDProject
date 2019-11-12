@@ -14,6 +14,8 @@ namespace ProjektBazyDanych.Logic
             {
                 login = "admin",
                 email = "admin@admin.com",
+                firstName = "admin",
+                lastName = "admin",
                 passwordHash = "2137",
                 passwordSalt = "69",
 

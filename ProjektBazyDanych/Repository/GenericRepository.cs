@@ -32,21 +32,21 @@ namespace ProjektBazyDanych.Repository
         public void Insert(T obj)
         {
             table.Add(obj);
+            _context.SaveChanges();
         }
         public void Update(T obj)
         {
             table.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;
+            _context.SaveChanges();
         }
         public void Delete(object id)
         {
             T existing = table.Find(id);
             table.Remove(existing);
-        }
-        public void Save()
-        {
             _context.SaveChanges();
         }
+
     }
 
 }

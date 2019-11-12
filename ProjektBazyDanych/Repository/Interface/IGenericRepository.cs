@@ -13,7 +13,5 @@ namespace ProjektBazyDanych.Repository.Interface
         void Update(T obj);
 
         void Delete(object id);
-
-        void Save();
     }
 }
