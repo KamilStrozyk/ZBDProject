@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Animals">
           <Key>
             <PropertyRef Name="id" />
@@ -41,6 +41,7 @@
           </Key>
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="requirement" Type="int" Nullable="false" />
+          <Property Name="currentAmount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FoodShipment">
           <Key>
@@ -120,6 +121,7 @@
             <PropertyRef Name="name" />
           </Key>
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="appetite" Type="int" Nullable="false" />
           <Property Name="howMany" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SpiecesFood">
@@ -288,15 +290,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Shipment_Settlement1">
-          <End Role="Settlement" Type="Self.Settlement" Multiplicity="1" />
-          <End Role="Shipment" Type="Self.Shipment" Multiplicity="0..1" />
+        <Association Name="FK_Settlement_Shipment">
+          <End Role="Shipment" Type="Self.Shipment" Multiplicity="1" />
+          <End Role="Settlement" Type="Self.Settlement" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Settlement">
-              <PropertyRef Name="shipmentId" />
-            </Principal>
-            <Dependent Role="Shipment">
+            <Principal Role="Shipment">
               <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Settlement">
+              <PropertyRef Name="shipmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -336,7 +338,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="countFoodRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="food" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="deleteInfectedAnimals" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diseaseName" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="showFinalServicePointIncome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -426,9 +437,9 @@
             <End Role="ServicePointWorkers" EntitySet="ServicePointWorkers" />
             <End Role="ServicePointsServicePointWorkers" EntitySet="ServicePointsServicePointWorkers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Shipment_Settlement1" Association="Self.FK_Shipment_Settlement1">
-            <End Role="Settlement" EntitySet="Settlement" />
+          <AssociationSet Name="FK_Settlement_Shipment" Association="Self.FK_Settlement_Shipment">
             <End Role="Shipment" EntitySet="Shipment" />
+            <End Role="Settlement" EntitySet="Settlement" />
           </AssociationSet>
           <AssociationSet Name="FK_Shipment_Supplier" Association="Self.FK_Shipment_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
@@ -443,8 +454,7 @@
             <End Role="SpiecesFood" EntitySet="SpiecesFood" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -492,6 +502,7 @@
           <Property Name="requirement" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Shipments" Relationship="Self.FoodShipment" FromRole="Food" ToRole="Shipment" />
           <NavigationProperty Name="Spieces" Relationship="Self.SpiecesFood" FromRole="Food" ToRole="Spieces" />
+          <Property Name="currentAmount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Runway">
           <Key>
@@ -537,6 +548,7 @@
           <Property Name="sum" Type="Int32" Nullable="false" />
           <Property Name="approved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Shipment" Relationship="Self.FK_Shipment_Settlement1" FromRole="Settlement" ToRole="Shipment" />
+          <NavigationProperty Name="Shipment1" Relationship="DbModel.FK_Settlement_Shipment" FromRole="Settlement" ToRole="Shipment" />
         </EntityType>
         <EntityType Name="Shipment">
           <Key>
@@ -549,6 +561,7 @@
           <NavigationProperty Name="Settlement" Relationship="Self.FK_Shipment_Settlement1" FromRole="Shipment" ToRole="Settlement" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Shipment_Supplier" FromRole="Shipment" ToRole="Supplier" />
           <NavigationProperty Name="Foods" Relationship="Self.FoodShipment" FromRole="Shipment" ToRole="Food" />
+          <NavigationProperty Name="Settlement1" Relationship="DbModel.FK_Settlement_Shipment" FromRole="Shipment" ToRole="Settlement" />
         </EntityType>
         <EntityType Name="Spiece">
           <Key>
@@ -558,6 +571,7 @@
           <Property Name="howMany" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_Spieces" FromRole="Spieces" ToRole="Animals" />
           <NavigationProperty Name="Foods" Relationship="Self.SpiecesFood" FromRole="Spieces" ToRole="Food" />
+          <Property Name="appetite" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Supervisor">
           <Key>
@@ -772,6 +786,13 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <AssociationSet Name="FK_Settlement_Shipment" Association="DbModel.FK_Settlement_Shipment">
+            <End Role="Shipment" EntitySet="Shipments" />
+            <End Role="Settlement" EntitySet="Settlements" />
+          </AssociationSet>
+          <FunctionImport Name="deleteInfectedAnimals">
+            <Parameter Name="diseaseName" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -784,6 +805,18 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <Association Name="FK_Settlement_Shipment">
+          <End Type="DbModel.Shipment" Role="Shipment" Multiplicity="1" />
+          <End Type="DbModel.Settlement" Role="Settlement" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Shipment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Settlement">
+              <PropertyRef Name="shipmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -824,6 +857,7 @@
           <EntitySetMapping Name="Foods">
             <EntityTypeMapping TypeName="DbModel.Food">
               <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="currentAmount" ColumnName="currentAmount" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="requirement" ColumnName="requirement" />
               </MappingFragment>
@@ -886,6 +920,7 @@
           <EntitySetMapping Name="Spieces">
             <EntityTypeMapping TypeName="DbModel.Spiece">
               <MappingFragment StoreEntitySet="Spieces">
+                <ScalarProperty Name="appetite" ColumnName="appetite" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="howMany" ColumnName="howMany" />
               </MappingFragment>
@@ -989,6 +1024,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DbModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DbModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="deleteInfectedAnimals" FunctionName="DbModel.Store.deleteInfectedAnimals" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

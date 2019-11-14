@@ -23,5 +23,6 @@ namespace ProjektBazyDanych
         public bool approved { get; set; }
     
         public virtual Shipment Shipment { get; set; }
+        public virtual Shipment Shipment1 { get; set; }
     }
 }

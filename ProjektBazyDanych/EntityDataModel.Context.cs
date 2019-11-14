@@ -144,5 +144,14 @@ namespace ProjektBazyDanych
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual int deleteInfectedAnimals(string diseaseName)
+        {
+            var diseaseNameParameter = diseaseName != null ?
+                new ObjectParameter("diseaseName", diseaseName) :
+                new ObjectParameter("diseaseName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deleteInfectedAnimals", diseaseNameParameter);
+        }
     }
 }

@@ -29,6 +29,7 @@
         <AssociationConnector Association="DbModel.RunwaysSupervisors" ManuallyRouted="false" />
         <AssociationConnector Association="DbModel.ServicePointsServicePointWorkers" ManuallyRouted="false" />
         <AssociationConnector Association="DbModel.SpiecesFood" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Settlement_Shipment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
