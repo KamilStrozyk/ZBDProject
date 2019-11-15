@@ -1,0 +1,35 @@
+﻿@model ProjektBazyDanych.Food
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Food</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.requirement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.requirement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.currentAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.currentAmount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.name }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
