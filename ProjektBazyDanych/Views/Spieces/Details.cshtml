@@ -1,0 +1,35 @@
+﻿@model ProjektBazyDanych.Spiece
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Spiece</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.howMany)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.howMany)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.appetite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.appetite)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.name }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
