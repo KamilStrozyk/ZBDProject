@@ -18,7 +18,7 @@ namespace ProjektBazyDanych.Controllers
         // GET: Settlements
         public async Task<ActionResult> Index()
         {
-            var settlements = db.Settlements.Include(s => s.Shipment).Include(s => s.Shipment1);
+            var settlements = db.Settlements.Include(s => s.Shipment);//.Include(s => s.Shipment1);
             return View(await settlements.ToListAsync());
         }
 
