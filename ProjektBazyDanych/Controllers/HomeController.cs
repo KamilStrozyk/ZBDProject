@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ProjektBazyDanych.Logic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProjektBazyDanych.Controllers
@@ -15,15 +13,16 @@ namespace ProjektBazyDanych.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            // Testowa operacja czy wszystko działa
+            var logic = new UserLogic();
+            logic.AddAdmin();
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
+            var logic = new UserLogic();
+            logic.ChangeAdminEmail("admin2@admin2.com");
             return View();
         }
     }

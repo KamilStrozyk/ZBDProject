@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="DbModel.Supervisor" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModel.Supplier" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModel.sysdiagram" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="9.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="10.5" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="DbModel.FK_Animals_Runways" ManuallyRouted="false" />
         <AssociationConnector Association="DbModel.FK_Animals_Spieces" ManuallyRouted="false" />
         <AssociationConnector Association="DbModel.FK_DiseaseHistory_Animals" ManuallyRouted="false" />
@@ -29,6 +29,7 @@
         <AssociationConnector Association="DbModel.RunwaysSupervisors" ManuallyRouted="false" />
         <AssociationConnector Association="DbModel.ServicePointsServicePointWorkers" ManuallyRouted="false" />
         <AssociationConnector Association="DbModel.SpiecesFood" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Settlement_Shipment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

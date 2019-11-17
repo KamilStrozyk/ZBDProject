@@ -138,7 +138,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AnimalsController.cs" />
+    <Compile Include="Controllers\DiseaseHistoriesController.cs" />
+    <Compile Include="Controllers\DiseasesController.cs" />
+    <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RunwaysController.cs" />
+    <Compile Include="Controllers\ServicePointsController.cs" />
+    <Compile Include="Controllers\ServicePointWorkersController.cs" />
+    <Compile Include="Controllers\SettlementsController.cs" />
+    <Compile Include="Controllers\ShipmentsController.cs" />
+    <Compile Include="Controllers\SpiecesController.cs" />
+    <Compile Include="Controllers\SupervisorsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Disease.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
@@ -166,7 +178,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Interface\IUserLogic.cs" />
+    <Compile Include="Logic\UserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\Interface\IGenericRepository.cs" />
+    <Compile Include="Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Runway.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
@@ -209,6 +227,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Readme.txt" />
     <Content Include="EntityDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EntityDataModel.edmx</DependentUpon>
@@ -257,10 +276,71 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ServicePointWorkers\Create.cshtml" />
+    <Content Include="Views\ServicePointWorkers\Delete.cshtml" />
+    <Content Include="Views\ServicePointWorkers\Details.cshtml" />
+    <Content Include="Views\ServicePointWorkers\Edit.cshtml" />
+    <Content Include="Views\ServicePointWorkers\Index.cshtml" />
+    <Content Include="Views\Settlements\Create.cshtml" />
+    <Content Include="Views\Settlements\Delete.cshtml" />
+    <Content Include="Views\Settlements\Details.cshtml" />
+    <Content Include="Views\Settlements\Edit.cshtml" />
+    <Content Include="Views\Settlements\Index.cshtml" />
+    <Content Include="Views\Animals\Create.cshtml" />
+    <Content Include="Views\Animals\Delete.cshtml" />
+    <Content Include="Views\Animals\Details.cshtml" />
+    <Content Include="Views\Animals\Edit.cshtml" />
+    <Content Include="Views\Animals\Index.cshtml" />
+    <Content Include="Views\Diseases\Create.cshtml" />
+    <Content Include="Views\Diseases\Delete.cshtml" />
+    <Content Include="Views\Diseases\Details.cshtml" />
+    <Content Include="Views\Diseases\Edit.cshtml" />
+    <Content Include="Views\Diseases\Index.cshtml" />
+    <Content Include="Views\DiseaseHistories\Create.cshtml" />
+    <Content Include="Views\DiseaseHistories\Delete.cshtml" />
+    <Content Include="Views\DiseaseHistories\Details.cshtml" />
+    <Content Include="Views\DiseaseHistories\Edit.cshtml" />
+    <Content Include="Views\DiseaseHistories\Index.cshtml" />
+    <Content Include="Views\Foods\Create.cshtml" />
+    <Content Include="Views\Foods\Delete.cshtml" />
+    <Content Include="Views\Foods\Details.cshtml" />
+    <Content Include="Views\Foods\Edit.cshtml" />
+    <Content Include="Views\Foods\Index.cshtml" />
+    <Content Include="Views\Runways\Create.cshtml" />
+    <Content Include="Views\Runways\Delete.cshtml" />
+    <Content Include="Views\Runways\Details.cshtml" />
+    <Content Include="Views\Runways\Edit.cshtml" />
+    <Content Include="Views\Runways\Index.cshtml" />
+    <Content Include="Views\ServicePoints\Create.cshtml" />
+    <Content Include="Views\ServicePoints\Delete.cshtml" />
+    <Content Include="Views\ServicePoints\Details.cshtml" />
+    <Content Include="Views\ServicePoints\Edit.cshtml" />
+    <Content Include="Views\ServicePoints\Index.cshtml" />
+    <Content Include="Views\Shipments\Create.cshtml" />
+    <Content Include="Views\Shipments\Delete.cshtml" />
+    <Content Include="Views\Shipments\Details.cshtml" />
+    <Content Include="Views\Shipments\Edit.cshtml" />
+    <Content Include="Views\Shipments\Index.cshtml" />
+    <Content Include="Views\Spieces\Create.cshtml" />
+    <Content Include="Views\Spieces\Delete.cshtml" />
+    <Content Include="Views\Spieces\Details.cshtml" />
+    <Content Include="Views\Spieces\Edit.cshtml" />
+    <Content Include="Views\Spieces\Index.cshtml" />
+    <Content Include="Views\Supervisors\Create.cshtml" />
+    <Content Include="Views\Supervisors\Delete.cshtml" />
+    <Content Include="Views\Supervisors\Details.cshtml" />
+    <Content Include="Views\Supervisors\Edit.cshtml" />
+    <Content Include="Views\Supervisors\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

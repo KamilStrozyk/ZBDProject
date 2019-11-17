@@ -23,6 +23,7 @@ namespace ProjektBazyDanych
     
         public string name { get; set; }
         public int howMany { get; set; }
+        public int appetite { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Animal> Animals { get; set; }
