@@ -1,12 +1,4 @@
--- ================================================
--- Template generated from Template Explorer using:
--- Create Inline Function (New Menu).SQL
---
--- Use the Specify Values for Template Parameters 
--- command (Ctrl-Shift-M) to fill in the parameter 
--- values below.
---
--- This block of comments will not be included in
+
 create or alter function showFinalServicePointIncome(@name varchar)
 returns int
 
