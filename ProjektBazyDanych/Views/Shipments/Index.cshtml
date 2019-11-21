@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<ProjektBazyDanych.Shipment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Dostawy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1>Dostawy</h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nową", "Create", null, new { @class = "btn btn-dark mb-3" })
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.shipmentDate)
         </th>
@@ -31,28 +34,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.shipmentDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Settlement.shipmentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Supplier.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Settlement1.shipmentId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.shipmentDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Settlement.shipmentId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Supplier.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Settlement1.shipmentId)
+    </td>
+    <td>
+        @Html.ActionLink("Edytuj", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Szczegóły", "Details", new { id = item.id }) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.id })
+    </td>
+</tr>
 }
 
 </table>

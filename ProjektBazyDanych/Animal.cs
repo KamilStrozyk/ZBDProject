@@ -11,7 +11,8 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Animal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +20,13 @@ namespace ProjektBazyDanych
         {
             this.DiseaseHistories = new HashSet<DiseaseHistory>();
         }
-    
+        [Display(Name ="Id zwierzêcia")]
         public int id { get; set; }
         public int age { get; set; }
         public string sex { get; set; }
         public string origin { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime inZooSince { get; set; }
         public string name { get; set; }
         public string spiece { get; set; }

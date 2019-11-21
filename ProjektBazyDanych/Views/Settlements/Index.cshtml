@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<ProjektBazyDanych.Settlement>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rozliczenia";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1>Rozliczenia</h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowe", "Create", null, new { @class = "btn btn-dark mb-3" })
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.shipmentId)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.creationDate)
         </th>
@@ -40,37 +43,40 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.creationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.modificationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.month)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.approved)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipment.supplierName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shipment1.supplierName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.shipmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.shipmentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.shipmentId })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.shipmentId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.creationDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.modificationDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.year)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.month)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.sum)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.approved)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Shipment.supplierName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Shipment1.supplierName)
+    </td>
+    <td>
+        @Html.ActionLink("Edytuj", "Edit", new { id = item.shipmentId }) |
+        @Html.ActionLink("Szczegóły", "Details", new { id = item.shipmentId }) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.shipmentId })
+    </td>
+</tr>
 }
 
 </table>

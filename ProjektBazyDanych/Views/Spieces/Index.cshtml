@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<ProjektBazyDanych.Spiece>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Gatunki";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1>Gatunki</h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowy", "Create", null, new { @class = "btn btn-dark mb-3" })
 </p>
-<table class="table">
+<table class="table table-dark">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.howMany)
         </th>
@@ -22,19 +25,22 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.howMany)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.appetite)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.name }) |
-            @Html.ActionLink("Details", "Details", new { id=item.name }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.name })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.howMany)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.appetite)
+    </td>
+    <td>
+        @Html.ActionLink("Edytuj", "Edit", new { id = item.name }) |
+        @Html.ActionLink("Szczegóły", "Details", new { id = item.name }) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.name })
+    </td>
+</tr>
 }
 
 </table>

@@ -1,17 +1,20 @@
 ﻿@model ProjektBazyDanych.Runway
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Usuń";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h1>Usuń</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy na pewno chcesz usunąć ten wybieg?</h3>
 <div>
-    <h4>Runway</h4>
+    <h4>Wybieg</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
         <dt>
             @Html.DisplayNameFor(model => model.area)
         </dt>
@@ -34,8 +37,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Usuń" class="btn btn-dark" /> |
+            @Html.ActionLink("Powrót do listy", "Index", new { @class = "btn " })
         </div>
     }
 </div>
