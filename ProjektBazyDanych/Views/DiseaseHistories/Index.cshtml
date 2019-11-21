@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Dodaj nową", "Create", null, new { @class = "btn btn-dark mb-3" })
 </p>
-<table class="table">
+<table class="table table-dark table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.beginDate)
@@ -42,9 +42,9 @@
         @Html.DisplayFor(modelItem => item.Disease.name)
     </td>
     <td>
-        @Html.ActionLink("Edytuj", "Edit", new { /* id=item.primarykey*/  })
-        @Html.ActionLink("Szczegóły", "Details", new {/*  id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Usuń", "Delete", new { /* id=item.PrimaryKey */ })
+        @Html.ActionLink("Edytuj", "Edit", new {  id=item.beginDate  }, new {@class="white-link"}) |
+        @Html.ActionLink("Szczegóły", "Details", new { id=item.beginDate }, new {@class="white-link"}) |
+        @Html.ActionLink("Usuń", "Delete", new {  id=item.beginDate }, new {@class="white-link"})
     </td>
 </tr>
 }

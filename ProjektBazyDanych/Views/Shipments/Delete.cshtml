@@ -51,13 +51,6 @@
             @Html.DisplayFor(model => model.Supplier.name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Settlement1.shipmentId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Settlement1.shipmentId)
-        </dd>
 
     </dl>
 
@@ -66,7 +59,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Usuń" class="btn btn-dark" /> |
-            @Html.ActionLink("Powrót do listy", "Index", new { @class = "btn " })
+            @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
         </div>
     }
 </div>

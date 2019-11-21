@@ -74,17 +74,10 @@
             @Html.DisplayFor(model => model.Shipment.supplierName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Shipment1.supplierName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Shipment1.supplierName)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.shipmentId }) |
-    @Html.ActionLink("Powrót do listy", "Index", new { @class = "btn " })
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.shipmentId }, new {@class="btn btn-dark"}) |
+    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
 </p>

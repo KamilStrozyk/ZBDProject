@@ -57,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.spiece, "spiece", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.spiece, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("spiece", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.spiece, "", new { @class = "text-danger" })
@@ -65,7 +65,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.runwayID, "runwayID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.runwayID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("runwayID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.runwayID, "", new { @class = "text-danger" })
@@ -81,7 +81,7 @@
 }
 
 <div>
-    @Html.ActionLink("Powrót do listy", "Index",null,new { @class = "btn " })
+    @Html.ActionLink("Powrót do listy", "Index",null,new { @class = "btn" })
 </div>
 
 @section Scripts {

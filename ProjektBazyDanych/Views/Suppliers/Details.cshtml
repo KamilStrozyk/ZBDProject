@@ -1,0 +1,25 @@
+﻿@model ProjektBazyDanych.Supplier
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2>Szczegóły</h2>
+
+<div>
+    <h4>Dostawca</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new {@class="btn btn-dark"}) |
+    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
+</p>

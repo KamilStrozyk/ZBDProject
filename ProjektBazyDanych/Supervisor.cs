@@ -11,7 +11,8 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Supervisor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,11 +21,19 @@ namespace ProjektBazyDanych
             this.Runways = new HashSet<Runway>();
         }
     
+        [Display(Name = "Id nadzorcy")]
         public int id { get; set; }
+        [Display(Name = "Imiê")]
         public string firstName { get; set; }
+        [Display(Name = "Nazwisko")]
         public string lastName { get; set; }
+        [Display(Name = "Wiek")]
         public int age { get; set; }
+        [Display(Name = "Pensja")]
         public int salary { get; set; }
+        [Display(Name = "Zatrudniony")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime employed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Dodaj nowego", "Create", null, new { @class = "btn btn-dark mb-3" })
 </p>
-<table class="table">
+<table class="table table-dark table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.id)
@@ -50,13 +50,13 @@
     <td>
         @Html.DisplayFor(modelItem => item.salary)
     </td>
-    <td>
+    <td class>
         @Html.DisplayFor(modelItem => item.employed)
     </td>
     <td>
-        @Html.ActionLink("Edytuj", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Szczegóły", "Details", new { id = item.id }) |
-        @Html.ActionLink("Usuń", "Delete", new { id = item.id })
+        @Html.ActionLink("Edytuj", "Edit", new { id = item.id },new { @class = "white-link" }) |
+        @Html.ActionLink("Szczegóły", "Details", new { id = item.id },new { @class = "white-link" }) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.id },new { @class = "white-link" })
     </td>
 </tr>
 }

@@ -1,11 +1,10 @@
-﻿@model ProjektBazyDanych.Disease
+﻿@model ProjektBazyDanych.Supplier
 
 @{
-    ViewBag.Title="Dodaj chorobę";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Dodaj";
 }
 
-<h1>Dodaj</h1>
+<h2>Dodaj</h2>
 
 
 @using (Html.BeginForm()) 
@@ -13,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Choroba</h4>
+        <h4>Dostawca</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

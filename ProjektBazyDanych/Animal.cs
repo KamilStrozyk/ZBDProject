@@ -22,16 +22,23 @@ namespace ProjektBazyDanych
         }
         [Display(Name ="Id zwierzêcia")]
         public int id { get; set; }
+        [Display(Name = "Wiek")]
         public int age { get; set; }
+        [Display(Name = "P³eæ")]
         public string sex { get; set; }
+        [Display(Name = "Pochodzenie")]
         public string origin { get; set; }
+        [Display(Name = "W Zoo od:")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime inZooSince { get; set; }
+        [Display(Name = "Imiê")]
         public string name { get; set; }
+        [Display(Name = "Nazwa gatunku")]
         public string spiece { get; set; }
+        [Display(Name = "Id wybiegu")]
         public int runwayID { get; set; }
-    
+
         public virtual Runway Runway { get; set; }
         public virtual Spiece Spiece1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

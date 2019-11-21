@@ -1,0 +1,31 @@
+﻿@model ProjektBazyDanych.Supplier
+
+@{
+    ViewBag.Title = "Usuń";
+}
+
+<h1>Usuń</h1>
+
+<h3>Czy na pewno chcesz usunąć tego dostawcę?</h3>
+<div>
+    <h4>Dostawca</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Usuń" class="btn btn-dark" /> |
+    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
+</div>
+    }
+</div>
