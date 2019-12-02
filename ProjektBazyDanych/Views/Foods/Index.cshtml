@@ -18,9 +18,6 @@
         <th>
             @Html.DisplayNameFor(model => model.requirement)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.currentAmount)
-        </th>
         <th></th>
     </tr>
 
@@ -31,9 +28,6 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.requirement)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.currentAmount)
     </td>
     <td>
         @Html.ActionLink("Edytuj", "Edit", new { id = item.name }, new {@class="white-link"}) |

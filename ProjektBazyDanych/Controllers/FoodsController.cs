@@ -18,6 +18,10 @@ namespace ProjektBazyDanych.Controllers
         // GET: Foods
         public async Task<ActionResult> Index()
         {
+            foreach(var item in db.Foods)
+            {
+                item.requirement= item.Spieces.Select(x => x.appetite * x.howMany).Sum();
+            }
             return View(await db.Foods.ToListAsync());
         }
 
@@ -29,6 +33,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Food food = await db.Foods.FindAsync(id);
+            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany).Sum();
             if (food == null)
             {
                 return HttpNotFound();
@@ -67,6 +72,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Food food = await db.Foods.FindAsync(id);
+            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany).Sum();
             if (food == null)
             {
                 return HttpNotFound();
@@ -98,6 +104,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Food food = await db.Foods.FindAsync(id);
+            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany).Sum();
             if (food == null)
             {
                 return HttpNotFound();
