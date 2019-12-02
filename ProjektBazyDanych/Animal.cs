@@ -34,9 +34,9 @@ namespace ProjektBazyDanych
         public System.DateTime inZooSince { get; set; }
         [Display(Name = "Imiê")]
         public string name { get; set; }
-        [Display(Name = "Nazwa gatunku")]
+        [Display(Name = "Gatunek")]
         public string spiece { get; set; }
-        [Display(Name = "Id wybiegu")]
+        [Display(Name = "Wybieg")]
         public int runwayID { get; set; }
 
         public virtual Runway Runway { get; set; }

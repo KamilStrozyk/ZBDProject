@@ -12,11 +12,43 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.id)
+            @Html.DisplayNameFor(model => model.name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.id)
+            @Html.DisplayFor(model => model.name)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Spiece1.name)
+        </dt>
+
+        <dd>
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Spiece1.name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Spiece1.appetite)
+                    </th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Spiece1.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Spiece1.appetite)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" }) |
+                        @Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" }) |
+                        @Html.ActionLink("Usuń", "Delete", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" })
+                    </td>
+                </tr>
+            </table>
+
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.age)
         </dt>
@@ -49,28 +81,75 @@
             @Html.DisplayFor(model => model.inZooSince)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Runway.id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Runway.id)
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Runway.area)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Runway.animalCount)
+                    </th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Runway.area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Runway.animalCount)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) |
+                        @Html.ActionLink("Szczegóły", "Details", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) |
+                        @Html.ActionLink("Usuń", "Delete", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" })
+                    </td>
+                </tr>
+            </table>
+
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Spiece1.name)
-        </dt>
 
+        <dt>
+            Wpisy w historii chorób:
+        </dt>
         <dd>
-            @Html.DisplayFor(model => model.Spiece1.name)
+            @{var diseaseHistory = Model.DiseaseHistories.FirstOrDefault();
+                <table class="table table-dark table-striped">
+
+                    <tr>
+
+                        <th>
+                            @Html.DisplayNameFor(diseaseHistory.beginDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runway.animalCount)
+                        </th>
+                        <th></th>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Runway.area)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Runway.animalCount)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edytuj", "Edit", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) |
+                            @Html.ActionLink("Szczegóły", "Details", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) |
+                            @Html.ActionLink("Usuń", "Delete", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" })
+                        </td>
+                    </tr>
+                </table>
+            }
         </dd>
 
     </dl>
