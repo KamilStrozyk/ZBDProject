@@ -57,7 +57,42 @@
         <dd>
             @Html.DisplayFor(model => model.employed)
         </dd>
-
+        <dt>
+            Wybiegi przypisane do nadzorcy:
+        </dt>
+        <dd>
+           
+            
+            <table class="table table-dark table-striped">
+                @{var runway = Model.Runways.FirstOrDefault();
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runways.FirstOrDefault().area)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runways.FirstOrDefault().animalCount)
+                        </th>
+                        <th></th>
+                    </tr>
+                }
+                @foreach (var item in Model.Runways)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.area)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.animalCount)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edytuj", "Edit","Runways", new { id = item.id }, new { @class = "white-link" }) |
+                            @Html.ActionLink("Szczegóły", "Details","Runways", new { id = item.id }, new { @class = "white-link" }) |
+                            @Html.ActionLink("Usuń", "Delete","Runways", new { id = item.id }, new { @class = "white-link" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <p>
