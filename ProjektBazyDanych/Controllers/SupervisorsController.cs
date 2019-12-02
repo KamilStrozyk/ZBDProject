@@ -49,6 +49,10 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,firstName,lastName,age,salary,employed")] Supervisor supervisor)
         {
+            if (supervisor.employed > DateTime.Today)
+            {
+                ModelState.AddModelError("employed", "Data nie może być większa od obecnej");
+            }
             if (ModelState.IsValid)
             {
                 db.Supervisors.Add(supervisor);
