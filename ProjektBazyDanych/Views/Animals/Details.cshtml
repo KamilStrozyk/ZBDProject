@@ -1,168 +1,170 @@
 ﻿@model ProjektBazyDanych.Animal
 
 @{
-    ViewBag.Title = "Szczegóły";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Szczegóły";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Szczegóły</h2>
 
 <div>
-    <h4>Zwierzę</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.spiece)
-        </dt>
-
-        <dd>
-            <table class="table table-dark table-striped">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Spiece1.name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Spiece1.appetite)
-                    </th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.Spiece1.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Spiece1.appetite)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" }) |
-                        @Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" }) |
-                        @Html.ActionLink("Usuń", "Delete", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" })
-                    </td>
-                </tr>
-            </table>
-
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.age)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.age)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sex)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sex)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.origin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.origin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.inZooSince)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.inZooSince)
-        </dd>
+	<h4>Zwierzę</h4>
+	<hr />
+	<div class="row">
+		<div class="col-sm-5">
+			<dt>
+				@Html.DisplayNameFor(model => model.name)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.name)
+			</dd>
 
 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.runwayID)
-        </dt>
 
-        <dd>
-            <table class="table table-dark table-striped">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Runway.area)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Runway.animalCount)
-                    </th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.Runway.area)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Runway.animalCount)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) |
-                        @Html.ActionLink("Szczegóły", "Details", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) |
-                        @Html.ActionLink("Usuń", "Delete", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" })
-                    </td>
-                </tr>
-            </table>
+			<dt>
+				@Html.DisplayNameFor(model => model.age)
+			</dt>
 
-        </dd>
+			<dd>
+				@Html.DisplayFor(model => model.age)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.sex)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.sex)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.origin)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.origin)
+			</dd>
+
+			<dt>
+				@Html.DisplayNameFor(model => model.inZooSince)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.inZooSince)
+			</dd>
 
 
-        <dt>
-            Wpisy w historii chorób:
-        </dt>
-        <dd>
-           
-                <table class="table table-dark table-striped">
 
-                    <tr>
-                        @{var diseaseHistory = Model.DiseaseHistories.FirstOrDefault();
-                            <th>
-                                @Html.DisplayNameFor(model => diseaseHistory.beginDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => diseaseHistory.endDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => diseaseHistory.diseaseName)
-                            </th>
-                            <th></th>
-                        }
-                    </tr>
-                    @foreach (var item in Model.DiseaseHistories)
-                    {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.beginDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.endDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.diseaseName)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", "DiseaseHistories", new { id = item.beginDate }, new { @class = "white-link" }) |
-                        @Html.ActionLink("Szczegóły", "Details", "DiseaseHistories", new { id = item.beginDate }, new { @class = "white-link" }) |
-                        @Html.ActionLink("Usuń", "Delete", "DiseaseHistories", new { id = item.beginDate }, new { @class = "white-link" })
-                    </td>
-                </tr>
-                    }
-                </table>
-           
-        </dd>
 
-    </dl>
+
+
+		</div>
+		<div class="col-sm-7">
+			<dt>
+				@Html.DisplayNameFor(model => model.spiece)
+			</dt>
+			<dd>
+				<table class="table table-dark table-striped">
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Spiece1.name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Spiece1.appetite)
+						</th>
+						<th></th>
+					</tr>
+					<tr>
+						<td>
+							@Html.DisplayFor(model => model.Spiece1.name)
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Spiece1.appetite)
+						</td>
+						<td>
+							@Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" })
+						</td>
+					</tr>
+				</table>
+
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.runwayID)
+			</dt>
+
+			<dd>
+				<table class="table table-dark table-striped">
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Runway.area)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Runway.animalCount)
+						</th>
+						<th></th>
+					</tr>
+					<tr>
+						<td>
+							@Html.DisplayFor(model => model.Runway.area)
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Runway.animalCount)
+						</td>
+						<td>
+							@Html.ActionLink("Szczegóły", "Details", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) 
+						</td>
+					</tr>
+				</table>
+
+			</dd>
+
+			<dt>
+				Wpisy w historii chorób:
+			</dt>
+			<dd>
+
+				<table class="table table-dark table-striped">
+
+					<tr>
+						@{var diseaseHistory = Model.DiseaseHistories.FirstOrDefault();
+							<th>
+								@Html.DisplayNameFor(model => diseaseHistory.beginDate)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => diseaseHistory.endDate)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => diseaseHistory.diseaseName)
+							</th>
+							<th></th>
+						}
+					</tr>
+					@foreach (var item in Model.DiseaseHistories)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.beginDate)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.endDate)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.diseaseName)
+							</td>
+							<td>
+								@Html.ActionLink("Szczegóły", "Details", "DiseaseHistories", new { id = item.beginDate }, new { @class = "white-link" }) 
+							</td>
+						</tr>
+					}
+				</table>
+
+			</dd>
+		</div>
+	</div>
 </div>
+<hr />
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new {@class="btn btn-dark"}) |
-    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
+	@Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
+	@Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>

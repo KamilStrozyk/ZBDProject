@@ -1,105 +1,110 @@
 ﻿@model ProjektBazyDanych.ServicePointWorker
 
 @{
-    ViewBag.Title = "Szczegóły";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Szczegóły";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Szczegóły</h1>
 
 <div>
-    <h4>Pracownik</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.firstName)
-        </dt>
+	<h4>Pracownik</h4>
+	<div class="row">
+		<hr />
+		<div class="col-sm-4">
+			<dt>
+				@Html.DisplayNameFor(model => model.firstName)
+			</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.firstName)
-        </dd>
+			<dd>
+				@Html.DisplayFor(model => model.firstName)
+			</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.lastName)
-        </dt>
+			<dt>
+				@Html.DisplayNameFor(model => model.lastName)
+			</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.lastName)
-        </dd>
+			<dd>
+				@Html.DisplayFor(model => model.lastName)
+			</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.age)
-        </dt>
+			<dt>
+				@Html.DisplayNameFor(model => model.age)
+			</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.age)
-        </dd>
+			<dd>
+				@Html.DisplayFor(model => model.age)
+			</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.salary)
-        </dt>
+			<dt>
+				@Html.DisplayNameFor(model => model.salary)
+			</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.salary)
-        </dd>
+			<dd>
+				@Html.DisplayFor(model => model.salary)
+			</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.employed)
-        </dt>
+			<dt>
+				@Html.DisplayNameFor(model => model.employed)
+			</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.employed)
-        </dd>
-        <dt>
-            Punkty usług, w których pracuje:
-        </dt>
-        <dd>
-            <table class="table table-dark table-striped">
+			<dd>
+				@Html.DisplayFor(model => model.employed)
+			</dd>
+		</div>
+		<div class="col-sm-8">
+			<dt>
+				Punkty usług, w których pracuje:
+			</dt>
+			<dd>
+				<table class="table table-dark table-striped">
 
-                <tr>
-                    @{var servicePoint = Model.ServicePoints.FirstOrDefault();
-                        <th>
-                            @Html.DisplayNameFor(model => servicePoint.name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => servicePoint.howManyWorkers)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => servicePoint.income)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => servicePoint.type)
-                        </th>
-                        <th></th>
-                    }
-                </tr>
-                @foreach (var item in Model.ServicePoints)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.howManyWorkers)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.income)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.type)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edytuj", "Edit", "ServicePoints", new { id = item.name }, new { @class = "white-link" }) |
-                            @Html.ActionLink("Szczegóły", "Details", "ServicePoints", new { id = item.name }, new { @class = "white-link" }) |
-                            @Html.ActionLink("Usuń", "Delete", "ServicePoints", new { id = item.name }, new { @class = "white-link" })
-                        </td>
-                    </tr>
-                }
-                </table>
-        </dd>
-    </dl>
+					<tr>
+						@{var servicePoint = Model.ServicePoints.FirstOrDefault();
+							<th>
+								@Html.DisplayNameFor(model => servicePoint.name)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => servicePoint.howManyWorkers)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => servicePoint.income)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => servicePoint.type)
+							</th>
+							<th></th>
+						}
+					</tr>
+					@foreach (var item in Model.ServicePoints)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.howManyWorkers)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.income)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.type)
+							</td>
+							<td>
+								@Html.ActionLink("Edytuj", "Edit", "ServicePoints", new { id = item.name }, new { @class = "white-link" }) |
+								@Html.ActionLink("Szczegóły", "Details", "ServicePoints", new { id = item.name }, new { @class = "white-link" }) |
+								@Html.ActionLink("Usuń", "Delete", "ServicePoints", new { id = item.name }, new { @class = "white-link" })
+							</td>
+						</tr>
+					}
+				</table>
+			</dd>
+		</div>
+	</div>
 </div>
+<hr />
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
-    @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
+	@Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
+	@Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>
