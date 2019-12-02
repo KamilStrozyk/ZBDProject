@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<ProjektBazyDanych.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Użytkownicy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+    <h2>Użytkownicy</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowy", "Create", null, new { @class = "btn btn-dark mb-3" })
 </p>
-<table class="table">
+<table class="table table-dark table-striped">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.login)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.passwordHash)
         </th>
@@ -31,28 +34,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.passwordHash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.passwordSalt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.login }) |
-            @Html.ActionLink("Details", "Details", new { id=item.login }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.login })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.login)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.passwordHash)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.passwordSalt)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.firstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.lastName)
+    </td>
+    <td>
+        @Html.ActionLink("Edytuj", "Edit", new { id = item.login }, new {@class="white-link"}) |
+        @Html.ActionLink("Szczegóły", "Details", new { id = item.login }, new {@class="white-link"}) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.login }, new {@class="white-link"})
+    </td>
+</tr>
 }
 
 </table>

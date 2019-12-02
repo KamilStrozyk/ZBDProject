@@ -40,7 +40,7 @@ namespace ProjektBazyDanych.Controllers
         // GET: DiseaseHistories/Create
         public ActionResult Create()
         {
-            ViewBag.animalID = new SelectList(db.Animals, "id", "sex");
+            ViewBag.animalID = new SelectList(db.Animals, "id", "id");
             ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name");
             return View();
         }
@@ -59,7 +59,7 @@ namespace ProjektBazyDanych.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.animalID = new SelectList(db.Animals, "id", "sex", diseaseHistory.animalID);
+            ViewBag.animalID = new SelectList(db.Animals, "id", "id", diseaseHistory.animalID);
             ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name", diseaseHistory.diseaseName);
             return View(diseaseHistory);
         }
@@ -76,7 +76,7 @@ namespace ProjektBazyDanych.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.animalID = new SelectList(db.Animals, "id", "sex", diseaseHistory.animalID);
+            ViewBag.animalID = new SelectList(db.Animals, "id", "id", diseaseHistory.animalID);
             ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name", diseaseHistory.diseaseName);
             return View(diseaseHistory);
         }
@@ -94,7 +94,7 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.animalID = new SelectList(db.Animals, "id", "sex", diseaseHistory.animalID);
+            ViewBag.animalID = new SelectList(db.Animals, "id", "id", diseaseHistory.animalID);
             ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name", diseaseHistory.diseaseName);
             return View(diseaseHistory);
         }

@@ -11,7 +11,8 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ServicePoint
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,12 +20,15 @@ namespace ProjektBazyDanych
         {
             this.ServicePointWorkers = new HashSet<ServicePointWorker>();
         }
-    
+        [Display(Name = "Nazwa punktu")]
         public string name { get; set; }
+        [Display(Name = "Iloœæ pracowników")]
         public int howManyWorkers { get; set; }
+        [Display(Name = "Przychód")]
         public double income { get; set; }
+        [Display(Name = "Typ")]
         public string type { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicePointWorker> ServicePointWorkers { get; set; }
     }

@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<ProjektBazyDanych.Animal>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Zwierzęta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Zwierzęta</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+ @Html.ActionLink("Dodaj nowe", "Create",null,new { @class = "btn btn-dark mb-3" })
+
+<table class="table table-dark table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.id)
@@ -66,9 +65,9 @@
         @Html.DisplayFor(modelItem => item.Spiece1.name)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        @Html.ActionLink("Edytuj", "Edit", new { id = item.id }, new {@class="white-link"}) |
+        @Html.ActionLink("Szczegóły", "Details", new { id = item.id }, new {@class="white-link"}) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.id }, new {@class="white-link"})
     </td>
 </tr>
 }

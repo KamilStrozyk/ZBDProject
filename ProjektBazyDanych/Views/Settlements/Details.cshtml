@@ -1,16 +1,23 @@
 ﻿@model ProjektBazyDanych.Settlement
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Szczegóły";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h1>Szczegóły</h1>
 
 <div>
-    <h4>Settlement</h4>
+    <h4>Rozliczenie</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.shipmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shipmentId)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.creationDate)
         </dt>
@@ -67,17 +74,10 @@
             @Html.DisplayFor(model => model.Shipment.supplierName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Shipment1.supplierName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Shipment1.supplierName)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.shipmentId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.shipmentId }, new {@class="btn btn-dark"}) |
+    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
 </p>

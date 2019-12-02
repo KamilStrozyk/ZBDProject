@@ -1,16 +1,22 @@
 ﻿@model ProjektBazyDanych.Runway
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Szczegóły";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h1>Szczegóły</h1>
 
 <div>
-    <h4>Runway</h4>
+    <h4>Wybieg</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.area)
         </dt>
@@ -30,6 +36,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new {@class="btn btn-dark"}) |
+    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
 </p>
