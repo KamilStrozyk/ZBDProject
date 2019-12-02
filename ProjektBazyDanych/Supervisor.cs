@@ -20,22 +20,31 @@ namespace ProjektBazyDanych
         {
             this.Runways = new HashSet<Runway>();
         }
-    
+
         [Display(Name = "Id nadzorcy")]
         public int id { get; set; }
         [Display(Name = "Imiê")]
+        [Required(ErrorMessage = "Wpisz imiê")]
+        [RegularExpression("[^0-9]*", ErrorMessage = "Imiê nie mo¿e zawieraæ cyfr")]
         public string firstName { get; set; }
         [Display(Name = "Nazwisko")]
+        [Required(ErrorMessage = "Wpisz nazwisko")]
+        [RegularExpression("[^0-9]*", ErrorMessage = "Nazwisko nie mo¿e zawieraæ cyfr")]
         public string lastName { get; set; }
         [Display(Name = "Wiek")]
+        [Required(ErrorMessage = "Wpisz wiek")]
+        [Range(13, 99, ErrorMessage = "Proszê podaæ odpowiedni wiek")]
         public int age { get; set; }
         [Display(Name = "Pensja")]
+        [Required(ErrorMessage = "Wpisz pensjê")]
+        [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
         public int salary { get; set; }
         [Display(Name = "Zatrudniony")]
+        [Required(ErrorMessage = "Wybierz datê")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime employed { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Runway> Runways { get; set; }
     }
