@@ -65,12 +65,13 @@
             
             <table class="table table-dark table-striped">
                 @{var runway = Model.Runways.FirstOrDefault();
+                
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Runways.FirstOrDefault().area)
+                            @Html.DisplayNameFor(model => runway.area)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Runways.FirstOrDefault().animalCount)
+                            @Html.DisplayNameFor(model =>runway.animalCount)
                         </th>
                         <th></th>
                     </tr>
