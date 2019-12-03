@@ -46,7 +46,8 @@ namespace ProjektBazyDanych
     }
     public enum Gender
     {
-        Male,
-        Female
+        
+        Samiec,
+        Samica
     }
 }
