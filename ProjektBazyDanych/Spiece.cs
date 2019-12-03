@@ -26,7 +26,7 @@ namespace ProjektBazyDanych
         public string name { get; set; }
         [Display(Name = "Iloœæ")]
         public int howMany { get; set; }
-        [Display(Name = "Apetyt")]
+        [Display(Name = "Iloœæ zjadanego po¿ywienia")]
         public int appetite { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
