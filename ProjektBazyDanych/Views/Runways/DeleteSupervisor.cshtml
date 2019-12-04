@@ -1,0 +1,32 @@
+﻿@model ProjektBazyDanych.Runway
+@{
+    ViewBag.Title = "DeleteSupervisor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Usuń nadzorcę dla tego wybiegu: @Model.id</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Hidden("runwayId", Model.id)
+            @*@Html.LabelFor(model => model.Foods, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.DropDownList("lastName", null, htmlAttributes: new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(model => model.Foods, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Usuń" class="btn btn-dark" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Powrót do szczegółów", "Details", new { id = Model.id }, new { @class = "btn " })
+</div>

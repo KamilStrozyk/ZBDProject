@@ -197,14 +197,14 @@ namespace ProjektBazyDanych.Controllers
             }
             var spieceFood = spiece.Foods.Select(x => x.name).ToList();
             IEnumerable<Food> availableFood = db.Foods.
-                Where(x => !spieceFood.
+                Where(x => spieceFood.
                 Contains(x.name));
             string firstFood;
             if (!spieceFood.Any())
                 firstFood = spieceFood.FirstOrDefault();
             else firstFood = "brak dostępnego jedzenia";
 
-            ViewBag.name = new SelectList(spieceFood, "name", "name", firstFood);
+            ViewBag.name = new SelectList(availableFood, "name", "name", firstFood);
             return View(spiece);
 
         }
