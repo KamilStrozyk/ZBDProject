@@ -18,6 +18,10 @@ namespace ProjektBazyDanych.Controllers
         // GET: Spieces
         public async Task<ActionResult> Index()
         {
+            foreach (var item in db.Spieces)
+            {
+                item.howMany = item.Animals.Where(x => x.spiece==item.name).Count();
+            }
             return View(await db.Spieces.ToListAsync());
         }
 
@@ -29,6 +33,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Spiece spiece = await db.Spieces.FindAsync(id);
+            spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.name).Count();
             if (spiece == null)
             {
                 return HttpNotFound();
@@ -67,6 +72,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Spiece spiece = await db.Spieces.FindAsync(id);
+            spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.name).Count();
             if (spiece == null)
             {
                 return HttpNotFound();
@@ -104,6 +110,7 @@ namespace ProjektBazyDanych.Controllers
             }
             return View(spiece);
         }
+     
 
         // POST: Spieces/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -115,7 +122,118 @@ namespace ProjektBazyDanych.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        //GET: Spieces/AddFood/5
+        public async Task<ActionResult> AddFood(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spiece spiece = await db.Spieces.FindAsync(id);
+            if (spiece == null)
+            {
+                return HttpNotFound();
+            }
+            var spieceFood = spiece.Foods.Select(x => x.name).ToList();
+            IEnumerable<Food> availableFood = db.Foods.
+                Where(x => !spieceFood.
+                Contains(x.name));
+            string firstFood;
+            if (!spieceFood.Any())
+                firstFood = db.Foods.Where(x => !spieceFood.Contains(x.name)).FirstOrDefault().name;
+            else firstFood = "brak dostępnego jedzenia";
 
+            ViewBag.name = new SelectList(availableFood,"name", "name",firstFood) ;
+            return View(spiece);
+
+        }
+
+        //POST: Spieces/AddFood/5
+        [HttpPost,ActionName("AddFood")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddFood(string name,string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Food food = await db.Foods.FindAsync(name);
+                Spiece spiece = await db.Spieces.FindAsync(id);
+                spiece.Foods.Add(food);
+                food.Spieces.Add(spiece);
+                db.Entry(spiece).State = EntityState.Modified;
+                db.Entry(food).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details",new { id = spiece.name });
+            }
+            catch
+            {
+                Spiece spiece = await db.Spieces.FindAsync(id);
+                var spieceFood = spiece.Foods.Select(x => x.name).ToList();
+                IEnumerable<Food> availableFood = db.Foods.
+                    Where(x => !spieceFood.
+                    Contains(x.name));
+                string firstFood;
+                if (!spieceFood.Any())
+                    firstFood = db.Foods.Where(x => !spieceFood.Contains(x.name)).FirstOrDefault().name;
+                else firstFood = "brak dostępnego jedzenia";
+                ViewBag.name = new SelectList(availableFood, "name", "name", firstFood);
+                return View(spiece);
+            }
+        }
+        //GET: Spieces/DeleteFood/5
+        public async Task<ActionResult> DeleteFood(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spiece spiece = await db.Spieces.FindAsync(id);
+            if (spiece == null)
+            {
+                return HttpNotFound();
+            }
+            var spieceFood = spiece.Foods.Select(x => x.name).ToList();
+            IEnumerable<Food> availableFood = db.Foods.
+                Where(x => !spieceFood.
+                Contains(x.name));
+            string firstFood;
+            if (!spieceFood.Any())
+                firstFood = spieceFood.FirstOrDefault();
+            else firstFood = "brak dostępnego jedzenia";
+
+            ViewBag.name = new SelectList(spieceFood, "name", "name", firstFood);
+            return View(spiece);
+
+        }
+
+        //POST: Spieces/DeleteFood/5
+        [HttpPost, ActionName("DeleteFood")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteFood(string name, string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Food food = await db.Foods.FindAsync(name);
+                Spiece spiece = await db.Spieces.FindAsync(id);
+                spiece.Foods.Remove(food);
+                food.Spieces.Remove(spiece);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = spiece.name });
+            }
+            catch
+            {
+                Spiece spiece = await db.Spieces.FindAsync(id);
+                ViewBag.name = new SelectList(db.Foods.Where(x => !spiece.Foods.Contains(x)), "name", "name", db.Foods.Where(x => !spiece.Foods.Contains(x)).FirstOrDefault());
+                return View(spiece);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
