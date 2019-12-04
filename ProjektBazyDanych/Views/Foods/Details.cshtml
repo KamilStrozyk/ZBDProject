@@ -62,9 +62,7 @@
 								@Html.DisplayFor(modelItem => item.howMany)
 							</td>
 							<td>
-								@Html.ActionLink("Edytuj", "Edit", "Spieces", new { id = item.name }, new { @class = "white-link" }) |
-								@Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = item.name }, new { @class = "white-link" }) |
-								@Html.ActionLink("Usuń", "Delete", "Spieces", new { id = item.name }, new { @class = "white-link" })
+								@Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = item.name }, new { @class = "white-link" }) 
 							</td>
 						</tr>
 					}

@@ -18,6 +18,10 @@ namespace ProjektBazyDanych.Controllers
         // GET: Runways
         public async Task<ActionResult> Index()
         {
+            foreach (var item in db.Runways)
+            {
+                item.animalCount = item.Animals.Count;
+            }
             return View(await db.Runways.ToListAsync());
         }
 
@@ -29,6 +33,8 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Runway runway = await db.Runways.FindAsync(id);
+            runway.animalCount = runway.Animals.Count;
+
             if (runway == null)
             {
                 return HttpNotFound();
@@ -67,6 +73,8 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Runway runway = await db.Runways.FindAsync(id);
+            runway.animalCount = runway.Animals.Count;
+
             if (runway == null)
             {
                 return HttpNotFound();
@@ -98,6 +106,8 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Runway runway = await db.Runways.FindAsync(id);
+            runway.animalCount = runway.Animals.Count;
+
             if (runway == null)
             {
                 return HttpNotFound();
@@ -115,7 +125,130 @@ namespace ProjektBazyDanych.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        //GET: Runways/AddSupervisor/5
+        public async Task<ActionResult> AddSupervisor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Runway runway = await db.Runways.FindAsync(id);
+            if (runway == null)
+            {
+                return HttpNotFound();
+            }
+            var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
+            IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
+                Where(x => !runwaySupervisors.
+                Contains(x.id));
+            string firstSupervisor;
+            if (!runwaySupervisors.Any())
+                firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
+            else firstSupervisor = "brak dostępnego nadzorcy";
 
+            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+            return View(runway);
+
+        }
+
+        //POST: Runways/AddSupervisor/5
+        [HttpPost, ActionName("AddSupervisor")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddSupervisor(string lastName, int? runwayId)
+        {
+            if (runwayId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Supervisor supervisor = db.Supervisors.Where(x=>x.lastName==lastName).FirstOrDefault();
+                Runway runway = await db.Runways.FindAsync(runwayId);
+                runway.Supervisors.Add(supervisor);
+                supervisor.Runways.Add(runway);
+                db.Entry(runway).State = EntityState.Modified;
+                db.Entry(supervisor).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = runway.id });
+            }
+            catch
+            {
+                Runway runway = await db.Runways.FindAsync(runwayId);
+                var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
+                IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
+                    Where(x => !runwaySupervisors.
+                    Contains(x.id));
+                string firstSupervisor;
+                if (!runwaySupervisors.Any())
+                    firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
+                else firstSupervisor = "brak dostępnego nadzorcy";
+
+                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+                return View(runway);
+            }
+        }
+        //GET: Runways/DeleteSupervisor/5
+        public async Task<ActionResult> DeleteSupervisor(int? id)
+        {
+            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Runway runway = await db.Runways.FindAsync(id);
+            if (runway == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
+            IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
+                Where(x => runwaySupervisors.
+                Contains(x.id));
+            string firstSupervisor;
+            if (!availableSupervisors.Any())
+                firstSupervisor = availableSupervisors.FirstOrDefault().lastName;
+            else firstSupervisor = "brak dostępnego nadzorcy";
+
+            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+            return View(runway);
+
+        }
+
+        //POST: Runways/DeleteSupervisor/5
+        [HttpPost, ActionName("DeleteSupervisor")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteSupervisor(string lastName, int? runwayId)
+        {
+            if (runwayId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Supervisor supervisor = db.Supervisors.Where(x => x.lastName == lastName).FirstOrDefault();
+                Runway runway = await db.Runways.FindAsync(runwayId);
+                runway.Supervisors.Remove(supervisor);
+                supervisor.Runways.Remove(runway);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = runway.id });
+            }
+            catch
+            {
+                Runway runway = await db.Runways.FindAsync(runwayId);
+                var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
+                IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
+                    Where(x => !runwaySupervisors.
+                    Contains(x.id));
+                string firstSupervisor;
+                if (!runwaySupervisors.Any())
+                    firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
+                else firstSupervisor = "brak dostępnego nadzorcy";
+
+                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+                return View(runway);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

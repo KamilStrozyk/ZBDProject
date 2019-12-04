@@ -92,9 +92,9 @@
 								@Html.DisplayFor(modelItem => item.type)
 							</td>
 							<td>
-								@Html.ActionLink("Edytuj", "Edit", "ServicePoints", new { id = item.name }, new { @class = "white-link" }) |
-								@Html.ActionLink("Szczegóły", "Details", "ServicePoints", new { id = item.name }, new { @class = "white-link" }) |
-								@Html.ActionLink("Usuń", "Delete", "ServicePoints", new { id = item.name }, new { @class = "white-link" })
+
+								@Html.ActionLink("Szczegóły", "Details", "ServicePoints", new { id = item.name }, new { @class = "white-link" }) 
+
 							</td>
 						</tr>
 					}
