@@ -520,6 +520,10 @@
     <Content Include="Views\Spieces\DeleteFood.cshtml" />
     <Content Include="Views\Runways\AddSupervisor.cshtml" />
     <Content Include="Views\Runways\DeleteSupervisor.cshtml" />
+    <Content Include="Views\ServicePointWorkers\AddServicePoint.cshtml" />
+    <Content Include="Views\ServicePointWorkers\DeleteServicePoint.cshtml" />
+    <Content Include="Views\ServicePoints\AddServicePointWorker.cshtml" />
+    <Content Include="Views\ServicePoints\DeleteServicePointWorker.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>

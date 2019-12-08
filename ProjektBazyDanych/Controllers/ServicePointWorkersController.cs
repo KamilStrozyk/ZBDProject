@@ -115,7 +115,140 @@ namespace ProjektBazyDanych.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        //GET: Runways/AddServicePoint/5
+        public async Task<ActionResult> AddServicePoint(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
+            if (servicePointWorker == null)
+            {
+                return HttpNotFound();
+            }
+            var servicePointWorkerServicePoints = servicePointWorker.ServicePoints.Select(x => x.name).ToList();
+            IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
+                Where(x => !servicePointWorkerServicePoints.
+                Contains(x.name));
+            string firstServicePoint;
+            if (!servicePointWorkerServicePoints.Any())
+                firstServicePoint = db.ServicePoints.Where(x => !servicePointWorkerServicePoints.Contains(x.name)).FirstOrDefault().name;
+            else firstServicePoint = "brak dostępnego punktu usług";
 
+            ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+            return View(servicePointWorker);
+
+        }
+
+        //POST: Runways/AddSupervisor/5
+        [HttpPost, ActionName("AddServicePoint")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddServicePoint(string name, int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                ServicePoint servicePoint = db.ServicePoints.Where(x => x.name == name).FirstOrDefault();
+                ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
+                servicePoint.ServicePointWorkers.Add(servicePointWorker);
+                servicePointWorker.ServicePoints.Add(servicePoint);
+                db.Entry(servicePoint).State = EntityState.Modified;
+                db.Entry(servicePointWorker).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = servicePointWorker.id });
+            }
+            catch
+            {
+                ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
+                if (servicePointWorker == null)
+                {
+                    return HttpNotFound();
+                }
+                var servicePointWorkerServicePoints = servicePointWorker.ServicePoints.Select(x => x.name).ToList();
+                IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
+                    Where(x => !servicePointWorkerServicePoints.
+                    Contains(x.name));
+                string firstServicePoint;
+                if (!servicePointWorkerServicePoints.Any())
+                    firstServicePoint = db.ServicePoints.Where(x => !servicePointWorkerServicePoints.Contains(x.name)).FirstOrDefault().name;
+                else firstServicePoint = "brak dostępnego punktu usług";
+
+                ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+                return View(servicePointWorker);
+            }
+        }
+        //GET: Runways/DeleteServicePoint/5
+        public async Task<ActionResult> DeleteServicePoint(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
+            if (servicePointWorker == null)
+            {
+                return HttpNotFound();
+            }
+            var servicePointWorkerServicePoints = servicePointWorker.ServicePoints.Select(x => x.name).ToList();
+            IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
+                Where(x => servicePointWorkerServicePoints.
+                Contains(x.name));
+            string firstServicePoint;
+            if (servicePointWorkerServicePoints.Any())
+                firstServicePoint = servicePointWorkerServicePoints.FirstOrDefault();
+            else firstServicePoint = "brak dostępnego punktu usług";
+
+            ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+            return View(servicePointWorker);
+
+        }
+
+        //POST: Runways/DeleteSupervisor/5
+        [HttpPost, ActionName("DeleteServicePoint")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteServicePoint(string name, int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                ServicePoint servicePoint = db.ServicePoints.Where(x => x.name == name).FirstOrDefault();
+                ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
+                servicePoint.ServicePointWorkers.Remove(servicePointWorker);
+                servicePointWorker.ServicePoints.Remove(servicePoint);
+                db.Entry(servicePoint).State = EntityState.Modified;
+                db.Entry(servicePointWorker).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = servicePointWorker.id });
+            }
+            catch
+            {
+  
+                ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
+                if (servicePointWorker == null)
+                {
+                    return HttpNotFound();
+                }
+                var servicePointWorkerServicePoints = servicePointWorker.ServicePoints.Select(x => x.name).ToList();
+                IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
+                    Where(x => servicePointWorkerServicePoints.
+                    Contains(x.name));
+                string firstServicePoint;
+                if (servicePointWorkerServicePoints.Any())
+                    firstServicePoint = servicePointWorkerServicePoints.FirstOrDefault();
+                else firstServicePoint = "brak dostępnego punktu usług";
+
+                ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+                return View(servicePointWorker);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
