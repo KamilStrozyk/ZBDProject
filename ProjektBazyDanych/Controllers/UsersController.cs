@@ -1,25 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using ProjektBazyDanych.Logic;
+using ProjektBazyDanych.Repository;
+using System;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using ProjektBazyDanych;
 
 namespace ProjektBazyDanych.Controllers
 {
     public class UsersController : Controller
     {
         private connectionString db = new connectionString();
+        private UserLogic userLogic = new UserLogic();
 
+        [Route("/Admin")]
         // GET: Users
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string message = "", bool isGood = false)
         {
+            if(!isGood)
+                ViewBag.Message = message;
+            else
+                ViewBag.GoodMessage = message;
+
             return View(await db.Users.ToListAsync());
         }
+
+        //public async Task<ActionResult> Index(string message)
+        //{
+        //    return View(await db.Users.ToListAsync());
+        //}
 
         // GET: Users/Details/5
         public async Task<ActionResult> Details(string id)
@@ -43,7 +52,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -51,6 +60,7 @@ namespace ProjektBazyDanych.Controllers
         {
             if (ModelState.IsValid)
             {
+                user = userLogic.GeneratePassword(user);
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -75,7 +85,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -84,6 +94,7 @@ namespace ProjektBazyDanych.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
+                user = userLogic.GeneratePassword(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -105,7 +116,6 @@ namespace ProjektBazyDanych.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
@@ -114,6 +124,51 @@ namespace ProjektBazyDanych.Controllers
             db.Users.Remove(user);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> DeleteInfectedAnimals(string name)
+        {
+            try
+            {
+                int result = db.deleteInfectedAnimals(name);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", new { message = "Wystąpił błąd, sprawdź poprawność nazwy choroby." });
+            };
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> CountFoodRequirement(string name)
+        {
+            try
+            {
+                var result = db.countFoodRequirement(name);
+                Food food = await db.Foods.FindAsync(name);
+                db.Entry(food).State = EntityState.Modified;
+                food.requirement = result;
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", new { message = "Wystąpił błąd, sprawdź poprawność nazwy produktu." });
+            };
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> TotalServicePointIncome(string name)
+        {
+            try
+            {
+                int result = db.TotalServicePointIncome(name);
+                return RedirectToAction("Index", new { message = "Dochód punktu usług to: " +result.ToString(), isGood = true});
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", new { message = "Wystąpił błąd, sprawdź poprawność nazwy punktu usług." });
+            };
+
         }
 
         protected override void Dispose(bool disposing)

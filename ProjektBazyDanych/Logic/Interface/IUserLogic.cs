@@ -5,5 +5,8 @@
         void AddAdmin();
 
         void ChangeAdminEmail(string mail);
+
+        User GeneratePassword(User user);
+        
     }
 }

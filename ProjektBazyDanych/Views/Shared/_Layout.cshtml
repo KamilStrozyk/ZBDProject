@@ -10,62 +10,62 @@
     <script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-expand-md sticky-top mt-0 navbar-dark bg-dark px-auto">
-        <div class="container">
+	<div class="navbar navbar-expand-md sticky-top mt-0 navbar-dark bg-dark px-auto">
+		<div class="container">
 
-            @Html.ActionLink("Zoo manager", "Index", "Home", null, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-
-            <div class="navbar-collapse collapse" id="navbar">
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item ml-5">@Html.ActionLink("Strona Główna", "Index", "Home", null, new { @class = "nav-link" })</li>
-
-                    <li class="nav-item dropdown zarzadzaj ml-5">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-target=".dropdown-menu">
-                            Zarządzaj
-                        </a>
-                        <div class="dropdown-menu menu">
-                            <div class="row">
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Zwierzęta", "Index", "Animals", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Gatunki", "Index", "Spieces", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Choroby", "Index", "Diseases", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Historia Chorób", "Index", "DiseaseHistories", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Wybiegi", "Index", "Runways", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Punkty Usług", "Index", "ServicePoints", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Nadzorcy", "Index", "Supervisors", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Pracownicy", "Index", "ServicePointWorkers", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Jedzenie", "Index", "Foods", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Dostawcy", "Index", "Suppliers", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Dostawy", "Index", "Shipments", null, null)</div>
-                                <div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Rozliczenia", "Index", "Settlements", null, null)</div>
+			@Html.ActionLink("Zoo manager", "Index", "Home", null, new { @class = "navbar-brand" })
+			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
 
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item ml-5">@Html.ActionLink("Panel Administratora", "About", "Home", null, new { @class = "nav-link" })</li>
-                </ul>
+			<div class="navbar-collapse collapse" id="navbar">
+				<ul class="navbar-nav m-auto">
+					<li class="nav-item ml-5">@Html.ActionLink("Strona Główna", "Index", "Home", null, new { @class = "nav-link" })</li>
 
-            </div>
-            
-            
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Zoo manager</p>
-        </footer>
-    </div>
+					<li class="nav-item dropdown zarzadzaj ml-5">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-target=".dropdown-menu">
+							Zarządzaj
+						</a>
+						<div class="dropdown-menu menu">
+							<div class="row">
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Zwierzęta", "Index", "Animals", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Gatunki", "Index", "Spieces", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Choroby", "Index", "Diseases", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Historia Chorób", "Index", "DiseaseHistories", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Wybiegi", "Index", "Runways", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Punkty Usług", "Index", "ServicePoints", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Nadzorcy", "Index", "Supervisors", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Pracownicy", "Index", "ServicePointWorkers", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Jedzenie", "Index", "Foods", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Dostawcy", "Index", "Suppliers", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Dostawy", "Index", "Shipments", null, null)</div>
+								<div class=" col-lg-2 col-md-3 col-sm-6 opcja">@Html.ActionLink("Rozliczenia", "Index", "Settlements", null, null)</div>
 
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
-    @RenderSection("scripts", required: false)
+
+							</div>
+						</div>
+					</li>
+					<li class="nav-item ml-5">@Html.ActionLink("Panel Administratora", "Index", "Users", null, new { @class = "nav-link" })</li>
+				</ul>
+
+			</div>
+
+
+		</div>
+	</div>
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year - Zoo manager</p>
+		</footer>
+	</div>
+
+	<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/Content/Site.css" />
+	<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+	<script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
+	@RenderSection("scripts", required: false)
 </body>
 </html>

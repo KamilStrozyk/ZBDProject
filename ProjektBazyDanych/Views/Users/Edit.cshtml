@@ -25,17 +25,9 @@
     </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.passwordHash, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.passwordHash, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.passwordHash, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.passwordSalt, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.passwordSalt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.passwordSalt, new { htmlAttributes = new { @class = "form-control" , @Value="" } })
                 @Html.ValidationMessageFor(model => model.passwordSalt, "", new { @class = "text-danger" })
             </div>
         </div>

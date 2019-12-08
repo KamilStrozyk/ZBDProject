@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using ProjektBazyDanych;
 
 namespace ProjektBazyDanych.Controllers
 {
@@ -48,7 +43,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // POST: Foods/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -81,7 +76,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // POST: Foods/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -94,6 +89,17 @@ namespace ProjektBazyDanych.Controllers
                 return RedirectToAction("Index");
             }
             return View(food);
+        }
+
+        //[HttpPost]
+        public async Task<ActionResult> CountFood(string name)
+        {
+            var result = db.countFoodRequirement(name);
+            Food food = await db.Foods.FindAsync(name);
+            db.Entry(food).State = EntityState.Modified;
+            food.requirement = result;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Details", new { id = food.name });
         }
 
         // GET: Foods/Delete/5
