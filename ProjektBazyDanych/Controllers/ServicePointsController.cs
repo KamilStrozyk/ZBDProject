@@ -18,6 +18,10 @@ namespace ProjektBazyDanych.Controllers
         // GET: ServicePoints
         public async Task<ActionResult> Index()
         {
+            foreach (var item in db.ServicePoints)
+            {
+                item.howManyWorkers = item.ServicePointWorkers.Count();
+            }
             return View(await db.ServicePoints.ToListAsync());
         }
 
@@ -29,6 +33,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+            servicePoint.howManyWorkers = servicePoint.ServicePointWorkers.Count();
             if (servicePoint == null)
             {
                 return HttpNotFound();
@@ -67,6 +72,8 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+            servicePoint.howManyWorkers = servicePoint.ServicePointWorkers.Count();
+
             if (servicePoint == null)
             {
                 return HttpNotFound();
@@ -115,7 +122,140 @@ namespace ProjektBazyDanych.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        //GET: Runways/AddServicePointWorker/5
+        public async Task<ActionResult> AddServicePointWorker(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+            if (servicePoint == null)
+            {
+                return HttpNotFound();
+            }
+            var servicePointServicePointWorkers = servicePoint.ServicePointWorkers.Select(x => x.id).ToList();
+            IEnumerable<ServicePointWorker> availableServicePointWorkers = db.ServicePointWorkers.
+                Where(x => !servicePointServicePointWorkers.
+                Contains(x.id));
+            string firstServicePointWorker;
+            if (!servicePointServicePointWorkers.Any())
+                firstServicePointWorker = db.ServicePointWorkers.Where(x => !servicePointServicePointWorkers.Contains(x.id)).FirstOrDefault().lastName;
+            else firstServicePointWorker = "brak dostępnych pracowników";
 
+            ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+            return View(servicePoint);
+
+        }
+
+        //POST: Runways/AddSupervisor/5
+        [HttpPost, ActionName("AddServicePointWorker")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddServicePointWorker(string lastName, string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                ServicePointWorker servicePointWorker = db.ServicePointWorkers.Where(x => x.lastName == lastName).FirstOrDefault();
+                ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+                servicePoint.ServicePointWorkers.Add(servicePointWorker);
+                servicePointWorker.ServicePoints.Add(servicePoint);
+                db.Entry(servicePoint).State = EntityState.Modified;
+                db.Entry(servicePointWorker).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = servicePoint.name });
+            }
+            catch
+            {
+                ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+                if (servicePoint == null)
+                {
+                    return HttpNotFound();
+                }
+                var servicePointServicePointWorkers = servicePoint.ServicePointWorkers.Select(x => x.id).ToList();
+                IEnumerable<ServicePointWorker> availableServicePointWorkers = db.ServicePointWorkers.
+                    Where(x => !servicePointServicePointWorkers.
+                    Contains(x.id));
+                string firstServicePointWorker;
+                if (!servicePointServicePointWorkers.Any())
+                    firstServicePointWorker = db.ServicePointWorkers.Where(x => !servicePointServicePointWorkers.Contains(x.id)).FirstOrDefault().lastName;
+                else firstServicePointWorker = "brak dostępnych pracowników";
+
+                ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+                return View(servicePoint);
+            }
+        }
+        //GET: Runways/DeleteServicePointWorker/5
+        public async Task<ActionResult> DeleteServicePointWorker(string id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+            if (servicePoint == null)
+            {
+                return HttpNotFound();
+            }
+            var servicePointServicePointWorkers = servicePoint.ServicePointWorkers.Select(x => x.id).ToList();
+            IEnumerable<ServicePointWorker> availableServicePointWorkers = db.ServicePointWorkers.
+                Where(x => servicePointServicePointWorkers.
+                Contains(x.id));
+            string firstServicePointWorker;
+            if (servicePointServicePointWorkers.Any())
+                firstServicePointWorker = availableServicePointWorkers.FirstOrDefault().lastName;
+            else firstServicePointWorker = "brak dostępnych pracowników";
+
+            ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+            return View(servicePoint);
+
+        }
+
+        //POST: Runways/DeleteSupervisor/5
+        [HttpPost, ActionName("DeleteServicePointWorker")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteServicePointWorker(string lastName, string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                ServicePointWorker servicePointWorker = db.ServicePointWorkers.Where(x => x.lastName == lastName).FirstOrDefault();
+                ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+                servicePoint.ServicePointWorkers.Remove(servicePointWorker);
+                servicePointWorker.ServicePoints.Remove(servicePoint);
+                db.Entry(servicePoint).State = EntityState.Modified;
+                db.Entry(servicePointWorker).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = servicePoint.name });
+            }
+            catch
+            {
+
+                ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
+                if (servicePoint == null)
+                {
+                    return HttpNotFound();
+                }
+                var servicePointServicePointWorkers = servicePoint.ServicePointWorkers.Select(x => x.id).ToList();
+                IEnumerable<ServicePointWorker> availableServicePointWorkers = db.ServicePointWorkers.
+                    Where(x => servicePointServicePointWorkers.
+                    Contains(x.id));
+                string firstServicePointWorker;
+                if (servicePointServicePointWorkers.Any())
+                    firstServicePointWorker = availableServicePointWorkers.FirstOrDefault().lastName;
+                else firstServicePointWorker = "brak dostępnych pracowników";
+
+                ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+                return View(servicePoint);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

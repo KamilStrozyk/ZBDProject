@@ -11,40 +11,111 @@
     <h4>Punkt usług</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.howManyWorkers)
-        </dt>
+        <div class="row">
 
-        <dd>
-            @Html.DisplayFor(model => model.howManyWorkers)
-        </dd>
+            <div class="col-sm-2">
+                <dt>
+                    @Html.DisplayNameFor(model => model.name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.income)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.howManyWorkers)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.income)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.howManyWorkers)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.type)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.income)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.type)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.income)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.type)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.type)
+                </dd>
+            </div>
+            <div class="col-sm-10">
+                <dt mb-3>
+                    Pracownicy, którzy tu pracują:
+                </dt>
+                <div class="row">
+                    <div class="col-sm-5">
+                        @Html.ActionLink("Dodaj pracownika", "AddServicePointWorker", new { id = Model.name }, new { @class = "btn btn-dark mr-5 " })
+                    </div>
+                    <div class="col-sm-5">
+
+                        @Html.ActionLink("Usuń pracownika", "DeleteServicePointWorker", new { id = Model.name }, new { @class = "btn btn-dark " })
+                    </div>
+
+                </div>
+                <dd>
+                    <table class="table table-dark table-striped mt-4">
+
+                        <tr>
+                            @{var servicePointWorker = Model.ServicePointWorkers.FirstOrDefault();
+                                <th>
+                                    @Html.DisplayNameFor(model => servicePointWorker.firstName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => servicePointWorker.lastName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => servicePointWorker.age)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => servicePointWorker.salary)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => servicePointWorker.employed)
+                                </th>
+                                <th></th>
+                            }
+                        </tr>
+                        @foreach (var item in Model.ServicePointWorkers)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.firstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.lastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.age)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.salary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.employed)
+                                </td>
+                                <td>
+
+                                    @Html.ActionLink("Szczegóły", "Details", "ServicePointsWorkers", new { id = item.id }, new { @class = "white-link" })
+
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </dd>
+            </div>
+        </div>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new {@class="btn btn-dark"}) |
-    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new { @class = "btn btn-dark" }) |
+    @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>
