@@ -1,50 +1,85 @@
 ﻿@model ProjektBazyDanych.ServicePoint
 
 @{
-    ViewBag.Title = "Szczegóły";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Szczegóły";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Szczegóły</h1>
 
 <div>
-    <h4>Punkt usług</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+	<h4>Punkt usług</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.name)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.howManyWorkers)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.name)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.howManyWorkers)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.howManyWorkers)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.howManyWorkers)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.income)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.income)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.income)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.income)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.type)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.type)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.type)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.type)
+		</dd>
 
-    </dl>
+	</dl>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new {@class="btn btn-dark"}) |
-    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
+	@Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new { @class = "btn btn-dark" }) |
+	@Html.ActionLink("Wyświetl Przychód", "Income", new { name = Model.name }, new { @class = "btn btn-dark" }) |
+	@Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>
+@if (ViewBag.Message != "")
+{
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body">
+				<p>@ViewBag.Message</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-dark" data-dismiss="modal">Zamknij</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+	$(window).load(function () {
+		jQuery.noConflict(); 
+		$('#myModal').modal('show');
+	}); 
+</script>

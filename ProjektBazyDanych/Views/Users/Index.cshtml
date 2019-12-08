@@ -1,64 +1,215 @@
 ﻿@model IEnumerable<ProjektBazyDanych.User>
 
 @{
-    ViewBag.Title = "Użytkownicy";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Użytkownicy";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h2>Użytkownicy</h2>
+<div class="sidebar">
+	<div class="container">
+		<div class="navbar-brand">Panel Administratora</div>
+		<hr />
+		<div style="color: white !important">
 
-<p>
-    @Html.ActionLink("Dodaj nowy", "Create", null, new { @class = "btn btn-dark mb-3" })
-</p>
-<table class="table table-dark table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.passwordHash)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.passwordSalt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastName)
-        </th>
-        <th></th>
-    </tr>
+			<button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#deleteInfectedAnimals">
+				Usuń zwierzęta z daną chorobą
+			</button>
+			<button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#countFoodRequirement">
+				Aktualizuj zapotrzebowanie na produkt
+			</button>
+			<button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#TotalServicePointIncome">
+				Wygeneruj przychód punktu usług
+			</button>
+			@Html.ActionLink("Dodaj użytkownika", "Create", null, new { @class = "btn btn-outline-light btn-block" })
+			<hr />
+			@Html.ActionLink("Wyloguj", "Logout", "Login", null, new { @class = "btn btn-outline-light btn-block" })
+		</div>
+	</div>
+</div>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.login)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.passwordHash)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.passwordSalt)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.firstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.lastName)
-    </td>
-    <td>
-        @Html.ActionLink("Edytuj", "Edit", new { id = item.login }, new {@class="white-link"}) |
-        @Html.ActionLink("Szczegóły", "Details", new { id = item.login }, new {@class="white-link"}) |
-        @Html.ActionLink("Usuń", "Delete", new { id = item.login }, new {@class="white-link"})
-    </td>
-</tr>
+<div class="row">
+
+	<div class="col-sm-10 ">
+		<h2>Użytkownicy</h2>
+		<p></p>
+		<table class="table table-dark table-striped">
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.login)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.email)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.firstName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.lastName)
+				</th>
+				<th></th>
+			</tr>
+
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.login)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.email)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.firstName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.lastName)
+					</td>
+					<td>
+						@Html.ActionLink("Szczegóły", "Details", new { id = item.login }, new { @class = "white-link" })
+						@if (RouteConfig.login != item.login)
+						{
+							@Html.ActionLink(" | Usuń", "Delete", new { id = item.login }, new { @class = "white-link" })
+						}
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteInfectedAnimals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="Title">Usuń zwierzęta</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			@using (Html.BeginForm("DeleteInfectedAnimals", "Users", FormMethod.Post))
+			{
+				<div class="modal-body">
+					<p>Nazwa choroby:</p>
+					@*<input id="dis" type="text" value="Choroba" />*@
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+
+					<input type="submit" value="Usuń" class="btn btn-success" />
+					@*	@Html.ActionLink("Usuń", "DeleteInfectedAnimals", new { name = "xxx" }, new { @class = "btn btn-success disC postLink" })*@
+				</div>
+			}
+		</div>
+	</div>
+</div><!-- Modal -->
+<div class="modal fade" id="countFoodRequirement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="Title">Aktualizuj zapotrzebowanie na produkt</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			@using (Html.BeginForm("CountFoodRequirement", "Users", FormMethod.Post))
+			{
+				<div class="modal-body">
+					<p>Nazwa produktu:</p>
+					@*<input id="dis" type="text" value="Choroba" />*@
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+
+					<input type="submit" value="Aktualizuj" class="btn btn-success" />
+					@*	@Html.ActionLink("Usuń", "DeleteInfectedAnimals", new { name = "xxx" }, new { @class = "btn btn-success disC postLink" })*@
+				</div>
+			}
+		</div>
+	</div>
+</div><!-- Modal -->
+<div class="modal fade" id="TotalServicePointIncome" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="Title">Wygeneruj przychody punktu usług</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			@using (Html.BeginForm("TotalServicePointIncome", "Users", FormMethod.Post))
+			{
+				<div class="modal-body">
+					<p>Nazwa punktu usług:</p>
+					@*<input id="dis" type="text" value="Choroba" />*@
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+
+					<input type="submit" value="Generuj" class="btn btn-success" />
+					@*	@Html.ActionLink("Usuń", "DeleteInfectedAnimals", new { name = "xxx" }, new { @class = "btn btn-success disC postLink" })*@
+				</div>
+			}
+		</div>
+	</div>
+</div>
+@if (ViewBag.Message != "" )
+{
+
+
+
+	<!-- Modal -->
+	<div id="modalmess" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="text-danger ">@ViewBag.Message</div>
+					<div class="text-success ">@ViewBag.GoodMessage</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-dark" data-dismiss="modal">Zamknij</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
 }
 
-</table>
+<style>
+	hr {
+		background-color: white;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+	$(window).load(function () {
+		jQuery.noConflict();
+		$('#modalmess').modal('show');
+	});
+	$(function () {
+		$('.disC').click(function () {
+			var ipvalue = $("#dis").val();
+			this.href = this.href.replace("xxx", ipvalue);
+		});
+	});
+	$(function () {
+		$("a.postLink").click(function (e) {
+			e.preventDefault();
+			$.post($(this).attr("href"), function (data) {
+				// got the result in data variable. do whatever you want now
+				//may be reload the page
+			});
+		});
+	});
+</script>

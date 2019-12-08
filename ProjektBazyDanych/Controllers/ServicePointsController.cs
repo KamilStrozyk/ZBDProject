@@ -22,8 +22,9 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: ServicePoints/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(string id, string name = "")
         {
+            ViewBag.Message = name;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -36,6 +37,13 @@ namespace ProjektBazyDanych.Controllers
             return View(servicePoint);
         }
 
+        public async Task<ActionResult> Income(string name)
+        {
+            string message = "";
+            int val = db.TotalServicePointIncome(name);
+            message = "Przychód punktu wynosi: " + val.ToString();
+            return RedirectToAction("Details", new { id = name, name = message });
+        }
         // GET: ServicePoints/Create
         public ActionResult Create()
         {

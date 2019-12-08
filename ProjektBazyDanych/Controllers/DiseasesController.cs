@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using ProjektBazyDanych;
 
 namespace ProjektBazyDanych.Controllers
 {
@@ -43,7 +37,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // POST: Diseases/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -57,6 +51,12 @@ namespace ProjektBazyDanych.Controllers
             }
 
             return View(disease);
+        }
+
+        public async Task<ActionResult> DeleteAnimals(string name)
+        {
+            db.deleteInfectedAnimals(name);
+            return RedirectToAction("Details", new { id = name });
         }
 
         // GET: Diseases/Edit/5
@@ -75,7 +75,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // POST: Diseases/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

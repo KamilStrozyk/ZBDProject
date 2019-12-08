@@ -791,7 +791,7 @@
             <End Role="Settlement" EntitySet="Settlements" />
           </AssociationSet>
           <FunctionImport Name="deleteInfectedAnimals">
-            <Parameter Name="diseaseName" Mode="In" Type="String" />
+          <Parameter Name="diseaseName" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
