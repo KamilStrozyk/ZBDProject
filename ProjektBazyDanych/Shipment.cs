@@ -11,30 +11,25 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Shipment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shipment()
         {
+            this.Settlements = new HashSet<Settlement>();
             this.Foods = new HashSet<Food>();
         }
-
-        [Display(Name = "Id dostawy")]
+    
         public int id { get; set; }
-        [Display(Name = "Data dostawy")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime shipmentDate { get; set; }
-        [Display(Name = "Nazwa dostawcy")]
         public int supplierId { get; set; }
-        [Display(Name = "Data dostawy")]
         public int amount { get; set; }
-        public virtual Settlement Settlements { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Settlement> Settlements { get; set; }
         public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Food> Foods { get; set; }
-        public virtual Settlement Settlement1 { get; set; }
     }
 }
