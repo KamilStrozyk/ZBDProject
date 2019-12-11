@@ -20,7 +20,9 @@ namespace ProjektBazyDanych
         {
             this.Shipments = new HashSet<Shipment>();
         }
-    
+
+        public int id { get; set; }
+
         [Display(Name = "Nazwa dostawcy")]
         public string name { get; set; }
 

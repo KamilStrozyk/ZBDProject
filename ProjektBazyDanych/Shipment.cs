@@ -20,7 +20,7 @@ namespace ProjektBazyDanych
         {
             this.Foods = new HashSet<Food>();
         }
-    
+
         [Display(Name = "Id dostawy")]
         public int id { get; set; }
         [Display(Name = "Data dostawy")]
@@ -28,11 +28,10 @@ namespace ProjektBazyDanych
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime shipmentDate { get; set; }
         [Display(Name = "Nazwa dostawcy")]
-        public string supplierName { get; set; }
+        public int supplierId { get; set; }
         [Display(Name = "Data dostawy")]
         public int amount { get; set; }
-
-        public virtual Settlement Settlement { get; set; }
+        public virtual Settlement Settlements { get; set; }
         public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Food> Foods { get; set; }

@@ -21,9 +21,10 @@ namespace ProjektBazyDanych
             this.DiseaseHistories = new HashSet<DiseaseHistory>();
         }
     
-        [Display(Name = "Nazwa chorby")]
+        public int id { get; set; }
+        [Display(Name = "Nazwa choroby")]
         public string name { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiseaseHistory> DiseaseHistories { get; set; }
     }

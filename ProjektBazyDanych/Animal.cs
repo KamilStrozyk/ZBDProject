@@ -20,22 +20,20 @@ namespace ProjektBazyDanych
         {
             this.DiseaseHistories = new HashSet<DiseaseHistory>();
         }
-        [Display(Name ="Id zwierzêcia")]
+
         public int id { get; set; }
         [Display(Name = "Wiek")]
         public int age { get; set; }
-        [Display(Name = "P³eæ")]
-        public string sex { get; set; }
         [Display(Name = "Pochodzenie")]
         public string origin { get; set; }
+        [Display(Name = "P³eæ")]
+        public string sex { get; set; }
         [Display(Name = "W Zoo od:")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime inZooSince { get; set; }
         [Display(Name = "Imiê")]
         public string name { get; set; }
         [Display(Name = "Gatunek")]
-        public string spiece { get; set; }
+        public int spiece { get; set; }
         [Display(Name = "Wybieg")]
         public int runwayID { get; set; }
 
@@ -46,7 +44,7 @@ namespace ProjektBazyDanych
     }
     public enum Gender
     {
-        
+
         Samiec,
         Samica
     }

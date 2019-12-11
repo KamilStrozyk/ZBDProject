@@ -21,13 +21,14 @@ namespace ProjektBazyDanych
             this.Animals = new HashSet<Animal>();
             this.Supervisors = new HashSet<Supervisor>();
         }
+
         [Display(Name = "Id wybiegu")]
         public int id { get; set; }
         [Display(Name = "Powierzchnia")]
         public double area { get; set; }
         [Display(Name = "Iloœæ zwierz¹t")]
         public int animalCount { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Animal> Animals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

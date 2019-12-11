@@ -5,31 +5,30 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2e45d5de042347d89cb8441cd809c6cf" Name="Diagram1">
-        <EntityTypeShape EntityType="DbModel.Animal" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.DiseaseHistory" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Disease" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Food" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Runway" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.ServicePoint" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.ServicePointWorker" Width="1.5" PointX="10" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Settlement" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Shipment" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Spiece" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Supervisor" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Supplier" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.sysdiagram" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="10.5" PointY="8.75" IsExpanded="true" />
-        <AssociationConnector Association="DbModel.FK_Animals_Runways" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_Animals_Spieces" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_DiseaseHistory_Animals" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_DiseaseHistory_Diseases" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_Shipment_Settlement1" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_Shipment_Supplier" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FoodShipment" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.RunwaysSupervisors" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.ServicePointsServicePointWorkers" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.SpiecesFood" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DbModel.Animal" Width="1.5" PointX="5.25" PointY="6.5" />
+        <EntityTypeShape EntityType="DbModel.DiseaseHistory" Width="1.5" PointX="7.5" PointY="6.875" />
+        <EntityTypeShape EntityType="DbModel.Disease" Width="1.5" PointX="5.25" PointY="11.25" />
+        <EntityTypeShape EntityType="DbModel.Food" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="DbModel.Runway" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="DbModel.ServicePoint" Width="1.5" PointX="7.75" PointY="1.125" />
+        <EntityTypeShape EntityType="DbModel.ServicePointWorker" Width="1.5" PointX="10" PointY="1" />
+        <EntityTypeShape EntityType="DbModel.Settlement" Width="1.5" PointX="5.25" PointY="2.125" />
+        <EntityTypeShape EntityType="DbModel.Shipment" Width="1.5" PointX="3" PointY="3.375" />
+        <EntityTypeShape EntityType="DbModel.Spiece" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="DbModel.Supervisor" Width="1.5" PointX="5.25" PointY="13.875" />
+        <EntityTypeShape EntityType="DbModel.Supplier" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DbModel.sysdiagram" Width="1.5" PointX="9.75" PointY="4.875" />
+        <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="9.75" PointY="7.875" />
+        <AssociationConnector Association="DbModel.FK_Animals_Runways" />
+        <AssociationConnector Association="DbModel.FK_Animals_Spieces1" />
+        <AssociationConnector Association="DbModel.FK_DiseaseHistory_Animals" />
+        <AssociationConnector Association="DbModel.FK_DiseaseHistory_Diseases1" />
         <AssociationConnector Association="DbModel.FK_Settlement_Shipment" />
+        <AssociationConnector Association="DbModel.FK_Shipment_Supplier1" />
+        <AssociationConnector Association="DbModel.FoodShipment" />
+        <AssociationConnector Association="DbModel.RunwaysSupervisors" />
+        <AssociationConnector Association="DbModel.ServicePointsServicePointWorkers" />
+        <AssociationConnector Association="DbModel.SpiecesFood" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

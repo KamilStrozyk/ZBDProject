@@ -20,6 +20,8 @@ namespace ProjektBazyDanych
         {
             this.ServicePointWorkers = new HashSet<ServicePointWorker>();
         }
+
+        public int id { get; set; }
         [Display(Name = "Nazwa punktu")]
         public string name { get; set; }
         [Display(Name = "Iloœæ pracowników")]
