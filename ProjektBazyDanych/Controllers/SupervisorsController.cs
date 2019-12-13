@@ -29,6 +29,11 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Supervisor supervisor = await db.Supervisors.FindAsync(id);
+            foreach(var item in supervisor.Runways)
+            {
+                item.animalCount = item.Animals.Count();
+            }
+            await db.SaveChangesAsync();
             if (supervisor == null)
             {
                 return HttpNotFound();

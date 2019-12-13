@@ -12,7 +12,7 @@ namespace ProjektBazyDanych.Controllers
     {
         private connectionString db = new connectionString();
         private PasswordLogic passwordLogic = new PasswordLogic();
-        public static bool logged = false;
+        public static bool logged = true;
         public static string login = "";
         // GET: Login
         public ActionResult Login()

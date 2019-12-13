@@ -99,11 +99,11 @@
                 </dt>
                 <div class="row">
                     <div class="col-sm-5">
-                        @Html.ActionLink("Dodaj spożywane jedzenie", "AddFood", new { id = Model.name }, new { @class = "btn btn-dark mr-5 " })
+                        @Html.ActionLink("Dodaj spożywane jedzenie", "AddFood", new { id = Model.id }, new { @class = "btn btn-dark mr-5 " })
                     </div>
                     <div class="col-sm-5">
 
-                        @Html.ActionLink("Usuń spożywane jedzenie", "DeleteFood", new { id = Model.name }, new { @class = "btn btn-dark " })
+                        @Html.ActionLink("Usuń spożywane jedzenie", "DeleteFood", new { id = Model.id }, new { @class = "btn btn-dark " })
                     </div>
 
                 </div>
@@ -135,7 +135,7 @@
 
 
                                     <td>
-                                        @Html.ActionLink("Szczegóły", "Details", "Foods", new { id = item.name }, new { @class = "white-link" })
+                                        @Html.ActionLink("Szczegóły", "Details", "Foods", new { id = item.id }, new { @class = "white-link" })
                                     </td>
                                 </tr>
                             }
@@ -148,6 +148,6 @@
 
 <hr/>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new { @class = "btn btn-dark" }) |
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
     @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>

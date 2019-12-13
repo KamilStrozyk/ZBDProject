@@ -1,109 +1,109 @@
 ﻿@model ProjektBazyDanych.Supervisor
 
 @{
-	ViewBag.Title = "Szczegóły";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Szczegóły";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Szczegóły</h1>
 
 <div>
-	<h4>Nadzorca</h4>
-	<hr />
-	<div class="row">
-		<div class="col-sm-6">
-
-			<dt>
-				@Html.DisplayNameFor(model => model.id)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.id)
-			</dd>
-			<dt>
-				@Html.DisplayNameFor(model => model.firstName)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.firstName)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.lastName)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.lastName)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.age)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.age)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.salary)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.salary)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.employed)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.employed)
-			</dd>
-		</div>
-		<div class="col-sm-6">
-			<dt>
-				Wybiegi przypisane do nadzorcy:
-			</dt>
-			<dd>
+    <h4>Nadzorca</h4>
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
 
 
-				<table class="table table-dark table-striped">
-					@{var runway = Model.Runways.FirstOrDefault();
+            <dt>
+                @Html.DisplayNameFor(model => model.firstName)
+            </dt>
 
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => runway.area)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => runway.animalCount)
-							</th>
-							<th></th>
-						</tr>
-					}
-					@foreach (var item in Model.Runways)
-					{
-						<tr>
-							<td>
-								@Html.DisplayFor(modelItem => item.area)
-							</td>
-							<td>
-								@Html.DisplayFor(modelItem => item.animalCount)
-							</td>
-							<td>
-								@Html.ActionLink("Edytuj", "Edit", "Runways", new { id = item.id }, new { @class = "white-link" }) |
-								@Html.ActionLink("Szczegóły", "Details", "Runways", new { id = item.id }, new { @class = "white-link" }) |
-								@Html.ActionLink("Usuń", "Delete", "Runways", new { id = item.id }, new { @class = "white-link" })
-							</td>
-						</tr>
-					}
-				</table>
-			</dd>
-		</div>
-	</div>
+            <dd>
+                @Html.DisplayFor(model => model.firstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.lastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.lastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.age)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.age)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.salary)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.salary)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.employed)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.employed)
+            </dd>
+        </div>
+        <div class="col-sm-6">
+            <dt>
+                Wybiegi przypisane do nadzorcy:
+            </dt>
+            <dd>
+
+
+                <table class="table table-dark table-striped">
+                    @{var runway = Model.Runways.FirstOrDefault();
+
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => runway.name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => runway.area)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => runway.animalCount)
+                            </th>
+                            <th></th>
+                        </tr>
+                    }
+                    @foreach (var item in Model.Runways)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => runway.area)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.area)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.animalCount)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edytuj", "Edit", "Runways", new { id = item.id }, new { @class = "white-link" }) |
+                                @Html.ActionLink("Szczegóły", "Details", "Runways", new { id = item.id }, new { @class = "white-link" }) |
+                                @Html.ActionLink("Usuń", "Delete", "Runways", new { id = item.id }, new { @class = "white-link" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </dd>
+        </div>
+    </div>
 </div>
 <hr />
 
 <p>
-	@Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
-	@Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
+    @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>

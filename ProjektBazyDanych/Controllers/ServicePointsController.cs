@@ -22,11 +22,12 @@ namespace ProjektBazyDanych.Controllers
             {
                 item.howManyWorkers = item.ServicePointWorkers.Count();
             }
+            await db.SaveChangesAsync();
             return View(await db.ServicePoints.ToListAsync());
         }
 
         // GET: ServicePoints/Details/5
-        public async Task<ActionResult> Details(string id, string name = "")
+        public async Task<ActionResult> Details(int? id, string name = "")
         {
             ViewBag.Message = name;
             if (id == null)
@@ -35,6 +36,8 @@ namespace ProjektBazyDanych.Controllers
             }
             ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
             servicePoint.howManyWorkers = servicePoint.ServicePointWorkers.Count();
+            await db.SaveChangesAsync();
+
             if (servicePoint == null)
             {
                 return HttpNotFound();
@@ -62,6 +65,10 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "name,howManyWorkers,income,type")] ServicePoint servicePoint)
         {
+            if (db.ServicePoints.Select(x => x.name).Contains(servicePoint.name))
+            {
+                ModelState.AddModelError("name", "Taki punkt już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.ServicePoints.Add(servicePoint);
@@ -73,7 +80,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: ServicePoints/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -81,6 +88,8 @@ namespace ProjektBazyDanych.Controllers
             }
             ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
             servicePoint.howManyWorkers = servicePoint.ServicePointWorkers.Count();
+            await db.SaveChangesAsync();
+
 
             if (servicePoint == null)
             {
@@ -94,8 +103,12 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "name,howManyWorkers,income,type")] ServicePoint servicePoint)
+        public async Task<ActionResult> Edit([Bind(Include = "id,name,howManyWorkers,income,type")] ServicePoint servicePoint)
         {
+            if (db.ServicePoints.Any(x => x.name==servicePoint.name && x.id!=servicePoint.id))
+            {
+                ModelState.AddModelError("name", "Taki punkt już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(servicePoint).State = EntityState.Modified;
@@ -106,7 +119,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: ServicePoints/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -123,7 +136,7 @@ namespace ProjektBazyDanych.Controllers
         // POST: ServicePoints/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
             db.ServicePoints.Remove(servicePoint);
@@ -131,7 +144,7 @@ namespace ProjektBazyDanych.Controllers
             return RedirectToAction("Index");
         }
         //GET: Runways/AddServicePointWorker/5
-        public async Task<ActionResult> AddServicePointWorker(string id)
+        public async Task<ActionResult> AddServicePointWorker(int? id)
         {
             if (id == null)
             {
@@ -159,14 +172,20 @@ namespace ProjektBazyDanych.Controllers
         //POST: Runways/AddSupervisor/5
         [HttpPost, ActionName("AddServicePointWorker")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddServicePointWorker(string lastName, string id)
+        public async Task<ActionResult> AddServicePointWorker(string lastName, int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (lastName == null)
             {
+                ModelState.AddModelError("lastName", "Nie wybrałeś pracownika");
+            }
+            if (ModelState.IsValid)
+            {
+
+
                 ServicePointWorker servicePointWorker = db.ServicePointWorkers.Where(x => x.lastName == lastName).FirstOrDefault();
                 ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
                 servicePoint.ServicePointWorkers.Add(servicePointWorker);
@@ -174,9 +193,9 @@ namespace ProjektBazyDanych.Controllers
                 db.Entry(servicePoint).State = EntityState.Modified;
                 db.Entry(servicePointWorker).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Details", new { id = servicePoint.name });
+                return RedirectToAction("Details", new { id = servicePoint.id });
             }
-            catch
+            else
             {
                 ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
                 if (servicePoint == null)
@@ -197,7 +216,7 @@ namespace ProjektBazyDanych.Controllers
             }
         }
         //GET: Runways/DeleteServicePointWorker/5
-        public async Task<ActionResult> DeleteServicePointWorker(string id)
+        public async Task<ActionResult> DeleteServicePointWorker(int? id)
         {
 
             if (id == null)
@@ -226,13 +245,17 @@ namespace ProjektBazyDanych.Controllers
         //POST: Runways/DeleteSupervisor/5
         [HttpPost, ActionName("DeleteServicePointWorker")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteServicePointWorker(string lastName, string id)
+        public async Task<ActionResult> DeleteServicePointWorker(string lastName, int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (lastName == null)
+            {
+                ModelState.AddModelError("lastName", "Nie wybrałeś pracownika");
+            }
+            if (ModelState.IsValid)
             {
                 ServicePointWorker servicePointWorker = db.ServicePointWorkers.Where(x => x.lastName == lastName).FirstOrDefault();
                 ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);
@@ -241,9 +264,9 @@ namespace ProjektBazyDanych.Controllers
                 db.Entry(servicePoint).State = EntityState.Modified;
                 db.Entry(servicePointWorker).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Details", new { id = servicePoint.name });
+                return RedirectToAction("Details", new { id = servicePoint.id });
             }
-            catch
+            else
             {
 
                 ServicePoint servicePoint = await db.ServicePoints.FindAsync(id);

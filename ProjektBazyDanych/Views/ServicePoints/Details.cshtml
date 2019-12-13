@@ -52,11 +52,11 @@
                 </dt>
                 <div class="row">
                     <div class="col-sm-5">
-                        @Html.ActionLink("Dodaj pracownika", "AddServicePointWorker", new { id = Model.name }, new { @class = "btn btn-dark mr-5 " })
+                        @Html.ActionLink("Dodaj pracownika", "AddServicePointWorker", new { id = Model.id }, new { @class = "btn btn-dark mr-5 " })
                     </div>
                     <div class="col-sm-5">
 
-                        @Html.ActionLink("Usuń pracownika", "DeleteServicePointWorker", new { id = Model.name }, new { @class = "btn btn-dark " })
+                        @Html.ActionLink("Usuń pracownika", "DeleteServicePointWorker", new { id = Model.id }, new { @class = "btn btn-dark " })
                     </div>
 
                 </div>
@@ -116,7 +116,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new { @class = "btn btn-dark" }) |
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
     @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>
 @if (ViewBag.Message != "")
