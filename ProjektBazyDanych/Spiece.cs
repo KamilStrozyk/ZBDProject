@@ -11,7 +11,8 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Spiece
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +21,15 @@ namespace ProjektBazyDanych
             this.Animals = new HashSet<Animal>();
             this.Foods = new HashSet<Food>();
         }
-    
+        [Display(Name = "Id gatunku")]
         public int id { get; set; }
+        [Display(Name = "Nazwa gatunku")]
+        [Required(ErrorMessage = "Wpisz nazwê")]
+        [RegularExpression("[^0-9]*", ErrorMessage = "Nazwa gatunku nie mo¿e zawieraæ cyfr")]
         public string name { get; set; }
+        [Display(Name = "Iloœæ zjadanego po¿ywienia w kg")]
         public int appetite { get; set; }
+        [Display(Name = "Iloœæ")]
         public int howMany { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

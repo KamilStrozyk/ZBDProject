@@ -11,16 +11,38 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Settlement
     {
+        [Display(Name = "Id rozliczenia")]
         public string id { get; set; }
+        
         public int shipmentId { get; set; }
+        [Display(Name = "Data utworzenia")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime creationDate { get; set; }
+
+        [Display(Name = "Data modyfikacji")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime modificationDate { get; set; }
+        [Display(Name = "Rok")]
+        [Required(ErrorMessage = "Wpisz rok")]
+        [Range(13, 99, ErrorMessage = "Proszê podaæ odpowiedni rk")]
         public int year { get; set; }
+        [Display(Name = "Miesi¹c")]
+        [Required(ErrorMessage = "Wpisz rok")]
+        [Range(1, 12, ErrorMessage = "Proszê podaæ odpowiedni miesi¹c")]
         public int month { get; set; }
+        [Display(Name = "Suma w z³")]
+        [Required(ErrorMessage = "Wpisz sumê")]
+        [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
         public int sum { get; set; }
+        [Display(Name = "Zatwierdzone")]
         public bool approved { get; set; }
     
         public virtual Shipment Shipment { get; set; }

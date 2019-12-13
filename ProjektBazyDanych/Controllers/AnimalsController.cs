@@ -40,7 +40,8 @@ namespace ProjektBazyDanych.Controllers
         // GET: Animals/Create
         public ActionResult Create()
         {
-            ViewBag.runwayID = new SelectList(db.Runways, "id", "id");
+           
+            ViewBag.runway = new SelectList(db.Runways, "name", "name");
             ViewBag.spiece = new SelectList(db.Spieces, "name", "name");
             return View();
         }
