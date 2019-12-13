@@ -18,24 +18,28 @@ namespace ProjektBazyDanych
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shipment()
         {
+            this.Settlements = new HashSet<Settlement>();
             this.Foods = new HashSet<Food>();
         }
-    
         [Display(Name = "Id dostawy")]
         public int id { get; set; }
         [Display(Name = "Data dostawy")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime shipmentDate { get; set; }
-        [Display(Name = "Nazwa dostawcy")]
-        public string supplierName { get; set; }
-        [Display(Name = "Data dostawy")]
+        [Display(Name = "Id dostawcy")]
+        [Required(ErrorMessage = "Wybierz dostawcê")]
+        public int supplierId { get; set; }
+        [Display(Name = "Iloœæ towaru w kg")]
+        [Required(ErrorMessage = "Wpisz iloœæ")]
+        [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
         public int amount { get; set; }
-
-        public virtual Settlement Settlement { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Settlement> Settlements { get; set; }
         public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Food> Foods { get; set; }
-        public virtual Settlement Settlement1 { get; set; }
     }
 }

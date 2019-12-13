@@ -20,7 +20,7 @@ namespace ProjektBazyDanych.Controllers
         {
             foreach (var item in db.Spieces)
             {
-                item.howMany = item.Animals.Where(x => x.spiece==item.name).Count();
+                item.howMany = item.Animals.Where(x => x.spiece==item.id).Count();
             }
             return View(await db.Spieces.ToListAsync());
         }
@@ -33,7 +33,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Spiece spiece = await db.Spieces.FindAsync(id);
-            spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.name).Count();
+            spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.id).Count();
             if (spiece == null)
             {
                 return HttpNotFound();
@@ -72,7 +72,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Spiece spiece = await db.Spieces.FindAsync(id);
-            spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.name).Count();
+            spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.id).Count();
             if (spiece == null)
             {
                 return HttpNotFound();

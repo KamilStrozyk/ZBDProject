@@ -11,51 +11,52 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="age" Type="int" Nullable="false" />
-          <Property Name="sex" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="origin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sex" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="inZooSince" Type="date" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="spiece" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="spiece" Type="int" Nullable="false" />
           <Property Name="runwayID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DiseaseHistory">
           <Key>
-            <PropertyRef Name="beginDate" />
-            <PropertyRef Name="animalID" />
-            <PropertyRef Name="diseaseName" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="beginDate" Type="date" Nullable="false" />
           <Property Name="animalID" Type="int" Nullable="false" />
-          <Property Name="diseaseName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="diseaseId" Type="int" Nullable="false" />
           <Property Name="endDate" Type="date" />
         </EntityType>
         <EntityType Name="Diseases">
           <Key>
-            <PropertyRef Name="name" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Food">
           <Key>
-            <PropertyRef Name="name" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="requirement" Type="int" Nullable="false" />
-          <Property Name="currentAmount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FoodShipment">
           <Key>
             <PropertyRef Name="shipmentId" />
-            <PropertyRef Name="foodName" />
+            <PropertyRef Name="foodId" />
           </Key>
           <Property Name="shipmentId" Type="int" Nullable="false" />
-          <Property Name="foodName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="foodId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Runways">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="area" Type="float" Nullable="false" />
           <Property Name="animalCount" Type="int" Nullable="false" />
         </EntityType>
@@ -69,8 +70,9 @@
         </EntityType>
         <EntityType Name="ServicePoint">
           <Key>
-            <PropertyRef Name="name" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="howManyWorkers" Type="int" Nullable="false" />
           <Property Name="income" Type="float" Nullable="false" />
@@ -79,10 +81,10 @@
         <EntityType Name="ServicePointsServicePointWorkers">
           <Key>
             <PropertyRef Name="workerID" />
-            <PropertyRef Name="servicePointName" />
+            <PropertyRef Name="servicePointId" />
           </Key>
           <Property Name="workerID" Type="int" Nullable="false" />
-          <Property Name="servicePointName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="servicePointId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ServicePointWorkers">
           <Key>
@@ -97,8 +99,9 @@
         </EntityType>
         <EntityType Name="Settlement">
           <Key>
-            <PropertyRef Name="shipmentId" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="shipmentId" Type="int" Nullable="false" />
           <Property Name="creationDate" Type="date" Nullable="false" />
           <Property Name="modificationDate" Type="date" Nullable="false" />
@@ -113,24 +116,25 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="shipmentDate" Type="date" Nullable="false" />
-          <Property Name="supplierName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="supplierId" Type="int" Nullable="false" />
           <Property Name="amount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Spieces">
           <Key>
-            <PropertyRef Name="name" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="appetite" Type="int" Nullable="false" />
           <Property Name="howMany" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SpiecesFood">
           <Key>
-            <PropertyRef Name="spieceName" />
-            <PropertyRef Name="foodName" />
+            <PropertyRef Name="spieceId" />
+            <PropertyRef Name="foodId" />
           </Key>
-          <Property Name="spieceName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="foodName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="spieceId" Type="int" Nullable="false" />
+          <Property Name="foodId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Supervisors">
           <Key>
@@ -145,8 +149,9 @@
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
-            <PropertyRef Name="name" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -182,12 +187,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Animals_Spieces">
+        <Association Name="FK_Animals_Spieces1">
           <End Role="Spieces" Type="Self.Spieces" Multiplicity="1" />
           <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Spieces">
-              <PropertyRef Name="name" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Animals">
               <PropertyRef Name="spiece" />
@@ -206,27 +211,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DiseaseHistory_Diseases">
+        <Association Name="FK_DiseaseHistory_Diseases1">
           <End Role="Diseases" Type="Self.Diseases" Multiplicity="1" />
           <End Role="DiseaseHistory" Type="Self.DiseaseHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Diseases">
-              <PropertyRef Name="name" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="DiseaseHistory">
-              <PropertyRef Name="diseaseName" />
+              <PropertyRef Name="diseaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FoodShipment_Food">
+        <Association Name="FK_FoodShipment_Food1">
           <End Role="Food" Type="Self.Food" Multiplicity="1" />
           <End Role="FoodShipment" Type="Self.FoodShipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Food">
-              <PropertyRef Name="name" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="FoodShipment">
-              <PropertyRef Name="foodName" />
+              <PropertyRef Name="foodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -266,15 +271,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ServicePointsServicePointWorkers_ServicePoint">
+        <Association Name="FK_ServicePointsServicePointWorkers_ServicePoint1">
           <End Role="ServicePoint" Type="Self.ServicePoint" Multiplicity="1" />
           <End Role="ServicePointsServicePointWorkers" Type="Self.ServicePointsServicePointWorkers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ServicePoint">
-              <PropertyRef Name="name" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="ServicePointsServicePointWorkers">
-              <PropertyRef Name="servicePointName" />
+              <PropertyRef Name="servicePointId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -292,7 +297,7 @@
         </Association>
         <Association Name="FK_Settlement_Shipment">
           <End Role="Shipment" Type="Self.Shipment" Multiplicity="1" />
-          <End Role="Settlement" Type="Self.Settlement" Multiplicity="0..1" />
+          <End Role="Settlement" Type="Self.Settlement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipment">
               <PropertyRef Name="id" />
@@ -302,39 +307,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Shipment_Supplier">
+        <Association Name="FK_Shipment_Supplier1">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
           <End Role="Shipment" Type="Self.Shipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supplier">
-              <PropertyRef Name="name" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Shipment">
-              <PropertyRef Name="supplierName" />
+              <PropertyRef Name="supplierId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SpiecesFood_Food">
+        <Association Name="FK_SpiecesFood_Food1">
           <End Role="Food" Type="Self.Food" Multiplicity="1" />
           <End Role="SpiecesFood" Type="Self.SpiecesFood" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Food">
-              <PropertyRef Name="name" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="SpiecesFood">
-              <PropertyRef Name="foodName" />
+              <PropertyRef Name="foodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SpiecesFood_Spieces">
+        <Association Name="FK_SpiecesFood_Spieces1">
           <End Role="Spieces" Type="Self.Spieces" Multiplicity="1" />
           <End Role="SpiecesFood" Type="Self.SpiecesFood" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Spieces">
-              <PropertyRef Name="name" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="SpiecesFood">
-              <PropertyRef Name="spieceName" />
+              <PropertyRef Name="spieceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -401,7 +406,7 @@
             <End Role="Runways" EntitySet="Runways" />
             <End Role="Animals" EntitySet="Animals" />
           </AssociationSet>
-          <AssociationSet Name="FK_Animals_Spieces" Association="Self.FK_Animals_Spieces">
+          <AssociationSet Name="FK_Animals_Spieces1" Association="Self.FK_Animals_Spieces1">
             <End Role="Spieces" EntitySet="Spieces" />
             <End Role="Animals" EntitySet="Animals" />
           </AssociationSet>
@@ -409,11 +414,11 @@
             <End Role="Animals" EntitySet="Animals" />
             <End Role="DiseaseHistory" EntitySet="DiseaseHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK_DiseaseHistory_Diseases" Association="Self.FK_DiseaseHistory_Diseases">
+          <AssociationSet Name="FK_DiseaseHistory_Diseases1" Association="Self.FK_DiseaseHistory_Diseases1">
             <End Role="Diseases" EntitySet="Diseases" />
             <End Role="DiseaseHistory" EntitySet="DiseaseHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK_FoodShipment_Food" Association="Self.FK_FoodShipment_Food">
+          <AssociationSet Name="FK_FoodShipment_Food1" Association="Self.FK_FoodShipment_Food1">
             <End Role="Food" EntitySet="Food" />
             <End Role="FoodShipment" EntitySet="FoodShipment" />
           </AssociationSet>
@@ -429,7 +434,7 @@
             <End Role="Supervisors" EntitySet="Supervisors" />
             <End Role="RunwaysSupervisors" EntitySet="RunwaysSupervisors" />
           </AssociationSet>
-          <AssociationSet Name="FK_ServicePointsServicePointWorkers_ServicePoint" Association="Self.FK_ServicePointsServicePointWorkers_ServicePoint">
+          <AssociationSet Name="FK_ServicePointsServicePointWorkers_ServicePoint1" Association="Self.FK_ServicePointsServicePointWorkers_ServicePoint1">
             <End Role="ServicePoint" EntitySet="ServicePoint" />
             <End Role="ServicePointsServicePointWorkers" EntitySet="ServicePointsServicePointWorkers" />
           </AssociationSet>
@@ -441,15 +446,15 @@
             <End Role="Shipment" EntitySet="Shipment" />
             <End Role="Settlement" EntitySet="Settlement" />
           </AssociationSet>
-          <AssociationSet Name="FK_Shipment_Supplier" Association="Self.FK_Shipment_Supplier">
+          <AssociationSet Name="FK_Shipment_Supplier1" Association="Self.FK_Shipment_Supplier1">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Shipment" EntitySet="Shipment" />
           </AssociationSet>
-          <AssociationSet Name="FK_SpiecesFood_Food" Association="Self.FK_SpiecesFood_Food">
+          <AssociationSet Name="FK_SpiecesFood_Food1" Association="Self.FK_SpiecesFood_Food1">
             <End Role="Food" EntitySet="Food" />
             <End Role="SpiecesFood" EntitySet="SpiecesFood" />
           </AssociationSet>
-          <AssociationSet Name="FK_SpiecesFood_Spieces" Association="Self.FK_SpiecesFood_Spieces">
+          <AssociationSet Name="FK_SpiecesFood_Spieces1" Association="Self.FK_SpiecesFood_Spieces1">
             <End Role="Spieces" EntitySet="Spieces" />
             <End Role="SpiecesFood" EntitySet="SpiecesFood" />
           </AssociationSet>
@@ -458,304 +463,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Animal">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="age" Type="Int32" Nullable="false" />
-          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="origin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="inZooSince" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="spiece" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="runwayID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Runway" Relationship="Self.FK_Animals_Runways" FromRole="Animals" ToRole="Runways" />
-          <NavigationProperty Name="Spiece1" Relationship="Self.FK_Animals_Spieces" FromRole="Animals" ToRole="Spieces" />
-          <NavigationProperty Name="DiseaseHistories" Relationship="Self.FK_DiseaseHistory_Animals" FromRole="Animals" ToRole="DiseaseHistory" />
-        </EntityType>
-        <EntityType Name="DiseaseHistory">
-          <Key>
-            <PropertyRef Name="beginDate" />
-            <PropertyRef Name="animalID" />
-            <PropertyRef Name="diseaseName" />
-          </Key>
-          <Property Name="beginDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="animalID" Type="Int32" Nullable="false" />
-          <Property Name="diseaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="endDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Animal" Relationship="Self.FK_DiseaseHistory_Animals" FromRole="DiseaseHistory" ToRole="Animals" />
-          <NavigationProperty Name="Disease" Relationship="Self.FK_DiseaseHistory_Diseases" FromRole="DiseaseHistory" ToRole="Diseases" />
-        </EntityType>
-        <EntityType Name="Disease">
-          <Key>
-            <PropertyRef Name="name" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DiseaseHistories" Relationship="Self.FK_DiseaseHistory_Diseases" FromRole="Diseases" ToRole="DiseaseHistory" />
-        </EntityType>
-        <EntityType Name="Food">
-          <Key>
-            <PropertyRef Name="name" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="requirement" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Shipments" Relationship="Self.FoodShipment" FromRole="Food" ToRole="Shipment" />
-          <NavigationProperty Name="Spieces" Relationship="Self.SpiecesFood" FromRole="Food" ToRole="Spieces" />
-          <Property Name="currentAmount" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Runway">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="area" Type="Double" Nullable="false" />
-          <Property Name="animalCount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_Runways" FromRole="Runways" ToRole="Animals" />
-          <NavigationProperty Name="Supervisors" Relationship="Self.RunwaysSupervisors" FromRole="Runways" ToRole="Supervisors" />
-        </EntityType>
-        <EntityType Name="ServicePoint">
-          <Key>
-            <PropertyRef Name="name" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="howManyWorkers" Type="Int32" Nullable="false" />
-          <Property Name="income" Type="Double" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ServicePointWorkers" Relationship="Self.ServicePointsServicePointWorkers" FromRole="ServicePoint" ToRole="ServicePointWorkers" />
-        </EntityType>
-        <EntityType Name="ServicePointWorker">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="age" Type="Int32" Nullable="false" />
-          <Property Name="salary" Type="Int32" Nullable="false" />
-          <Property Name="employed" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="ServicePoints" Relationship="Self.ServicePointsServicePointWorkers" FromRole="ServicePointWorkers" ToRole="ServicePoint" />
-        </EntityType>
-        <EntityType Name="Settlement">
-          <Key>
-            <PropertyRef Name="shipmentId" />
-          </Key>
-          <Property Name="shipmentId" Type="Int32" Nullable="false" />
-          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="modificationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="year" Type="Int32" Nullable="false" />
-          <Property Name="month" Type="Int32" Nullable="false" />
-          <Property Name="sum" Type="Int32" Nullable="false" />
-          <Property Name="approved" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Shipment" Relationship="Self.FK_Shipment_Settlement1" FromRole="Settlement" ToRole="Shipment" />
-          <NavigationProperty Name="Shipment1" Relationship="DbModel.FK_Settlement_Shipment" FromRole="Settlement" ToRole="Shipment" />
-        </EntityType>
-        <EntityType Name="Shipment">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="shipmentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="supplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="amount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Settlement" Relationship="Self.FK_Shipment_Settlement1" FromRole="Shipment" ToRole="Settlement" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK_Shipment_Supplier" FromRole="Shipment" ToRole="Supplier" />
-          <NavigationProperty Name="Foods" Relationship="Self.FoodShipment" FromRole="Shipment" ToRole="Food" />
-          <NavigationProperty Name="Settlement1" Relationship="DbModel.FK_Settlement_Shipment" FromRole="Shipment" ToRole="Settlement" />
-        </EntityType>
-        <EntityType Name="Spiece">
-          <Key>
-            <PropertyRef Name="name" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="howMany" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_Spieces" FromRole="Spieces" ToRole="Animals" />
-          <NavigationProperty Name="Foods" Relationship="Self.SpiecesFood" FromRole="Spieces" ToRole="Food" />
-          <Property Name="appetite" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Supervisor">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="age" Type="Int32" Nullable="false" />
-          <Property Name="salary" Type="Int32" Nullable="false" />
-          <Property Name="employed" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Runways" Relationship="Self.RunwaysSupervisors" FromRole="Supervisors" ToRole="Runways" />
-        </EntityType>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="name" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Shipments" Relationship="Self.FK_Shipment_Supplier" FromRole="Supplier" ToRole="Shipment" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="login" />
-          </Key>
-          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="passwordHash" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="passwordSalt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Animals_Runways">
-          <End Role="Runways" Type="Self.Runway" Multiplicity="1" />
-          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Runways">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Animals">
-              <PropertyRef Name="runwayID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Animals_Spieces">
-          <End Role="Spieces" Type="Self.Spiece" Multiplicity="1" />
-          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Spieces">
-              <PropertyRef Name="name" />
-            </Principal>
-            <Dependent Role="Animals">
-              <PropertyRef Name="spiece" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DiseaseHistory_Animals">
-          <End Role="Animals" Type="Self.Animal" Multiplicity="1" />
-          <End Role="DiseaseHistory" Type="Self.DiseaseHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Animals">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DiseaseHistory">
-              <PropertyRef Name="animalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DiseaseHistory_Diseases">
-          <End Role="Diseases" Type="Self.Disease" Multiplicity="1" />
-          <End Role="DiseaseHistory" Type="Self.DiseaseHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Diseases">
-              <PropertyRef Name="name" />
-            </Principal>
-            <Dependent Role="DiseaseHistory">
-              <PropertyRef Name="diseaseName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Shipment_Settlement1">
-          <End Role="Settlement" Type="Self.Settlement" Multiplicity="1" />
-          <End Role="Shipment" Type="Self.Shipment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Settlement">
-              <PropertyRef Name="shipmentId" />
-            </Principal>
-            <Dependent Role="Shipment">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Shipment_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
-          <End Role="Shipment" Type="Self.Shipment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="name" />
-            </Principal>
-            <Dependent Role="Shipment">
-              <PropertyRef Name="supplierName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FoodShipment">
-          <End Role="Food" Type="Self.Food" Multiplicity="*" />
-          <End Role="Shipment" Type="Self.Shipment" Multiplicity="*" />
-        </Association>
-        <Association Name="RunwaysSupervisors">
-          <End Role="Runways" Type="Self.Runway" Multiplicity="*" />
-          <End Role="Supervisors" Type="Self.Supervisor" Multiplicity="*" />
-        </Association>
-        <Association Name="ServicePointsServicePointWorkers">
-          <End Role="ServicePoint" Type="Self.ServicePoint" Multiplicity="*" />
-          <End Role="ServicePointWorkers" Type="Self.ServicePointWorker" Multiplicity="*" />
-        </Association>
-        <Association Name="SpiecesFood">
-          <End Role="Food" Type="Self.Food" Multiplicity="*" />
-          <End Role="Spieces" Type="Self.Spiece" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="connectionString" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Animals" EntityType="Self.Animal" />
-          <EntitySet Name="DiseaseHistories" EntityType="Self.DiseaseHistory" />
-          <EntitySet Name="Diseases" EntityType="Self.Disease" />
-          <EntitySet Name="Foods" EntityType="Self.Food" />
-          <EntitySet Name="Runways" EntityType="Self.Runway" />
-          <EntitySet Name="ServicePoints" EntityType="Self.ServicePoint" />
-          <EntitySet Name="ServicePointWorkers" EntityType="Self.ServicePointWorker" />
-          <EntitySet Name="Settlements" EntityType="Self.Settlement" />
-          <EntitySet Name="Shipments" EntityType="Self.Shipment" />
-          <EntitySet Name="Spieces" EntityType="Self.Spiece" />
-          <EntitySet Name="Supervisors" EntityType="Self.Supervisor" />
-          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Animals_Runways" Association="Self.FK_Animals_Runways">
-            <End Role="Runways" EntitySet="Runways" />
-            <End Role="Animals" EntitySet="Animals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Animals_Spieces" Association="Self.FK_Animals_Spieces">
-            <End Role="Spieces" EntitySet="Spieces" />
-            <End Role="Animals" EntitySet="Animals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DiseaseHistory_Animals" Association="Self.FK_DiseaseHistory_Animals">
-            <End Role="Animals" EntitySet="Animals" />
-            <End Role="DiseaseHistory" EntitySet="DiseaseHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DiseaseHistory_Diseases" Association="Self.FK_DiseaseHistory_Diseases">
-            <End Role="Diseases" EntitySet="Diseases" />
-            <End Role="DiseaseHistory" EntitySet="DiseaseHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Shipment_Settlement1" Association="Self.FK_Shipment_Settlement1">
-            <End Role="Settlement" EntitySet="Settlements" />
-            <End Role="Shipment" EntitySet="Shipments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Shipment_Supplier" Association="Self.FK_Shipment_Supplier">
-            <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="Shipment" EntitySet="Shipments" />
-          </AssociationSet>
-          <AssociationSet Name="FoodShipment" Association="Self.FoodShipment">
-            <End Role="Food" EntitySet="Foods" />
-            <End Role="Shipment" EntitySet="Shipments" />
-          </AssociationSet>
-          <AssociationSet Name="RunwaysSupervisors" Association="Self.RunwaysSupervisors">
-            <End Role="Runways" EntitySet="Runways" />
-            <End Role="Supervisors" EntitySet="Supervisors" />
-          </AssociationSet>
-          <AssociationSet Name="ServicePointsServicePointWorkers" Association="Self.ServicePointsServicePointWorkers">
-            <End Role="ServicePoint" EntitySet="ServicePoints" />
-            <End Role="ServicePointWorkers" EntitySet="ServicePointWorkers" />
-          </AssociationSet>
-          <AssociationSet Name="SpiecesFood" Association="Self.SpiecesFood">
-            <End Role="Food" EntitySet="Foods" />
-            <End Role="Spieces" EntitySet="Spieces" />
-          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -786,14 +494,64 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="deleteInfectedAnimals">
+          <Parameter Name="diseaseName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Animals" EntityType="DbModel.Animal" />
+          <EntitySet Name="DiseaseHistories" EntityType="DbModel.DiseaseHistory" />
+          <EntitySet Name="Diseases" EntityType="DbModel.Disease" />
+          <EntitySet Name="Foods" EntityType="DbModel.Food" />
+          <EntitySet Name="Runways" EntityType="DbModel.Runway" />
+          <EntitySet Name="ServicePoints" EntityType="DbModel.ServicePoint" />
+          <EntitySet Name="ServicePointWorkers" EntityType="DbModel.ServicePointWorker" />
+          <EntitySet Name="Settlements" EntityType="DbModel.Settlement" />
+          <EntitySet Name="Shipments" EntityType="DbModel.Shipment" />
+          <EntitySet Name="Spieces" EntityType="DbModel.Spiece" />
+          <EntitySet Name="Supervisors" EntityType="DbModel.Supervisor" />
+          <EntitySet Name="Suppliers" EntityType="DbModel.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="DbModel.sysdiagram" />
+          <EntitySet Name="Users" EntityType="DbModel.User" />
+          <AssociationSet Name="FK_Animals_Runways" Association="DbModel.FK_Animals_Runways">
+            <End Role="Runway" EntitySet="Runways" />
+            <End Role="Animal" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animals_Spieces1" Association="DbModel.FK_Animals_Spieces1">
+            <End Role="Spiece" EntitySet="Spieces" />
+            <End Role="Animal" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiseaseHistory_Animals" Association="DbModel.FK_DiseaseHistory_Animals">
+            <End Role="Animal" EntitySet="Animals" />
+            <End Role="DiseaseHistory" EntitySet="DiseaseHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiseaseHistory_Diseases1" Association="DbModel.FK_DiseaseHistory_Diseases1">
+            <End Role="Disease" EntitySet="Diseases" />
+            <End Role="DiseaseHistory" EntitySet="DiseaseHistories" />
+          </AssociationSet>
           <AssociationSet Name="FK_Settlement_Shipment" Association="DbModel.FK_Settlement_Shipment">
             <End Role="Shipment" EntitySet="Shipments" />
             <End Role="Settlement" EntitySet="Settlements" />
           </AssociationSet>
-          <FunctionImport Name="deleteInfectedAnimals">
-          <Parameter Name="diseaseName" Mode="In" Type="String" />
-          </FunctionImport>
-        </EntityContainer>
+          <AssociationSet Name="FK_Shipment_Supplier1" Association="DbModel.FK_Shipment_Supplier1">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Shipment" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="FoodShipment" Association="DbModel.FoodShipment">
+            <End Role="Food" EntitySet="Foods" />
+            <End Role="Shipment" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="RunwaysSupervisors" Association="DbModel.RunwaysSupervisors">
+            <End Role="Runway" EntitySet="Runways" />
+            <End Role="Supervisor" EntitySet="Supervisors" />
+          </AssociationSet>
+          <AssociationSet Name="ServicePointsServicePointWorkers" Association="DbModel.ServicePointsServicePointWorkers">
+            <End Role="ServicePoint" EntitySet="ServicePoints" />
+            <End Role="ServicePointWorker" EntitySet="ServicePointWorkers" />
+          </AssociationSet>
+          <AssociationSet Name="SpiecesFood" Association="DbModel.SpiecesFood">
+            <End Role="Food" EntitySet="Foods" />
+            <End Role="Spiece" EntitySet="Spieces" />
+          </AssociationSet>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -805,9 +563,215 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="origin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="inZooSince" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="spiece" Type="Int32" Nullable="false" />
+          <Property Name="runwayID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Runway" Relationship="DbModel.FK_Animals_Runways" FromRole="Animal" ToRole="Runway" />
+          <NavigationProperty Name="Spiece1" Relationship="DbModel.FK_Animals_Spieces1" FromRole="Animal" ToRole="Spiece" />
+          <NavigationProperty Name="DiseaseHistories" Relationship="DbModel.FK_DiseaseHistory_Animals" FromRole="Animal" ToRole="DiseaseHistory" />
+        </EntityType>
+        <EntityType Name="DiseaseHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="beginDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="animalID" Type="Int32" Nullable="false" />
+          <Property Name="diseaseId" Type="Int32" Nullable="false" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Animal" Relationship="DbModel.FK_DiseaseHistory_Animals" FromRole="DiseaseHistory" ToRole="Animal" />
+          <NavigationProperty Name="Disease" Relationship="DbModel.FK_DiseaseHistory_Diseases1" FromRole="DiseaseHistory" ToRole="Disease" />
+        </EntityType>
+        <EntityType Name="Disease">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DiseaseHistories" Relationship="DbModel.FK_DiseaseHistory_Diseases1" FromRole="Disease" ToRole="DiseaseHistory" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="requirement" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Shipments" Relationship="DbModel.FoodShipment" FromRole="Food" ToRole="Shipment" />
+          <NavigationProperty Name="Spieces" Relationship="DbModel.SpiecesFood" FromRole="Food" ToRole="Spiece" />
+        </EntityType>
+        <EntityType Name="Runway">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="area" Type="Double" Nullable="false" />
+          <Property Name="animalCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Animals" Relationship="DbModel.FK_Animals_Runways" FromRole="Runway" ToRole="Animal" />
+          <NavigationProperty Name="Supervisors" Relationship="DbModel.RunwaysSupervisors" FromRole="Runway" ToRole="Supervisor" />
+        </EntityType>
+        <EntityType Name="ServicePoint">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="howManyWorkers" Type="Int32" Nullable="false" />
+          <Property Name="income" Type="Double" Nullable="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ServicePointWorkers" Relationship="DbModel.ServicePointsServicePointWorkers" FromRole="ServicePoint" ToRole="ServicePointWorker" />
+        </EntityType>
+        <EntityType Name="ServicePointWorker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="salary" Type="Int32" Nullable="false" />
+          <Property Name="employed" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ServicePoints" Relationship="DbModel.ServicePointsServicePointWorkers" FromRole="ServicePointWorker" ToRole="ServicePoint" />
+        </EntityType>
+        <EntityType Name="Settlement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="shipmentId" Type="Int32" Nullable="false" />
+          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modificationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="month" Type="Int32" Nullable="false" />
+          <Property Name="sum" Type="Int32" Nullable="false" />
+          <Property Name="approved" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Shipment" Relationship="DbModel.FK_Settlement_Shipment" FromRole="Settlement" ToRole="Shipment" />
+        </EntityType>
+        <EntityType Name="Shipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="shipmentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="supplierId" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Settlements" Relationship="DbModel.FK_Settlement_Shipment" FromRole="Shipment" ToRole="Settlement" />
+          <NavigationProperty Name="Supplier" Relationship="DbModel.FK_Shipment_Supplier1" FromRole="Shipment" ToRole="Supplier" />
+          <NavigationProperty Name="Foods" Relationship="DbModel.FoodShipment" FromRole="Shipment" ToRole="Food" />
+        </EntityType>
+        <EntityType Name="Spiece">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="appetite" Type="Int32" Nullable="false" />
+          <Property Name="howMany" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Animals" Relationship="DbModel.FK_Animals_Spieces1" FromRole="Spiece" ToRole="Animal" />
+          <NavigationProperty Name="Foods" Relationship="DbModel.SpiecesFood" FromRole="Spiece" ToRole="Food" />
+        </EntityType>
+        <EntityType Name="Supervisor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="salary" Type="Int32" Nullable="false" />
+          <Property Name="employed" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Runways" Relationship="DbModel.RunwaysSupervisors" FromRole="Supervisor" ToRole="Runway" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Shipments" Relationship="DbModel.FK_Shipment_Supplier1" FromRole="Supplier" ToRole="Shipment" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="passwordHash" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="passwordSalt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Animals_Runways">
+          <End Type="DbModel.Runway" Role="Runway" Multiplicity="1" />
+          <End Type="DbModel.Animal" Role="Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Runway">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="runwayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animals_Spieces1">
+          <End Type="DbModel.Spiece" Role="Spiece" Multiplicity="1" />
+          <End Type="DbModel.Animal" Role="Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spiece">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="spiece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiseaseHistory_Animals">
+          <End Type="DbModel.Animal" Role="Animal" Multiplicity="1" />
+          <End Type="DbModel.DiseaseHistory" Role="DiseaseHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DiseaseHistory">
+              <PropertyRef Name="animalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiseaseHistory_Diseases1">
+          <End Type="DbModel.Disease" Role="Disease" Multiplicity="1" />
+          <End Type="DbModel.DiseaseHistory" Role="DiseaseHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disease">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DiseaseHistory">
+              <PropertyRef Name="diseaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Settlement_Shipment">
           <End Type="DbModel.Shipment" Role="Shipment" Multiplicity="1" />
-          <End Type="DbModel.Settlement" Role="Settlement" Multiplicity="0..1" />
+          <End Type="DbModel.Settlement" Role="Settlement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Shipment">
               <PropertyRef Name="id" />
@@ -817,189 +781,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Shipment_Supplier1">
+          <End Type="DbModel.Supplier" Role="Supplier" Multiplicity="1" />
+          <End Type="DbModel.Shipment" Role="Shipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Shipment">
+              <PropertyRef Name="supplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FoodShipment">
+          <End Type="DbModel.Food" Role="Food" Multiplicity="*" />
+          <End Type="DbModel.Shipment" Role="Shipment" Multiplicity="*" />
+        </Association>
+        <Association Name="RunwaysSupervisors">
+          <End Type="DbModel.Runway" Role="Runway" Multiplicity="*" />
+          <End Type="DbModel.Supervisor" Role="Supervisor" Multiplicity="*" />
+        </Association>
+        <Association Name="ServicePointsServicePointWorkers">
+          <End Type="DbModel.ServicePoint" Role="ServicePoint" Multiplicity="*" />
+          <End Type="DbModel.ServicePointWorker" Role="ServicePointWorker" Multiplicity="*" />
+        </Association>
+        <Association Name="SpiecesFood">
+          <End Type="DbModel.Food" Role="Food" Multiplicity="*" />
+          <End Type="DbModel.Spiece" Role="Spiece" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="connectionString">
-          <EntitySetMapping Name="Animals">
-            <EntityTypeMapping TypeName="DbModel.Animal">
-              <MappingFragment StoreEntitySet="Animals">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="age" ColumnName="age" />
-                <ScalarProperty Name="sex" ColumnName="sex" />
-                <ScalarProperty Name="origin" ColumnName="origin" />
-                <ScalarProperty Name="inZooSince" ColumnName="inZooSince" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="spiece" ColumnName="spiece" />
-                <ScalarProperty Name="runwayID" ColumnName="runwayID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DiseaseHistories">
-            <EntityTypeMapping TypeName="DbModel.DiseaseHistory">
-              <MappingFragment StoreEntitySet="DiseaseHistory">
-                <ScalarProperty Name="beginDate" ColumnName="beginDate" />
-                <ScalarProperty Name="animalID" ColumnName="animalID" />
-                <ScalarProperty Name="diseaseName" ColumnName="diseaseName" />
-                <ScalarProperty Name="endDate" ColumnName="endDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Diseases">
-            <EntityTypeMapping TypeName="DbModel.Disease">
-              <MappingFragment StoreEntitySet="Diseases">
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Foods">
-            <EntityTypeMapping TypeName="DbModel.Food">
-              <MappingFragment StoreEntitySet="Food">
-                <ScalarProperty Name="currentAmount" ColumnName="currentAmount" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="requirement" ColumnName="requirement" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Runways">
-            <EntityTypeMapping TypeName="DbModel.Runway">
-              <MappingFragment StoreEntitySet="Runways">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="area" ColumnName="area" />
-                <ScalarProperty Name="animalCount" ColumnName="animalCount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServicePoints">
-            <EntityTypeMapping TypeName="DbModel.ServicePoint">
-              <MappingFragment StoreEntitySet="ServicePoint">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="howManyWorkers" ColumnName="howManyWorkers" />
-                <ScalarProperty Name="income" ColumnName="income" />
-                <ScalarProperty Name="type" ColumnName="type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServicePointWorkers">
-            <EntityTypeMapping TypeName="DbModel.ServicePointWorker">
-              <MappingFragment StoreEntitySet="ServicePointWorkers">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="age" ColumnName="age" />
-                <ScalarProperty Name="salary" ColumnName="salary" />
-                <ScalarProperty Name="employed" ColumnName="employed" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Settlements">
-            <EntityTypeMapping TypeName="DbModel.Settlement">
-              <MappingFragment StoreEntitySet="Settlement">
-                <ScalarProperty Name="shipmentId" ColumnName="shipmentId" />
-                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-                <ScalarProperty Name="modificationDate" ColumnName="modificationDate" />
-                <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="month" ColumnName="month" />
-                <ScalarProperty Name="sum" ColumnName="sum" />
-                <ScalarProperty Name="approved" ColumnName="approved" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Shipments">
-            <EntityTypeMapping TypeName="DbModel.Shipment">
-              <MappingFragment StoreEntitySet="Shipment">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
-                <ScalarProperty Name="supplierName" ColumnName="supplierName" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Spieces">
-            <EntityTypeMapping TypeName="DbModel.Spiece">
-              <MappingFragment StoreEntitySet="Spieces">
-                <ScalarProperty Name="appetite" ColumnName="appetite" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="howMany" ColumnName="howMany" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Supervisors">
-            <EntityTypeMapping TypeName="DbModel.Supervisor">
-              <MappingFragment StoreEntitySet="Supervisors">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="age" ColumnName="age" />
-                <ScalarProperty Name="salary" ColumnName="salary" />
-                <ScalarProperty Name="employed" ColumnName="employed" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="DbModel.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DbModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="DbModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="login" ColumnName="login" />
-                <ScalarProperty Name="passwordHash" ColumnName="passwordHash" />
-                <ScalarProperty Name="passwordSalt" ColumnName="passwordSalt" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="FoodShipment" TypeName="DbModel.FoodShipment" StoreEntitySet="FoodShipment">
-            <EndProperty Name="Food">
-              <ScalarProperty Name="name" ColumnName="foodName" />
-            </EndProperty>
-            <EndProperty Name="Shipment">
-              <ScalarProperty Name="id" ColumnName="shipmentId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="RunwaysSupervisors" TypeName="DbModel.RunwaysSupervisors" StoreEntitySet="RunwaysSupervisors">
-            <EndProperty Name="Runways">
-              <ScalarProperty Name="id" ColumnName="runwayID" />
-            </EndProperty>
-            <EndProperty Name="Supervisors">
-              <ScalarProperty Name="id" ColumnName="supervisorID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="ServicePointsServicePointWorkers" TypeName="DbModel.ServicePointsServicePointWorkers" StoreEntitySet="ServicePointsServicePointWorkers">
-            <EndProperty Name="ServicePoint">
-              <ScalarProperty Name="name" ColumnName="servicePointName" />
-            </EndProperty>
-            <EndProperty Name="ServicePointWorkers">
-              <ScalarProperty Name="id" ColumnName="workerID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="SpiecesFood" TypeName="DbModel.SpiecesFood" StoreEntitySet="SpiecesFood">
-            <EndProperty Name="Food">
-              <ScalarProperty Name="name" ColumnName="foodName" />
-            </EndProperty>
-            <EndProperty Name="Spieces">
-              <ScalarProperty Name="name" ColumnName="spieceName" />
-            </EndProperty>
-          </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DbModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DbModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DbModel.Store.sp_dropdiagram" />
@@ -1025,7 +840,191 @@
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DbModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DbModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="deleteInfectedAnimals" FunctionName="DbModel.Store.deleteInfectedAnimals" />
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Animals">
+            <EntityTypeMapping TypeName="DbModel.Animal">
+              <MappingFragment StoreEntitySet="Animals">
+                <ScalarProperty Name="runwayID" ColumnName="runwayID" />
+                <ScalarProperty Name="spiece" ColumnName="spiece" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="inZooSince" ColumnName="inZooSince" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="origin" ColumnName="origin" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiseaseHistories">
+            <EntityTypeMapping TypeName="DbModel.DiseaseHistory">
+              <MappingFragment StoreEntitySet="DiseaseHistory">
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="diseaseId" ColumnName="diseaseId" />
+                <ScalarProperty Name="animalID" ColumnName="animalID" />
+                <ScalarProperty Name="beginDate" ColumnName="beginDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diseases">
+            <EntityTypeMapping TypeName="DbModel.Disease">
+              <MappingFragment StoreEntitySet="Diseases">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foods">
+            <EntityTypeMapping TypeName="DbModel.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="requirement" ColumnName="requirement" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Runways">
+            <EntityTypeMapping TypeName="DbModel.Runway">
+              <MappingFragment StoreEntitySet="Runways">
+                <ScalarProperty Name="animalCount" ColumnName="animalCount" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServicePoints">
+            <EntityTypeMapping TypeName="DbModel.ServicePoint">
+              <MappingFragment StoreEntitySet="ServicePoint">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="income" ColumnName="income" />
+                <ScalarProperty Name="howManyWorkers" ColumnName="howManyWorkers" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServicePointWorkers">
+            <EntityTypeMapping TypeName="DbModel.ServicePointWorker">
+              <MappingFragment StoreEntitySet="ServicePointWorkers">
+                <ScalarProperty Name="employed" ColumnName="employed" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settlements">
+            <EntityTypeMapping TypeName="DbModel.Settlement">
+              <MappingFragment StoreEntitySet="Settlement">
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="modificationDate" ColumnName="modificationDate" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="shipmentId" ColumnName="shipmentId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipments">
+            <EntityTypeMapping TypeName="DbModel.Shipment">
+              <MappingFragment StoreEntitySet="Shipment">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="supplierId" ColumnName="supplierId" />
+                <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spieces">
+            <EntityTypeMapping TypeName="DbModel.Spiece">
+              <MappingFragment StoreEntitySet="Spieces">
+                <ScalarProperty Name="howMany" ColumnName="howMany" />
+                <ScalarProperty Name="appetite" ColumnName="appetite" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supervisors">
+            <EntityTypeMapping TypeName="DbModel.Supervisor">
+              <MappingFragment StoreEntitySet="Supervisors">
+                <ScalarProperty Name="employed" ColumnName="employed" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="DbModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DbModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="passwordSalt" ColumnName="passwordSalt" />
+                <ScalarProperty Name="passwordHash" ColumnName="passwordHash" />
+                <ScalarProperty Name="login" ColumnName="login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FoodShipment" TypeName="DbModel.FoodShipment" StoreEntitySet="FoodShipment">
+            <EndProperty Name="Shipment">
+              <ScalarProperty Name="id" ColumnName="shipmentId" />
+            </EndProperty>
+            <EndProperty Name="Food">
+              <ScalarProperty Name="id" ColumnName="foodId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RunwaysSupervisors" TypeName="DbModel.RunwaysSupervisors" StoreEntitySet="RunwaysSupervisors">
+            <EndProperty Name="Supervisor">
+              <ScalarProperty Name="id" ColumnName="supervisorID" />
+            </EndProperty>
+            <EndProperty Name="Runway">
+              <ScalarProperty Name="id" ColumnName="runwayID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ServicePointsServicePointWorkers" TypeName="DbModel.ServicePointsServicePointWorkers" StoreEntitySet="ServicePointsServicePointWorkers">
+            <EndProperty Name="ServicePointWorker">
+              <ScalarProperty Name="id" ColumnName="workerID" />
+            </EndProperty>
+            <EndProperty Name="ServicePoint">
+              <ScalarProperty Name="id" ColumnName="servicePointId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SpiecesFood" TypeName="DbModel.SpiecesFood" StoreEntitySet="SpiecesFood">
+            <EndProperty Name="Spiece">
+              <ScalarProperty Name="id" ColumnName="spieceId" />
+            </EndProperty>
+            <EndProperty Name="Food">
+              <ScalarProperty Name="id" ColumnName="foodId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

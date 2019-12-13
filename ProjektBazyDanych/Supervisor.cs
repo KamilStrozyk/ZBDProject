@@ -20,7 +20,6 @@ namespace ProjektBazyDanych
         {
             this.Runways = new HashSet<Runway>();
         }
-
         [Display(Name = "Id nadzorcy")]
         public int id { get; set; }
         [Display(Name = "Imiê")]
@@ -44,7 +43,7 @@ namespace ProjektBazyDanych
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime employed { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Runway> Runways { get; set; }
     }

@@ -20,25 +20,35 @@ namespace ProjektBazyDanych
         {
             this.DiseaseHistories = new HashSet<DiseaseHistory>();
         }
-        [Display(Name ="Id zwierzêcia")]
+        [Display(Name = "Id zwierzêcia")]
         public int id { get; set; }
         [Display(Name = "Wiek")]
+        [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
+        [Required(ErrorMessage = "Wpisz wiek")]
         public int age { get; set; }
-        [Display(Name = "P³eæ")]
-        public string sex { get; set; }
         [Display(Name = "Pochodzenie")]
+        [Required(ErrorMessage = "Wpisz pochodzenie")]
         public string origin { get; set; }
+        [Display(Name = "P³eæ")]
+        [Required(ErrorMessage = "Wybierz p³eæ")]
+        public string sex { get; set; }
         [Display(Name = "W Zoo od:")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime inZooSince { get; set; }
         [Display(Name = "Imiê")]
+        [RegularExpression("[^0-9]*", ErrorMessage = "Imiê nie mo¿e zawieraæ cyfr")]
+        [Required(ErrorMessage = "Wpisz imiê")]
         public string name { get; set; }
+        [Required(ErrorMessage = "Wybierz gatunek")]
         [Display(Name = "Gatunek")]
-        public string spiece { get; set; }
+        [RegularExpression("[^0-9]*", ErrorMessage = "Gatunek nie mo¿e zawieraæ cyfr")]
+        public int spiece { get; set; }
         [Display(Name = "Wybieg")]
+        [Required(ErrorMessage = "Wybierz wybieg")]
         public int runwayID { get; set; }
-
+    
         public virtual Runway Runway { get; set; }
         public virtual Spiece Spiece1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -46,7 +56,6 @@ namespace ProjektBazyDanych
     }
     public enum Gender
     {
-        
         Samiec,
         Samica
     }

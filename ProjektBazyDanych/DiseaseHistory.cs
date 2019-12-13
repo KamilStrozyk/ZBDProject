@@ -15,14 +15,19 @@ namespace ProjektBazyDanych
 
     public partial class DiseaseHistory
     {
+        [Display(Name = "Id wpisu")]
+        public int id { get; set; }
         [Display(Name = "Data pocz¹tku choroby")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime beginDate { get; set; }
         [Display(Name = "Id zwierzêcia")]
+        [Required(ErrorMessage = "Wybierz zwierzê")]
         public int animalID { get; set; }
-        [Display(Name = "Nazwa choroby")]
-        public string diseaseName { get; set; }
+        [Display(Name = "Id choroby")]
+        [Required(ErrorMessage = "Wybierz chorobê")]
+        public int diseaseId { get; set; }
         [Display(Name = "Data koñca choroby")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]

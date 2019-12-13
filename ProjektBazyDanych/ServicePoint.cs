@@ -20,15 +20,21 @@ namespace ProjektBazyDanych
         {
             this.ServicePointWorkers = new HashSet<ServicePointWorker>();
         }
+        [Display(Name = "Id punktu")]
+        public int id { get; set; }
         [Display(Name = "Nazwa punktu")]
+        [Required(ErrorMessage = "Wpisz nazwê")]
         public string name { get; set; }
         [Display(Name = "Iloœæ pracowników")]
+        [Required(ErrorMessage = "Wpisz pensjê")]
         public int howManyWorkers { get; set; }
         [Display(Name = "Przychód")]
+        [Required(ErrorMessage = "Wpisz pensjê")]
         public double income { get; set; }
         [Display(Name = "Typ")]
+        [Required(ErrorMessage = "Wpisz typ")]
         public string type { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicePointWorker> ServicePointWorkers { get; set; }
     }

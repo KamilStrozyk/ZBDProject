@@ -20,10 +20,12 @@ namespace ProjektBazyDanych
         {
             this.Shipments = new HashSet<Shipment>();
         }
-    
-        [Display(Name = "Nazwa dostawcy")]
+        [Display(Name = "Id dostawcy")]
+        public int id { get; set; }
+        [Display(Name = "Nazwa dsawcy")]
+        [Required(ErrorMessage = "Wpisz nazwê")]
         public string name { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Shipment> Shipments { get; set; }
     }

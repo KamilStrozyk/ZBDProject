@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using ProjektBazyDanych;
+using System.Linq;
 
 namespace ProjektBazyDanych.Controllers
 {
@@ -18,7 +14,7 @@ namespace ProjektBazyDanych.Controllers
         // GET: Shipments
         public async Task<ActionResult> Index()
         {
-            var shipments = db.Shipments.Include(s => s.Settlement).Include(s => s.Supplier);
+            var shipments = db.Shipments.Include(s => s.Settlements).Include(s => s.Supplier);
             return View(await shipments.ToListAsync());
         }
 
@@ -47,12 +43,22 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // POST: Shipments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,shipmentDate,supplierName,amount")] Shipment shipment)
         {
+            if (shipment.shipmentDate > DateTime.Today)
+            {
+                ModelState.AddModelError("shipmentDate", "Data nie może być większa od obecnej");
+            }
+            //int id = 0;
+            //do
+            //{
+            //    id = new Random().Next();
+            //} while (db.Shipments.Select(x => x.id).ToList().Contains(id));
+            //shipment.id = id;
             if (ModelState.IsValid)
             {
                 db.Shipments.Add(shipment);
@@ -61,7 +67,7 @@ namespace ProjektBazyDanych.Controllers
             }
 
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
-            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierName);
+            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierId);
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
             return View(shipment);
         }
@@ -79,18 +85,22 @@ namespace ProjektBazyDanych.Controllers
                 return HttpNotFound();
             }
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
-            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierName);
+            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierId);
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
             return View(shipment);
         }
 
         // POST: Shipments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,shipmentDate,supplierName,amount")] Shipment shipment)
         {
+            if (shipment.shipmentDate > DateTime.Today)
+            {
+                ModelState.AddModelError("shipmentDate", "Data nie może być większa od obecnej");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(shipment).State = EntityState.Modified;
@@ -98,7 +108,7 @@ namespace ProjektBazyDanych.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
-            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierName);
+            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierId);
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
             return View(shipment);
         }
