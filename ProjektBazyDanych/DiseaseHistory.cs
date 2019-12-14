@@ -22,10 +22,10 @@ namespace ProjektBazyDanych
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime beginDate { get; set; }
-        [Display(Name = "Id zwierzêcia")]
+        [Display(Name = "Zwierzê")]
         [Required(ErrorMessage = "Wybierz zwierzê")]
         public int animalID { get; set; }
-        [Display(Name = "Id choroby")]
+        [Display(Name = "Choroba")]
         [Required(ErrorMessage = "Wybierz chorobê")]
         public int diseaseId { get; set; }
         [Display(Name = "Data koñca choroby")]

@@ -83,7 +83,7 @@
 							@Html.DisplayFor(model => model.Spiece1.appetite)
 						</td>
 						<td>
-							@Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = Model.Spiece1.name }, new { @class = "white-link" })
+							@Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = Model.Spiece1.id }, new { @class = "white-link" })
 						</td>
 					</tr>
 				</table>
@@ -95,26 +95,32 @@
 
 			<dd>
 				<table class="table table-dark table-striped">
-					<tr>
-						<th>
-							@Html.DisplayNameFor(model => model.Runway.area)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Runway.animalCount)
-						</th>
-						<th></th>
-					</tr>
-					<tr>
-						<td>
-							@Html.DisplayFor(model => model.Runway.area)
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Runway.animalCount)
-						</td>
-						<td>
-							@Html.ActionLink("Szczegóły", "Details", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" }) 
-						</td>
-					</tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runway.name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runway.area)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Runway.animalCount)
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Runway.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Runway.area)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Runway.animalCount)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Szczegóły", "Details", "Runways", new { id = Model.Runway.id }, new { @class = "white-link" })
+                        </td>
+                    </tr>
 				</table>
 
 			</dd>
@@ -135,7 +141,7 @@
 								@Html.DisplayNameFor(model => diseaseHistory.endDate)
 							</th>
 							<th>
-								@Html.DisplayNameFor(model => diseaseHistory.diseaseName)
+								@Html.DisplayNameFor(model => diseaseHistory.Disease.name)
 							</th>
 							<th></th>
 						}
@@ -150,10 +156,10 @@
 								@Html.DisplayFor(modelItem => item.endDate)
 							</td>
 							<td>
-								@Html.DisplayFor(modelItem => item.diseaseName)
+								@Html.DisplayFor(modelItem => item.Disease.name)
 							</td>
 							<td>
-								@Html.ActionLink("Szczegóły", "Details", "DiseaseHistories", new { id = item.beginDate }, new { @class = "white-link" }) 
+								@Html.ActionLink("Szczegóły", "Details", "DiseaseHistories", new { id = item.id }, new { @class = "white-link" }) 
 							</td>
 						</tr>
 					}

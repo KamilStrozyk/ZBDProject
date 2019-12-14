@@ -43,7 +43,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.sex, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.sex, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownList("sex", new SelectList(Enum.GetValues(typeof(Gender))), "Wybierz płeć", htmlAttributes: new { @class = "form-control" })
+            @*@Html.EditorFor(model => model.sex, new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.ValidationMessageFor(model => model.sex, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -59,7 +60,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.inZooSince, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.inZooSince, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.inZooSince, new { htmlAttributes = new { @class = "form-control",@Value = @Model.inZooSince.ToString("yyyy-MM-dd") } })
             @Html.ValidationMessageFor(model => model.inZooSince, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -69,7 +70,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.runwayID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("runwayID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("runway", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.runwayID, "", new { @class = "text-danger" })
         </div>
     </div>

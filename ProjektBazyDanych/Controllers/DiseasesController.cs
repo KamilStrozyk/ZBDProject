@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace ProjektBazyDanych.Controllers
 {
@@ -16,7 +17,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: Diseases/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -43,6 +44,10 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "name")] Disease disease)
         {
+            if (db.Diseases.Any(x => x.name == disease.name && x.id != disease.id))
+            {
+                ModelState.AddModelError("name", "Taka choroba już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Diseases.Add(disease);
@@ -56,11 +61,12 @@ namespace ProjektBazyDanych.Controllers
         public async Task<ActionResult> DeleteAnimals(string name)
         {
             db.deleteInfectedAnimals(name);
-            return RedirectToAction("Details", new { id = name });
+            int id = db.Diseases.Where(x => x.name == name).FirstOrDefault().id;
+            return RedirectToAction("Details", new { id = id  });
         }
 
         // GET: Diseases/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -79,8 +85,12 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "name")] Disease disease)
+        public async Task<ActionResult> Edit([Bind(Include = "id,name")] Disease disease)
         {
+            if (db.Diseases.Any(x => x.name == disease.name && x.id != disease.id))
+            {
+                ModelState.AddModelError("name", "Taka choroba już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(disease).State = EntityState.Modified;
@@ -91,7 +101,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: Diseases/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -108,7 +118,7 @@ namespace ProjektBazyDanych.Controllers
         // POST: Diseases/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             Disease disease = await db.Diseases.FindAsync(id);
             db.Diseases.Remove(disease);

@@ -11,7 +11,7 @@
     <h4>Nadzorca</h4>
     <hr />
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-3">
 
 
             <dt>
@@ -54,14 +54,24 @@
                 @Html.DisplayFor(model => model.employed)
             </dd>
         </div>
-        <div class="col-sm-6">
-            <dt>
+        <div class="col-sm-9">
+            <dt class="mb-3">
                 Wybiegi przypisane do nadzorcy:
             </dt>
+            <div class="row">
+                <div class="col-sm-5">
+                    @Html.ActionLink("Dodaj wybieg", "AddRunway", new { id = Model.id }, new { @class = "btn btn-dark mr-5 " })
+                </div>
+                <div class="col-sm-5">
+
+                    @Html.ActionLink("Usuń wybieg", "DeleteRunway", new { id = Model.id }, new { @class = "btn btn-dark " })
+                </div>
+
+            </div>
             <dd>
 
 
-                <table class="table table-dark table-striped">
+                <table class="table table-dark table-striped mt-4">
                     @{var runway = Model.Runways.FirstOrDefault();
 
                         <tr>
@@ -81,7 +91,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayNameFor(model => runway.area)
+                                @Html.DisplayFor(model => item.name)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.area)

@@ -61,7 +61,7 @@
                                     @Html.DisplayNameFor(model => animal.inZooSince)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => animal.spiece)
+                                    @Html.DisplayNameFor(model => animal.Spiece1.name)
                                 </th>
                                 <th></th>
                             }
@@ -85,7 +85,7 @@
                                     @Html.DisplayFor(modelItem => item.inZooSince)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.spiece)
+                                    @Html.DisplayFor(modelItem => item.Spiece1.name)
                                 </td>
                                 <td>
                                     @Html.ActionLink("Szczegóły", "Details", "Animals", new { id = item.id }, new { @class = "white-link" })

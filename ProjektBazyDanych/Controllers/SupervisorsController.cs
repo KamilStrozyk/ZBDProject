@@ -124,7 +124,147 @@ namespace ProjektBazyDanych.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        //GET: Runways/AddRunway/5
+        public async Task<ActionResult> AddRunway(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Supervisor supervisor = await db.Supervisors.FindAsync(id);
+            if (supervisor == null)
+            {
+                return HttpNotFound();
+            }
+            var supervisorRunways = supervisor.Runways.Select(x => x.id).ToList();
+            IEnumerable<Runway> availableRunways = db.Runways.
+                Where(x => !supervisorRunways.
+                Contains(x.id));
+            string firstRunway;
+            if (!supervisorRunways.Any())
+                firstRunway = db.Runways.Where(x => !supervisorRunways.Contains(x.id)).FirstOrDefault().name;
+            else firstRunway = "brak dostępnego wybiegu";
 
+            ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+            return View(supervisor);
+
+        }
+
+        //POST: Runways/AddSupervisor/5
+        [HttpPost, ActionName("AddRunway")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddRunway(string name, int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (name == null)
+            {
+                ModelState.AddModelError("name", "Nie wybrałeś wybiegu");
+            }
+            if (ModelState.IsValid)
+            {
+                Supervisor supervisor = await db.Supervisors.FindAsync(id);
+                Runway runway =  db.Runways. Where(x => x.name == name).FirstOrDefault();
+                runway.Supervisors.Add(supervisor);
+                supervisor.Runways.Add(runway);
+                db.Entry(runway).State = EntityState.Modified;
+                db.Entry(supervisor).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = supervisor.id });
+            }
+            else
+            {
+                Supervisor supervisor = await db.Supervisors.FindAsync(id);
+                if (supervisor == null)
+                {
+                    return HttpNotFound();
+                }
+                var supervisorRunways = supervisor.Runways.Select(x => x.id).ToList();
+                IEnumerable<Runway> availableRunways = db.Runways.
+                    Where(x => !supervisorRunways.
+                    Contains(x.id));
+                string firstRunway;
+                if (!supervisorRunways.Any())
+                    firstRunway = db.Runways.Where(x => !supervisorRunways.Contains(x.id)).FirstOrDefault().name;
+                else firstRunway = "brak dostępnego wybiegu";
+
+                ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+                return View(supervisor);
+            }
+        }
+        //GET: Runways/DeleteRunway/5
+        public async Task<ActionResult> DeleteRunway(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Supervisor supervisor = await db.Supervisors.FindAsync(id);
+            if (supervisor == null)
+            {
+                return HttpNotFound();
+            }
+            var supervisorRunways = supervisor.Runways.Select(x => x.id).ToList();
+            IEnumerable<Runway> availableRunways = db.Runways.
+                Where(x => supervisorRunways.
+                Contains(x.id));
+            string firstRunway;
+            if (supervisorRunways.Any())
+                firstRunway = db.Runways.FirstOrDefault().name;
+            else firstRunway = "brak dostępnego wybiegu";
+
+            ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+            return View(supervisor);
+
+        }
+
+        //POST: Runways/DeleteRunway/5
+        [HttpPost, ActionName("DeleteRunway")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteRunway(string name, int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (name == null)
+            {
+                ModelState.AddModelError("name", "Nie wybrałeś wybiegu");
+            }
+            if (ModelState.IsValid)
+            {
+                Supervisor supervisor = await db.Supervisors.FindAsync(id);
+                Runway runway = db.Runways.Where(x => x.name == name).FirstOrDefault();
+                runway.Supervisors.Remove(supervisor);
+                supervisor.Runways.Remove(runway);
+                db.Entry(runway).State = EntityState.Modified;
+                db.Entry(supervisor).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = supervisor.id });
+            }
+            else
+            {
+                Supervisor supervisor = await db.Supervisors.FindAsync(id);
+                if (supervisor == null)
+                {
+                    return HttpNotFound();
+                }
+                var supervisorRunways = supervisor.Runways.Select(x => x.id).ToList();
+                IEnumerable<Runway> availableRunways = db.Runways.
+                    Where(x => supervisorRunways.
+                    Contains(x.id));
+                string firstRunway;
+                if (supervisorRunways.Any())
+                    firstRunway = db.Runways.FirstOrDefault().name;
+                else firstRunway = "brak dostępnego wybiegu";
+
+                ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+                return View(supervisor);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

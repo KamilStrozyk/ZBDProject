@@ -525,6 +525,8 @@
     <Content Include="Views\ServicePoints\AddServicePointWorker.cshtml" />
     <Content Include="Views\ServicePoints\DeleteServicePointWorker.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Supervisors\AddRunway.cshtml" />
+    <Content Include="Views\Supervisors\DeleteRunway.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

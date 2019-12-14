@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.endDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Animal.id)
+            @Html.DisplayNameFor(model => model.Animal.name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Disease.name)
@@ -36,15 +36,15 @@
         @Html.DisplayFor(modelItem => item.endDate)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Animal.id)
+        @Html.DisplayFor(modelItem => item.Animal.name)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Disease.name)
     </td>
     <td>
-        @Html.ActionLink("Edytuj", "Edit", new {  id=item.beginDate  }, new {@class="white-link"}) |
-        @Html.ActionLink("Szczegóły", "Details", new { id=item.beginDate }, new {@class="white-link"}) |
-        @Html.ActionLink("Usuń", "Delete", new {  id=item.beginDate }, new {@class="white-link"})
+        @Html.ActionLink("Edytuj", "Edit", new {  id=item.id  }, new {@class="white-link"}) |
+        @Html.ActionLink("Szczegóły", "Details", new { id=item.id }, new {@class="white-link"}) |
+        @Html.ActionLink("Usuń", "Delete", new {  id=item.id }, new {@class="white-link"})
     </td>
 </tr>
 }

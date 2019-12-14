@@ -30,6 +30,8 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Animal animal = await db.Animals.FindAsync(id);
+            animal.Runway.animalCount = animal.Runway.Animals.Count();
+            await db.SaveChangesAsync();
             if (animal == null)
             {
                 return HttpNotFound();
@@ -51,8 +53,16 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,age,sex,origin,inZooSince,name,spiece,runwayID")] Animal animal)
+        public async Task<ActionResult> Create([Bind(Include = "id,name,age,sex,origin,inZooSince")] Animal animal)
         {
+            string spiece=Request.Form["spiece"];
+            string runway = Request.Form["runway"];
+            animal.runwayID=db.Runways.Where(x=>x.name==runway).FirstOrDefault().id;
+            animal.spiece = db.Spieces.Where(x => x.name == spiece).FirstOrDefault().id;
+            if (animal.inZooSince > DateTime.Today)
+            {
+                ModelState.AddModelError("inZooSince", "Data nie może być większa od obecnej");
+            }
             if (ModelState.IsValid)
             {
                 db.Animals.Add(animal);
@@ -60,7 +70,7 @@ namespace ProjektBazyDanych.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.runwayID = new SelectList(db.Runways, "id", "id", animal.runwayID);
+            ViewBag.runway = new SelectList(db.Runways, "name", "name", animal.runwayID);
             ViewBag.spiece = new SelectList(db.Spieces, "name", "name", animal.spiece);
             return View(animal);
         }
@@ -77,7 +87,7 @@ namespace ProjektBazyDanych.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.runwayID = new SelectList(db.Runways, "id", "id", animal.runwayID);
+            ViewBag.runway = new SelectList(db.Runways, "name", "name", animal.runwayID);
             ViewBag.spiece = new SelectList(db.Spieces, "name", "name", animal.spiece);
             return View(animal);
         }
@@ -87,15 +97,24 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,age,sex,origin,inZooSince,name,spiece,runwayID")] Animal animal)
+        public async Task<ActionResult> Edit([Bind(Include = "id,age,sex,origin,inZooSince,name")] Animal animal)
         {
+
+            string spiece = Request.Form["spiece"];
+            string runway = Request.Form["runway"];
+            animal.runwayID = db.Runways.Where(x => x.name == runway).FirstOrDefault().id;
+            animal.spiece = db.Spieces.Where(x => x.name == spiece).FirstOrDefault().id;
+            if (animal.inZooSince > DateTime.Today)
+            {
+                ModelState.AddModelError("inZooSince", "Data nie może być większa od obecnej");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(animal).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.runwayID = new SelectList(db.Runways, "id", "id", animal.runwayID);
+            ViewBag.runwayID = new SelectList(db.Runways, "name", "name", animal.runwayID);
             ViewBag.spiece = new SelectList(db.Spieces, "name", "name", animal.spiece);
             return View(animal);
         }
