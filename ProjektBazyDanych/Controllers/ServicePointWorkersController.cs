@@ -144,12 +144,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
                 Where(x => !servicePointWorkerServicePoints.
                 Contains(x.name));
-            string firstServicePoint;
-            if (!servicePointWorkerServicePoints.Any())
-                firstServicePoint = db.ServicePoints.Where(x => !servicePointWorkerServicePoints.Contains(x.name)).FirstOrDefault().name;
-            else firstServicePoint = "brak dostępnego punktu usług";
+          
 
-            ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+            ViewBag.name = new SelectList(availableServicePoints, "name", "name");
             return View(servicePointWorker);
 
         }
@@ -190,11 +187,9 @@ namespace ProjektBazyDanych.Controllers
                     Where(x => !servicePointWorkerServicePoints.
                     Contains(x.name));
                 string firstServicePoint;
-                if (!servicePointWorkerServicePoints.Any())
-                    firstServicePoint = db.ServicePoints.Where(x => !servicePointWorkerServicePoints.Contains(x.name)).FirstOrDefault().name;
-                else firstServicePoint = "brak dostępnego punktu usług";
+               
 
-                ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+                ViewBag.name = new SelectList(availableServicePoints, "name", "name");
                 return View(servicePointWorker);
             }
         }
@@ -216,11 +211,9 @@ namespace ProjektBazyDanych.Controllers
                 Where(x => servicePointWorkerServicePoints.
                 Contains(x.name));
             string firstServicePoint;
-            if (servicePointWorkerServicePoints.Any())
-                firstServicePoint = servicePointWorkerServicePoints.FirstOrDefault();
-            else firstServicePoint = "brak dostępnego punktu usług";
+           
 
-            ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+            ViewBag.name = new SelectList(availableServicePoints, "name", "name");
             return View(servicePointWorker);
 
         }
@@ -262,12 +255,9 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
                     Where(x => servicePointWorkerServicePoints.
                     Contains(x.name));
-                string firstServicePoint;
-                if (servicePointWorkerServicePoints.Any())
-                    firstServicePoint = servicePointWorkerServicePoints.FirstOrDefault();
-                else firstServicePoint = "brak dostępnego punktu usług";
+              
 
-                ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+                ViewBag.name = new SelectList(availableServicePoints, "name", "name");
                 return View(servicePointWorker);
             }
         }

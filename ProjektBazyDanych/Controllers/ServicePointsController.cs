@@ -160,11 +160,9 @@ namespace ProjektBazyDanych.Controllers
                 Where(x => !servicePointServicePointWorkers.
                 Contains(x.id));
             string firstServicePointWorker;
-            if (!servicePointServicePointWorkers.Any())
-                firstServicePointWorker = db.ServicePointWorkers.Where(x => !servicePointServicePointWorkers.Contains(x.id)).FirstOrDefault().lastName;
-            else firstServicePointWorker = "brak dostępnych pracowników";
+          
 
-            ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+            ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName");
             return View(servicePoint);
 
         }
@@ -206,12 +204,8 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<ServicePointWorker> availableServicePointWorkers = db.ServicePointWorkers.
                     Where(x => !servicePointServicePointWorkers.
                     Contains(x.id));
-                string firstServicePointWorker;
-                if (!servicePointServicePointWorkers.Any())
-                    firstServicePointWorker = db.ServicePointWorkers.Where(x => !servicePointServicePointWorkers.Contains(x.id)).FirstOrDefault().lastName;
-                else firstServicePointWorker = "brak dostępnych pracowników";
-
-                ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+               
+                ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName");
                 return View(servicePoint);
             }
         }
@@ -232,12 +226,8 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<ServicePointWorker> availableServicePointWorkers = db.ServicePointWorkers.
                 Where(x => servicePointServicePointWorkers.
                 Contains(x.id));
-            string firstServicePointWorker;
-            if (servicePointServicePointWorkers.Any())
-                firstServicePointWorker = availableServicePointWorkers.FirstOrDefault().lastName;
-            else firstServicePointWorker = "brak dostępnych pracowników";
-
-            ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+        
+            ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName");
             return View(servicePoint);
 
         }
@@ -279,11 +269,9 @@ namespace ProjektBazyDanych.Controllers
                     Where(x => servicePointServicePointWorkers.
                     Contains(x.id));
                 string firstServicePointWorker;
-                if (servicePointServicePointWorkers.Any())
-                    firstServicePointWorker = availableServicePointWorkers.FirstOrDefault().lastName;
-                else firstServicePointWorker = "brak dostępnych pracowników";
+              
 
-                ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName", firstServicePointWorker);
+                ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName");
                 return View(servicePoint);
             }
         }

@@ -141,11 +141,8 @@ namespace ProjektBazyDanych.Controllers
                 Where(x => !supervisorRunways.
                 Contains(x.id));
             string firstRunway;
-            if (!supervisorRunways.Any())
-                firstRunway = db.Runways.Where(x => !supervisorRunways.Contains(x.id)).FirstOrDefault().name;
-            else firstRunway = "brak dostępnego wybiegu";
 
-            ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+            ViewBag.name = new SelectList(availableRunways, "name", "name");
             return View(supervisor);
 
         }
@@ -186,11 +183,8 @@ namespace ProjektBazyDanych.Controllers
                     Where(x => !supervisorRunways.
                     Contains(x.id));
                 string firstRunway;
-                if (!supervisorRunways.Any())
-                    firstRunway = db.Runways.Where(x => !supervisorRunways.Contains(x.id)).FirstOrDefault().name;
-                else firstRunway = "brak dostępnego wybiegu";
 
-                ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+                ViewBag.name = new SelectList(availableRunways, "name", "name");
                 return View(supervisor);
             }
         }
@@ -212,11 +206,8 @@ namespace ProjektBazyDanych.Controllers
                 Where(x => supervisorRunways.
                 Contains(x.id));
             string firstRunway;
-            if (supervisorRunways.Any())
-                firstRunway = db.Runways.FirstOrDefault().name;
-            else firstRunway = "brak dostępnego wybiegu";
-
-            ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+         
+            ViewBag.name = new SelectList(availableRunways, "name", "name");
             return View(supervisor);
 
         }
@@ -256,12 +247,9 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<Runway> availableRunways = db.Runways.
                     Where(x => supervisorRunways.
                     Contains(x.id));
-                string firstRunway;
-                if (supervisorRunways.Any())
-                    firstRunway = db.Runways.FirstOrDefault().name;
-                else firstRunway = "brak dostępnego wybiegu";
 
-                ViewBag.name = new SelectList(availableRunways, "name", "name", firstRunway);
+
+                ViewBag.name = new SelectList(availableRunways, "name", "name");
                 return View(supervisor);
             }
         }

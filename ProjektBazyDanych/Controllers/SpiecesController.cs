@@ -155,12 +155,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Food> availableFood = db.Foods.
                 Where(x => !spieceFood.
                 Contains(x.name));
-            string firstFood;
-            if (spieceFood.Any())
-                firstFood = db.Foods.Where(x => !spieceFood.Contains(x.name)).FirstOrDefault().name;
-            else firstFood = "brak dostępnego jedzenia";
+        
 
-            ViewBag.name = new SelectList(availableFood,"name", "name",firstFood) ;
+            ViewBag.name = new SelectList(availableFood,"name", "name") ;
             return View(spiece);
 
         }
@@ -196,11 +193,8 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<Food> availableFood = db.Foods.
                     Where(x => !spieceFood.
                     Contains(x.name));
-                string firstFood;
-                if (spieceFood.Any())
-                    firstFood = db.Foods.Where(x => !spieceFood.Contains(x.name)).FirstOrDefault().name;
-                else firstFood = "brak dostępnego jedzenia";
-                ViewBag.name = new SelectList(availableFood, "name", "name", firstFood);
+               
+                ViewBag.name = new SelectList(availableFood, "name", "name");
                 return View(spiece);
             }
         }
@@ -220,12 +214,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Food> availableFood = db.Foods.
                 Where(x => spieceFood.
                 Contains(x.name));
-            string firstFood;
-            if (!spieceFood.Any())
-                firstFood = spieceFood.FirstOrDefault();
-            else firstFood = "brak dostępnego jedzenia";
+            
 
-            ViewBag.name = new SelectList(availableFood, "name", "name", firstFood);
+            ViewBag.name = new SelectList(availableFood, "name", "name");
             return View(spiece);
 
         }
@@ -255,7 +246,7 @@ namespace ProjektBazyDanych.Controllers
             else
             {
                 Spiece spiece = await db.Spieces.FindAsync(id);
-                ViewBag.name = new SelectList(db.Foods.Where(x => !spiece.Foods.Contains(x)), "name", "name", db.Foods.Where(x => !spiece.Foods.Contains(x)).FirstOrDefault());
+                ViewBag.name = new SelectList(db.Foods.Where(x => !spiece.Foods.Contains(x)), "name", "name");
                 return View(spiece);
             }
         }

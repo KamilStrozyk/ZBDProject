@@ -149,12 +149,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                 Where(x => !runwaySupervisors.
                 Contains(x.id));
-            string firstSupervisor;
-            if (!runwaySupervisors.Any())
-                firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
-            else firstSupervisor = "brak dostępnego nadzorcy";
+          
 
-            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
             return View(runway);
 
         }
@@ -190,12 +187,9 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                     Where(x => !runwaySupervisors.
                     Contains(x.id));
-                string firstSupervisor;
-                if (!runwaySupervisors.Any())
-                    firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
-                else firstSupervisor = "brak dostępnego nadzorcy";
+              
 
-                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
                 return View(runway);
             }
         }
@@ -217,12 +211,8 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                 Where(x => runwaySupervisors.
                 Contains(x.id));
-            string firstSupervisor;
-            if (!availableSupervisors.Any())
-                firstSupervisor = availableSupervisors.FirstOrDefault().lastName;
-            else firstSupervisor = "brak dostępnego nadzorcy";
-
-            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+           
+            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
             return View(runway);
 
         }
@@ -256,12 +246,8 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                     Where(x => !runwaySupervisors.
                     Contains(x.id));
-                string firstSupervisor;
-                if (!runwaySupervisors.Any())
-                    firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
-                else firstSupervisor = "brak dostępnego nadzorcy";
-
-                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+              
+                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
                 return View(runway);
             }
         }
