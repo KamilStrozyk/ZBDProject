@@ -34,11 +34,11 @@ namespace ProjektBazyDanych
         [Required(ErrorMessage = "Wpisz wiek")]
         [Range(13, 99, ErrorMessage = "Proszê podaæ odpowiedni wiek")]
         public int age { get; set; }
-        [Display(Name = "Pensja")]
+        [Display(Name = "Pensja w z³")]
         [Required(ErrorMessage = "Wpisz pensjê")]
         [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
         public int salary { get; set; }
-        [Display(Name = "Zatrudniony")]
+        [Display(Name = "Zatrudniony(a)")]
         [Required(ErrorMessage = "Wybierz datê")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]

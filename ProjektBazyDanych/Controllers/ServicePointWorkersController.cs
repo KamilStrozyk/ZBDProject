@@ -29,6 +29,11 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
+            foreach(var item in servicePointWorker.ServicePoints)
+            {
+                item.howManyWorkers = item.ServicePointWorkers.Count();
+            }
+            await db.SaveChangesAsync();
             if (servicePointWorker == null)
             {
                 return HttpNotFound();
@@ -49,6 +54,10 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,firstName,lastName,age,salary,employed")] ServicePointWorker servicePointWorker)
         {
+            if (servicePointWorker.employed > DateTime.Today)
+            {
+                ModelState.AddModelError("employed", "Data nie może być większa od obecnej");
+            }
             if (ModelState.IsValid)
             {
                 db.ServicePointWorkers.Add(servicePointWorker);
@@ -81,6 +90,10 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,firstName,lastName,age,salary,employed")] ServicePointWorker servicePointWorker)
         {
+            if (servicePointWorker.employed > DateTime.Today)
+            {
+                ModelState.AddModelError("employed", "Data nie może być większa od obecnej");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(servicePointWorker).State = EntityState.Modified;
@@ -131,12 +144,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
                 Where(x => !servicePointWorkerServicePoints.
                 Contains(x.name));
-            string firstServicePoint;
-            if (!servicePointWorkerServicePoints.Any())
-                firstServicePoint = db.ServicePoints.Where(x => !servicePointWorkerServicePoints.Contains(x.name)).FirstOrDefault().name;
-            else firstServicePoint = "brak dostępnego punktu usług";
+          
 
-            ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+            ViewBag.name = new SelectList(availableServicePoints, "name", "name");
             return View(servicePointWorker);
 
         }
@@ -150,7 +160,11 @@ namespace ProjektBazyDanych.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (name == null)
+            {
+                ModelState.AddModelError("lastName", "Nie wybrałeś pracownika");
+            }
+            if (ModelState.IsValid)
             {
                 ServicePoint servicePoint = db.ServicePoints.Where(x => x.name == name).FirstOrDefault();
                 ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
@@ -161,7 +175,7 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Details", new { id = servicePointWorker.id });
             }
-            catch
+            else
             {
                 ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
                 if (servicePointWorker == null)
@@ -173,11 +187,9 @@ namespace ProjektBazyDanych.Controllers
                     Where(x => !servicePointWorkerServicePoints.
                     Contains(x.name));
                 string firstServicePoint;
-                if (!servicePointWorkerServicePoints.Any())
-                    firstServicePoint = db.ServicePoints.Where(x => !servicePointWorkerServicePoints.Contains(x.name)).FirstOrDefault().name;
-                else firstServicePoint = "brak dostępnego punktu usług";
+               
 
-                ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+                ViewBag.name = new SelectList(availableServicePoints, "name", "name");
                 return View(servicePointWorker);
             }
         }
@@ -199,11 +211,9 @@ namespace ProjektBazyDanych.Controllers
                 Where(x => servicePointWorkerServicePoints.
                 Contains(x.name));
             string firstServicePoint;
-            if (servicePointWorkerServicePoints.Any())
-                firstServicePoint = servicePointWorkerServicePoints.FirstOrDefault();
-            else firstServicePoint = "brak dostępnego punktu usług";
+           
 
-            ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+            ViewBag.name = new SelectList(availableServicePoints, "name", "name");
             return View(servicePointWorker);
 
         }
@@ -217,18 +227,23 @@ namespace ProjektBazyDanych.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (name == null)
+            {
+                ModelState.AddModelError("lastName", "Nie wybrałeś pracownika");
+            }
+            if (ModelState.IsValid)
             {
                 ServicePoint servicePoint = db.ServicePoints.Where(x => x.name == name).FirstOrDefault();
                 ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
                 servicePoint.ServicePointWorkers.Remove(servicePointWorker);
                 servicePointWorker.ServicePoints.Remove(servicePoint);
+                
                 db.Entry(servicePoint).State = EntityState.Modified;
                 db.Entry(servicePointWorker).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Details", new { id = servicePointWorker.id });
             }
-            catch
+            else
             {
   
                 ServicePointWorker servicePointWorker = await db.ServicePointWorkers.FindAsync(id);
@@ -240,12 +255,9 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<ServicePoint> availableServicePoints = db.ServicePoints.
                     Where(x => servicePointWorkerServicePoints.
                     Contains(x.name));
-                string firstServicePoint;
-                if (servicePointWorkerServicePoints.Any())
-                    firstServicePoint = servicePointWorkerServicePoints.FirstOrDefault();
-                else firstServicePoint = "brak dostępnego punktu usług";
+              
 
-                ViewBag.name = new SelectList(availableServicePoints, "name", "name", firstServicePoint);
+                ViewBag.name = new SelectList(availableServicePoints, "name", "name");
                 return View(servicePointWorker);
             }
         }

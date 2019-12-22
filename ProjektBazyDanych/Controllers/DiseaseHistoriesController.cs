@@ -23,7 +23,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: DiseaseHistories/Details/5
-        public async Task<ActionResult> Details(DateTime id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -40,7 +40,7 @@ namespace ProjektBazyDanych.Controllers
         // GET: DiseaseHistories/Create
         public ActionResult Create()
         {
-            ViewBag.animalID = new SelectList(db.Animals, "id", "id");
+            ViewBag.animalID = new SelectList(db.Animals, "name", "name");
             ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name");
             return View();
         }
@@ -50,8 +50,36 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "beginDate,animalID,diseaseName,endDate")] DiseaseHistory diseaseHistory)
+        public async Task<ActionResult> Create([Bind(Include = "beginDate,endDate")] DiseaseHistory diseaseHistory)
         {
+            string disease = Request.Form["diseaseName"];
+            string animal = Request.Form["animalID"];
+            diseaseHistory.diseaseId = db.Diseases.Where(x => x.name == disease).FirstOrDefault().id;
+            diseaseHistory.animalID = db.Animals.Where(x => x.name == animal).FirstOrDefault().id;
+            if (diseaseHistory.beginDate > DateTime.Today)
+            {
+                ModelState.AddModelError("beginDate", "Data nie może być większa od obecnej");
+            }
+            if (diseaseHistory.endDate != null)
+            {
+                if (diseaseHistory.endDate > DateTime.Today)
+                {
+                    ModelState.AddModelError("endDate", "Data nie może być większa od obecnej");
+                }
+                else if (diseaseHistory.endDate < diseaseHistory.beginDate)
+                {
+                    ModelState.AddModelError("endDate", "Data zakończenianie musi być większa od daty rozpoczęcia");
+                }
+            }
+            if (db.DiseaseHistories.Any(x => x.beginDate == diseaseHistory.beginDate
+               && x.animalID == diseaseHistory.animalID
+               && x.diseaseId == diseaseHistory.diseaseId
+               && x.id != diseaseHistory.id))
+            {
+                ModelState.AddModelError("beginDate", "Wpis z takimi parametrami już istnieje");
+                ModelState.AddModelError("animalID", "Wpis z takimi parametrami już istnieje");
+                ModelState.AddModelError("diseaseId", "Wpis z takimi parametrami już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.DiseaseHistories.Add(diseaseHistory);
@@ -59,13 +87,13 @@ namespace ProjektBazyDanych.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.animalID = new SelectList(db.Animals, "id", "id", diseaseHistory.animalID);
-            ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name", diseaseHistory.diseaseId);
+            ViewBag.animalID = new SelectList(db.Animals, "name", "name");
+            ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name");
             return View(diseaseHistory);
         }
 
         // GET: DiseaseHistories/Edit/5
-        public async Task<ActionResult> Edit(DateTime id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -76,8 +104,8 @@ namespace ProjektBazyDanych.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.animalID = new SelectList(db.Animals, "id", "id", diseaseHistory.animalID);
-            ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name", diseaseHistory.diseaseId);
+            ViewBag.animalID = new SelectList(db.Animals, "name", "name", diseaseHistory.Animal.name);
+            ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name", diseaseHistory.Disease.name);
             return View(diseaseHistory);
         }
 
@@ -86,21 +114,50 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "beginDate,animalID,diseaseName,endDate")] DiseaseHistory diseaseHistory)
+        public async Task<ActionResult> Edit([Bind(Include = "id,beginDate,endDate")] DiseaseHistory diseaseHistory)
         {
+            string disease = Request.Form["diseaseName"];
+            string animal = Request.Form["animalID"];
+            diseaseHistory.diseaseId = db.Diseases.Where(x => x.name == disease).FirstOrDefault().id;
+            diseaseHistory.animalID = db.Animals.Where(x => x.name == animal).FirstOrDefault().id;
+           
+            if (diseaseHistory.beginDate > DateTime.Today)
+            {
+                ModelState.AddModelError("beginDate", "Data nie może być większa od obecnej");
+            }
+            if (diseaseHistory.endDate != null)
+            {
+                if (diseaseHistory.endDate > DateTime.Today)
+                {
+                    ModelState.AddModelError("endDate", "Data nie może być większa od obecnej");
+                }
+                else if (diseaseHistory.endDate < diseaseHistory.beginDate)
+                {
+                    ModelState.AddModelError("endDate", "Data zakończenianie musi być większa od daty rozpoczęcia");
+                }
+            }
+            if (db.DiseaseHistories.Any(x => x.beginDate == diseaseHistory.beginDate
+                && x.animalID == diseaseHistory.animalID
+                && x.diseaseId == diseaseHistory.diseaseId
+                && x.id != diseaseHistory.id))
+            {
+                ModelState.AddModelError("beginDate", "Wpis z takimi parametrami już istnieje");
+                ModelState.AddModelError("animalID", "Wpis z takimi parametrami już istnieje");
+                ModelState.AddModelError("diseaseId", "Wpis z takimi parametrami już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(diseaseHistory).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.animalID = new SelectList(db.Animals, "id", "id", diseaseHistory.animalID);
-            ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name", diseaseHistory.diseaseId);
+            ViewBag.animalID = new SelectList(db.Animals, "name", "name");
+            ViewBag.diseaseName = new SelectList(db.Diseases, "name", "name");
             return View(diseaseHistory);
         }
 
         // GET: DiseaseHistories/Delete/5
-        public async Task<ActionResult> Delete(DateTime id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -117,7 +174,7 @@ namespace ProjektBazyDanych.Controllers
         // POST: DiseaseHistories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(DateTime id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             DiseaseHistory diseaseHistory = await db.DiseaseHistories.FindAsync(id);
             db.DiseaseHistories.Remove(diseaseHistory);

@@ -53,8 +53,12 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,area,animalCount")] Runway runway)
+        public async Task<ActionResult> Create([Bind(Include = "id,name,area,animalCount")] Runway runway)
         {
+            if (db.Runways.Any(x => x.name == runway.name && x.id != runway.id))
+            {
+                ModelState.AddModelError("name", "Taki wybieg już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Runways.Add(runway);
@@ -87,8 +91,12 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,area,animalCount")] Runway runway)
+        public async Task<ActionResult> Edit([Bind(Include = "id,name,area,animalCount")] Runway runway)
         {
+            if (db.Runways.Any(x => x.name == runway.name && x.id != runway.id))
+            {
+                ModelState.AddModelError("name", "Taki wybieg już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(runway).State = EntityState.Modified;
@@ -141,12 +149,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                 Where(x => !runwaySupervisors.
                 Contains(x.id));
-            string firstSupervisor;
-            if (!runwaySupervisors.Any())
-                firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
-            else firstSupervisor = "brak dostępnego nadzorcy";
+          
 
-            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
             return View(runway);
 
         }
@@ -160,7 +165,11 @@ namespace ProjektBazyDanych.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (lastName == null)
+            {
+                ModelState.AddModelError("lastName", "Nie wybrałeś pracownika");
+            }
+            if (ModelState.IsValid)
             {
                 Supervisor supervisor = db.Supervisors.Where(x=>x.lastName==lastName).FirstOrDefault();
                 Runway runway = await db.Runways.FindAsync(runwayId);
@@ -171,19 +180,16 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Details", new { id = runway.id });
             }
-            catch
+            else
             {
                 Runway runway = await db.Runways.FindAsync(runwayId);
                 var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
                 IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                     Where(x => !runwaySupervisors.
                     Contains(x.id));
-                string firstSupervisor;
-                if (!runwaySupervisors.Any())
-                    firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
-                else firstSupervisor = "brak dostępnego nadzorcy";
+              
 
-                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
                 return View(runway);
             }
         }
@@ -205,12 +211,8 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                 Where(x => runwaySupervisors.
                 Contains(x.id));
-            string firstSupervisor;
-            if (!availableSupervisors.Any())
-                firstSupervisor = availableSupervisors.FirstOrDefault().lastName;
-            else firstSupervisor = "brak dostępnego nadzorcy";
-
-            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+           
+            ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
             return View(runway);
 
         }
@@ -224,7 +226,11 @@ namespace ProjektBazyDanych.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (lastName == null)
+            {
+                ModelState.AddModelError("lastName", "Nie wybrałeś pracownika");
+            }
+            if (ModelState.IsValid)
             {
                 Supervisor supervisor = db.Supervisors.Where(x => x.lastName == lastName).FirstOrDefault();
                 Runway runway = await db.Runways.FindAsync(runwayId);
@@ -233,19 +239,15 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Details", new { id = runway.id });
             }
-            catch
+            else
             {
                 Runway runway = await db.Runways.FindAsync(runwayId);
                 var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
                 IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                     Where(x => !runwaySupervisors.
                     Contains(x.id));
-                string firstSupervisor;
-                if (!runwaySupervisors.Any())
-                    firstSupervisor = db.Supervisors.Where(x => !runwaySupervisors.Contains(x.id)).FirstOrDefault().lastName;
-                else firstSupervisor = "brak dostępnego nadzorcy";
-
-                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName", firstSupervisor);
+              
+                ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
                 return View(runway);
             }
         }

@@ -37,13 +37,12 @@ namespace ProjektBazyDanych
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime inZooSince { get; set; }
-        [Display(Name = "Imiê")]
+        [Display(Name = "Imiê zwierzêcia")]
         [RegularExpression("[^0-9]*", ErrorMessage = "Imiê nie mo¿e zawieraæ cyfr")]
         [Required(ErrorMessage = "Wpisz imiê")]
         public string name { get; set; }
         [Required(ErrorMessage = "Wybierz gatunek")]
         [Display(Name = "Gatunek")]
-        [RegularExpression("[^0-9]*", ErrorMessage = "Gatunek nie mo¿e zawieraæ cyfr")]
         public int spiece { get; set; }
         [Display(Name = "Wybieg")]
         [Required(ErrorMessage = "Wybierz wybieg")]

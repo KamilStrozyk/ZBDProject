@@ -26,10 +26,10 @@ namespace ProjektBazyDanych
         [Required(ErrorMessage = "Wpisz nazwê")]
         public string name { get; set; }
         [Display(Name = "Iloœæ pracowników")]
-        [Required(ErrorMessage = "Wpisz pensjê")]
+        [Required(ErrorMessage = "Pole wymagane")]
         public int howManyWorkers { get; set; }
-        [Display(Name = "Przychód")]
-        [Required(ErrorMessage = "Wpisz pensjê")]
+        [Display(Name = "Przychód w z³")]
+        [Required(ErrorMessage = "Pole wymagane")]
         public double income { get; set; }
         [Display(Name = "Typ")]
         [Required(ErrorMessage = "Wpisz typ")]

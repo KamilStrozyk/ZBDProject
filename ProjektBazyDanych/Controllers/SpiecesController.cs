@@ -22,11 +22,12 @@ namespace ProjektBazyDanych.Controllers
             {
                 item.howMany = item.Animals.Where(x => x.spiece==item.id).Count();
             }
+            await db.SaveChangesAsync();
             return View(await db.Spieces.ToListAsync());
         }
 
         // GET: Spieces/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -34,6 +35,12 @@ namespace ProjektBazyDanych.Controllers
             }
             Spiece spiece = await db.Spieces.FindAsync(id);
             spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.id).Count();
+            foreach(var item in spiece.Foods)
+            {
+                item.requirement = item.Spieces.Select(x => x.appetite * x.howMany).Sum();
+            }
+            await db.SaveChangesAsync();
+
             if (spiece == null)
             {
                 return HttpNotFound();
@@ -54,6 +61,10 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "name,howMany,appetite")] Spiece spiece)
         {
+            if (db.Spieces.Any(x => x.name == spiece.name && x.id != spiece.id))
+            {
+                ModelState.AddModelError("name", "Taki gatunek już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Spieces.Add(spiece);
@@ -65,7 +76,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: Spieces/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -73,6 +84,8 @@ namespace ProjektBazyDanych.Controllers
             }
             Spiece spiece = await db.Spieces.FindAsync(id);
             spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.id).Count();
+            await db.SaveChangesAsync();
+
             if (spiece == null)
             {
                 return HttpNotFound();
@@ -85,8 +98,12 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "name,howMany,appetite")] Spiece spiece)
+        public async Task<ActionResult> Edit([Bind(Include = "id,name,howMany,appetite")] Spiece spiece)
         {
+            if (db.Spieces.Any(x => x.name == spiece.name && x.id != spiece.id))
+            {
+                ModelState.AddModelError("name", "Taki gatunek już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(spiece).State = EntityState.Modified;
@@ -97,7 +114,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: Spieces/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -115,7 +132,7 @@ namespace ProjektBazyDanych.Controllers
         // POST: Spieces/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             Spiece spiece = await db.Spieces.FindAsync(id);
             db.Spieces.Remove(spiece);
@@ -123,7 +140,7 @@ namespace ProjektBazyDanych.Controllers
             return RedirectToAction("Index");
         }
         //GET: Spieces/AddFood/5
-        public async Task<ActionResult> AddFood(string id)
+        public async Task<ActionResult> AddFood(int? id)
         {
             if (id == null)
             {
@@ -138,12 +155,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Food> availableFood = db.Foods.
                 Where(x => !spieceFood.
                 Contains(x.name));
-            string firstFood;
-            if (!spieceFood.Any())
-                firstFood = db.Foods.Where(x => !spieceFood.Contains(x.name)).FirstOrDefault().name;
-            else firstFood = "brak dostępnego jedzenia";
+        
 
-            ViewBag.name = new SelectList(availableFood,"name", "name",firstFood) ;
+            ViewBag.name = new SelectList(availableFood,"name", "name") ;
             return View(spiece);
 
         }
@@ -151,13 +165,17 @@ namespace ProjektBazyDanych.Controllers
         //POST: Spieces/AddFood/5
         [HttpPost,ActionName("AddFood")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddFood(string name,string id)
+        public async Task<ActionResult> AddFood(int? name, int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (name == null)
+            {
+                ModelState.AddModelError("name", "Nie wybrałeś jedzenia");
+            }
+            if (ModelState.IsValid)
             {
                 Food food = await db.Foods.FindAsync(name);
                 Spiece spiece = await db.Spieces.FindAsync(id);
@@ -168,23 +186,20 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Details",new { id = spiece.name });
             }
-            catch
+            else
             {
                 Spiece spiece = await db.Spieces.FindAsync(id);
                 var spieceFood = spiece.Foods.Select(x => x.name).ToList();
                 IEnumerable<Food> availableFood = db.Foods.
                     Where(x => !spieceFood.
                     Contains(x.name));
-                string firstFood;
-                if (!spieceFood.Any())
-                    firstFood = db.Foods.Where(x => !spieceFood.Contains(x.name)).FirstOrDefault().name;
-                else firstFood = "brak dostępnego jedzenia";
-                ViewBag.name = new SelectList(availableFood, "name", "name", firstFood);
+               
+                ViewBag.name = new SelectList(availableFood, "name", "name");
                 return View(spiece);
             }
         }
         //GET: Spieces/DeleteFood/5
-        public async Task<ActionResult> DeleteFood(string id)
+        public async Task<ActionResult> DeleteFood(int? id)
         {
             if (id == null)
             {
@@ -199,12 +214,9 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Food> availableFood = db.Foods.
                 Where(x => spieceFood.
                 Contains(x.name));
-            string firstFood;
-            if (!spieceFood.Any())
-                firstFood = spieceFood.FirstOrDefault();
-            else firstFood = "brak dostępnego jedzenia";
+            
 
-            ViewBag.name = new SelectList(availableFood, "name", "name", firstFood);
+            ViewBag.name = new SelectList(availableFood, "name", "name");
             return View(spiece);
 
         }
@@ -212,13 +224,17 @@ namespace ProjektBazyDanych.Controllers
         //POST: Spieces/DeleteFood/5
         [HttpPost, ActionName("DeleteFood")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteFood(string name, string id)
+        public async Task<ActionResult> DeleteFood(int? name, int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            try
+            if (name == null)
+            {
+                ModelState.AddModelError("name", "Nie wybrałeś jedzenia");
+            }
+            if (ModelState.IsValid)
             {
                 Food food = await db.Foods.FindAsync(name);
                 Spiece spiece = await db.Spieces.FindAsync(id);
@@ -227,10 +243,10 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Details", new { id = spiece.name });
             }
-            catch
+            else
             {
                 Spiece spiece = await db.Spieces.FindAsync(id);
-                ViewBag.name = new SelectList(db.Foods.Where(x => !spiece.Foods.Contains(x)), "name", "name", db.Foods.Where(x => !spiece.Foods.Contains(x)).FirstOrDefault());
+                ViewBag.name = new SelectList(db.Foods.Where(x => !spiece.Foods.Contains(x)), "name", "name");
                 return View(spiece);
             }
         }
