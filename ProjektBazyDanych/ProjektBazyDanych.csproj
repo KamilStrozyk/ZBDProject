@@ -527,6 +527,11 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Supervisors\AddRunway.cshtml" />
     <Content Include="Views\Supervisors\DeleteRunway.cshtml" />
+    <Content Include="Views\Settlements_new\Create.cshtml" />
+    <Content Include="Views\Settlements_new\Delete.cshtml" />
+    <Content Include="Views\Settlements_new\Details.cshtml" />
+    <Content Include="Views\Settlements_new\Edit.cshtml" />
+    <Content Include="Views\Settlements_new\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

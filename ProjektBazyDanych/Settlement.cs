@@ -32,7 +32,7 @@ namespace ProjektBazyDanych
         public System.DateTime modificationDate { get; set; }
         [Display(Name = "Rok")]
         [Required(ErrorMessage = "Wpisz rok")]
-        [Range(13, 99, ErrorMessage = "Proszê podaæ odpowiedni rk")]
+        [Range(1970, 2020, ErrorMessage = "Proszê podaæ odpowiedni rok")]
         public int year { get; set; }
         [Display(Name = "Miesi¹c")]
         [Required(ErrorMessage = "Wpisz rok")]

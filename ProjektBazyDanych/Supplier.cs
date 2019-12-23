@@ -22,7 +22,7 @@ namespace ProjektBazyDanych
         }
         [Display(Name = "Id dostawcy")]
         public int id { get; set; }
-        [Display(Name = "Nazwa dsawcy")]
+        [Display(Name = "Nazwa dostawcy")]
         [Required(ErrorMessage = "Wpisz nazwê")]
         public string name { get; set; }
     

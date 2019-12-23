@@ -1,88 +1,91 @@
 ﻿@model ProjektBazyDanych.Settlement
 
 @{
-    ViewBag.Title = "Usuń";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Usuń";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Usuń</h1>
 
 <h3>Czy na pewno chcesz usunąć to rozliczenie?</h3>
 <div>
-    <h4>Rozliczenie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.shipmentId)
-        </dt>
+	<h4>Rozliczenie</h4>
+	<hr />
+	<dl class="dl-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.shipmentId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.creationDate)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.creationDate)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.creationDate)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.creationDate)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.modificationDate)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.modificationDate)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.modificationDate)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.modificationDate)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.year)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.year)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.year)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.year)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.month)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.month)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.month)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.month)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.sum)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.sum)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.sum)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.sum)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.approved)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.approved)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.approved)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.approved)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Shipment.supplierName)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Shipment.Supplier.name)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Shipment.supplierName)
-        </dd>
+		<dt>
+			@Html.DisplayFor(model => model.Shipment.Supplier.name)
+		</dt>
 
-    </dl>
+		<dd>
+			@Html.DisplayNameFor(model => model.Shipment.shipmentDate)
+		</dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+		<dd>
+			@Html.DisplayFor(model => model.Shipment.shipmentDate)
+		</dd>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-dark" /> |
-            @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
-        </div>
-    }
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Usuń" class="btn btn-dark" /> |
+			@Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
+		</div>
+	}
 </div>

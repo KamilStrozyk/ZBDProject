@@ -13,9 +13,6 @@
 <table class="table table-dark table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.shipmentId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.creationDate)
         </th>
         <th>
@@ -34,16 +31,14 @@
             @Html.DisplayNameFor(model => model.approved)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Shipment.supplierName)
+            Rozliczenie
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
 <tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.shipmentId)
-    </td>
+
     <td>
         @Html.DisplayFor(modelItem => item.creationDate)
     </td>
@@ -58,18 +53,27 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.sum)
-    </td>
+    </td> 
+	<td>
+		@if (item.approved)
+		{
+			<div>Tak</div>
+		}
+		else
+		{
+			<div>Nie</div>
+		}
+	</td>
     <td>
-        @Html.DisplayFor(modelItem => item.approved)
+       @item.Shipment.Supplier.name
+		;
+		@item.Shipment.shipmentDate.ToShortDateString()
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Shipment.supplierName)
-    </td>
-    <td>
-        @Html.ActionLink("Edytuj", "Edit", new { id = item.shipmentId }, new {@class="white-link"}) |
-        @Html.ActionLink("Szczegóły", "Details", new { id = item.shipmentId }, new {@class="white-link"}) |
-        @Html.ActionLink("Usuń", "Delete", new { id = item.shipmentId }, new {@class="white-link"})
-    </td>
+	<td>
+		@Html.ActionLink("Edytuj", "Edit", new { id = item.id }, new { @class = "white-link" }) |
+		@Html.ActionLink("Szczegóły", "Details", new { id = item.id }, new { @class = "white-link" }) |
+		@Html.ActionLink("Usuń", "Delete", new { id = item.id }, new { @class = "white-link" })
+	</td>
 </tr>
 }
 

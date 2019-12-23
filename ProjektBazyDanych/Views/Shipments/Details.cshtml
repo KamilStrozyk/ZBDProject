@@ -1,44 +1,121 @@
 ﻿@model ProjektBazyDanych.Shipment
 
 @{
-    ViewBag.Title = "Szczegóły";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Szczegóły";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Szczegóły</h1>
 
 <div>
-    <h4>Dostawa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.shipmentDate)
-        </dt>
+	<h4>Dostawa</h4>
+	<hr />
+	<div class="row">
+		<div class="col-sm-6">
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => model.shipmentDate)
+				</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.shipmentDate)
-        </dd>
+				<dd>
+					@Html.DisplayFor(model => model.shipmentDate)
+				</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.amount)
-        </dt>
+				<dt>
+					@Html.DisplayNameFor(model => model.amount)
+				</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.amount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Supplier.name)
-        </dt>
+				<dd>
+					@Html.DisplayFor(model => model.amount)
+				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => model.Supplier.name)
+				</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Supplier.name)
-        </dd>
+				<dd>
+					@Html.DisplayFor(model => model.Supplier.name)
+				</dd>
+
+			</dl>
+		</div>
+		<div class="col-sm-6">
+			<dt class="mb-3">
+				Rozliczenia dla tej dostawy
+			</dt>
+			<table class="table table-dark table-striped">
+				<tr>
+					@{var settlement = Model.Settlements.FirstOrDefault();
+						<th>
+							@Html.DisplayNameFor(model => settlement.creationDate)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => settlement.modificationDate)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => settlement.year)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => settlement.month)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => settlement.sum)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => settlement.approved)
+						</th>
+						<th>
+							Rozliczenie
+						</th>
+						<th></th>
+					}
+				</tr>
+				@foreach (var item in Model.Settlements)
+				{
+					<tr>
+
+						<td>
+							@Html.DisplayFor(modelItem => item.creationDate)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.modificationDate)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.year)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.month)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.sum)
+						</td>
+						<td>
+							@if (item.approved)
+							{
+								<div>Tak</div>
+							}
+							else
+							{
+								<div>Nie</div>
+							}
+						</td>
+
+						<td>
+							@item.Shipment.shipmentDate.ToShortDateString()
+						</td>
+
+						<td>
+							@Html.ActionLink("Szczegóły", "Details", "Settlements", new { id = item.id }, new { @class = "white-link" })
+						</td>
+
+					</tr>
+				}
+			</table>
 
 
-
-    </dl>
+		</div>
+	</div>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new {@class="btn btn-dark"}) |
-    @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
+	@Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" }) |
+	@Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })
 </p>
