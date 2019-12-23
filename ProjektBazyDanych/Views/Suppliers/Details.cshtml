@@ -64,61 +64,63 @@
                 <dd>
 
 
-                    <table class="table table-dark table-striped">
-                        @{var settlement = Model.Shipments.FirstOrDefault();
+					<table class="table table-dark table-striped">
+						@{var settlement = Model.Shipments.FirstOrDefault().Settlements.FirstOrDefault();
 
-                                                <tr>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => settlement.Settlement.creationDate)
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => settlement.Settlement.modificationDate)
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => settlement.Settlement.month)
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => settlement.Settlement.year)
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => settlement.Settlement.sum)
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => settlement.Settlement.approved)
-                                                    </th>
-                                                    <th></th>
-                                                </tr>
-                        }
-                        @foreach (var item in Model.Shipments)
-                        {
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => settlement.creationDate)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => settlement.modificationDate)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => settlement.month)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => settlement.year)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => settlement.sum)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => settlement.approved)
+								</th>
+								<th></th>
+							</tr>
+						}
+						@foreach (var list in Model.Shipments.Select(x => x.Settlements))
+						{
+							foreach (var item in list)
+							{
+								<tr>
+									<td>
+										@Html.DisplayFor(modelItem => item.creationDate)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.modificationDate)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.month)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.year)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.sum)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.approved)
+									</td>
+									<td>
 
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Settlement.creationDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Settlement.modificationDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Settlement.month)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Settlement.year)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Settlement.sum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Settlement.approved)
-                        </td>
-                        <td>
+										@Html.ActionLink("Szczegóły", "Details", "Settlements", new { id = item.shipmentId }, new { @class = "white-link" })
 
-                            @Html.ActionLink("Szczegóły", "Details", "Settlements", new { id = item.Settlement.shipmentId }, new { @class = "white-link" })
-
-                        </td>
-                    </tr>
-                        }
-                    </table>
+									</td>
+								</tr>
+							}
+						}
+						</table>
                 </dd>
             </div>
         </div>

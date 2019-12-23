@@ -314,8 +314,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\Interface\IPasswordLogic.cs" />
+    <Compile Include="Logic\Interface\ISettlementLogic.cs" />
     <Compile Include="Logic\Interface\IUserLogic.cs" />
     <Compile Include="Logic\PasswordLogic.cs" />
+    <Compile Include="Logic\SettlementLogic.cs" />
     <Compile Include="Logic\UserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />

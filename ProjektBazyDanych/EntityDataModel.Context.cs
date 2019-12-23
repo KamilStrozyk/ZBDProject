@@ -153,17 +153,5 @@ namespace ProjektBazyDanych
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deleteInfectedAnimals", diseaseNameParameter);
         }
-        public virtual int countFoodRequirement(string name)
-        {
-            string cmd = "select dbo.countFoodRequirement('" + name + "');";
-            var result = this.Database.SqlQuery<int>(cmd).FirstOrDefault();
-            return result;
-        }
-        public virtual int TotalServicePointIncome(string name)
-        {
-            string cmd = "select dbo.showFinalServicePointIncome('" + name + "');";
-            var result = this.Database.SqlQuery<int>(cmd).FirstOrDefault();
-            return result;
-        }
     }
 }

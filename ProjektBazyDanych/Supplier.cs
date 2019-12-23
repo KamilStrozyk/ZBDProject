@@ -11,8 +11,7 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Supplier
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +19,8 @@ namespace ProjektBazyDanych
         {
             this.Shipments = new HashSet<Shipment>();
         }
-        [Display(Name = "Id dostawcy")]
+    
         public int id { get; set; }
-        [Display(Name = "Nazwa dostawcy")]
-        [Required(ErrorMessage = "Wpisz nazwê")]
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

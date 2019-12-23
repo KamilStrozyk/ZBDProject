@@ -11,25 +11,14 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
-        [Display(Name = "Login")]
         public string login { get; set; }
-        [Display(Name = "Has³o zaszyfrowane")]
         public string passwordHash { get; set; }
-        [Display(Name = "Has³o")]
         public string passwordSalt { get; set; }
-        [Display(Name = "Email")]
         public string email { get; set; }
-        [Display(Name = "Imiê")]
-        [Required(ErrorMessage = "Wpisz imiê")]
-        [RegularExpression("[^0-9]*", ErrorMessage = "Imiê nie mo¿e zawieraæ cyfr")]
         public string firstName { get; set; }
-        [Display(Name = "Nazwisko")]
-        [Required(ErrorMessage = "Wpisz nazwisko")]
-        [RegularExpression("[^0-9]*", ErrorMessage = "Nazwisko nie mo¿e zawieraæ cyfr")]
         public string lastName { get; set; }
     }
 }

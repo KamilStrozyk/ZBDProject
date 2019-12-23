@@ -11,8 +11,7 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class ServicePointWorker
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,29 +19,12 @@ namespace ProjektBazyDanych
         {
             this.ServicePoints = new HashSet<ServicePoint>();
         }
-
-        [Display(Name = "Id pracownika")]
+    
         public int id { get; set; }
-        [Display(Name = "Imiê")]
-        [Required(ErrorMessage = "Wpisz imiê")]
-        [RegularExpression("[^0-9]*", ErrorMessage = "Imiê nie mo¿e zawieraæ cyfr")]
         public string firstName { get; set; }
-        [Display(Name = "Nazwisko")]
-        [Required(ErrorMessage = "Wpisz nazwisko")]
-        [RegularExpression("[^0-9]*", ErrorMessage = "Nazwisko nie mo¿e zawieraæ cyfr")]
         public string lastName { get; set; }
-        [Display(Name = "Wiek")]
-        [Required(ErrorMessage = "Wpisz wiek")]
-        [Range(13, 99, ErrorMessage = "Proszê podaæ odpowiedni wiek")]
         public int age { get; set; }
-        [Display(Name = "Pensja w z³")]
-        [Required(ErrorMessage = "Wpisz pensjê")]
-        [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
         public int salary { get; set; }
-        [Display(Name = "Zatrudniony")]
-        [Required(ErrorMessage = "Wybierz datê")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime employed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

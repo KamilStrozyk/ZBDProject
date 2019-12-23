@@ -11,26 +11,13 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class DiseaseHistory
     {
-        [Display(Name = "Id wpisu")]
         public int id { get; set; }
-        [Display(Name = "Data pocz¹tku choroby")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime beginDate { get; set; }
-        [Display(Name = "Zwierzê")]
-        [Required(ErrorMessage = "Wybierz zwierzê")]
         public int animalID { get; set; }
-        [Display(Name = "Choroba")]
-        [Required(ErrorMessage = "Wybierz chorobê")]
         public int diseaseId { get; set; }
-        [Display(Name = "Data koñca choroby")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> endDate { get; set; }
     
         public virtual Animal Animal { get; set; }

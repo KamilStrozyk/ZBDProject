@@ -11,8 +11,7 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Food
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,15 +20,9 @@ namespace ProjektBazyDanych
             this.Shipments = new HashSet<Shipment>();
             this.Spieces = new HashSet<Spiece>();
         }
-
-        [Display(Name = "Id jedzenia")]
+    
         public int id { get; set; }
-        [Display(Name = "Nazwa jedzenia")]
-        [Required(ErrorMessage = "Wpisz nazwê jedzenia")]
         public string name { get; set; }
-        [Display(Name = "Zapotrzebowanie w kg/miesi¹c")]
-        [Required(ErrorMessage = "Wpisz zapotrzebowanie")]
-        [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
         public int requirement { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ProjektBazyDanych.Logic;
+using ProjektBazyDanych.Logic.Interface;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -11,7 +14,7 @@ namespace ProjektBazyDanych.Controllers
     public class SettlementsController : Controller
     {
         private connectionString db = new connectionString();
-
+        ISettlementLogic settlementLogic = new SettlementLogic();
         // GET: Settlements
         public async Task<ActionResult> Index()
         {
@@ -37,7 +40,8 @@ namespace ProjektBazyDanych.Controllers
         // GET: Settlements/Create
         public ActionResult Create()
         {
-            ViewBag.shipmentId = new SelectList(db.Shipments, "id", "id");
+
+            ViewBag.shipmentId = settlementLogic.CreateShipmentList();
             return View();
         }
 
@@ -63,7 +67,8 @@ namespace ProjektBazyDanych.Controllers
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError("shipmentId", "Istnieje już rozliczenie dla tej dostawy");
-            ViewBag.shipmentId = new SelectList(db.Shipments, "id", "id", settlement.shipmentId);
+
+            ViewBag.shipmentId = settlementLogic.CreateShipmentList();
             return View(settlement);
         }
 
@@ -79,7 +84,8 @@ namespace ProjektBazyDanych.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.shipmentId = new SelectList(db.Shipments, "id", "id", settlement.shipmentId);
+
+            ViewBag.shipmentId = settlementLogic.CreateShipmentList();
             return View(settlement);
         }
 
@@ -97,7 +103,8 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.shipmentId = new SelectList(db.Shipments, "id", "id", settlement.shipmentId);
+
+            ViewBag.shipmentId = settlementLogic.CreateShipmentList();
             return View(settlement);
         }
 
