@@ -11,7 +11,8 @@ namespace ProjektBazyDanych
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Shipment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +21,19 @@ namespace ProjektBazyDanych
             this.Settlements = new HashSet<Settlement>();
             this.Foods = new HashSet<Food>();
         }
-    
+        [Display(Name = "Id dostawy")]
         public int id { get; set; }
+        [Display(Name = "Data dostawy")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Wybierz datê")]
         public System.DateTime shipmentDate { get; set; }
+        [Display(Name = "Id dostawcy")]
+        [Required(ErrorMessage = "Wybierz dostawcê")]
         public int supplierId { get; set; }
+        [Display(Name = "Iloœæ towaru w kg")]
+        [Required(ErrorMessage = "Wpisz iloœæ")]
+        [RegularExpression("[0-9]*", ErrorMessage = "Proszê podaæ liczbê dodatni¹")]
         public int amount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
