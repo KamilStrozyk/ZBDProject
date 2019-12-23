@@ -22,6 +22,9 @@ namespace ProjektBazyDanych.Controllers
             else
                 ViewBag.GoodMessage = message;
 
+            ViewBag.FoodList = new SelectList(db.Foods, "name", "name");
+            ViewBag.ServicePointList = new SelectList(db.ServicePoints, "name", "name");
+            ViewBag.DiseaesList = new SelectList(db.Diseases, "name", "name");
             return View(await db.Users.ToListAsync());
         }
 
@@ -134,7 +137,7 @@ namespace ProjektBazyDanych.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", new { message = "Wystąpił błąd, sprawdź poprawność nazwy choroby." });
+                return RedirectToAction("Index", new { message = "Wystąpił błąd, spróbuj ponownie." });
             };
 
             return RedirectToAction("Index");
@@ -151,7 +154,7 @@ namespace ProjektBazyDanych.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", new { message = "Wystąpił błąd, sprawdź poprawność nazwy produktu." });
+                return RedirectToAction("Index", new { message = "Wystąpił błąd, spróbuj ponownie." });
             };
 
             return RedirectToAction("Index");
@@ -166,7 +169,7 @@ namespace ProjektBazyDanych.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", new { message = "Wystąpił błąd, sprawdź poprawność nazwy punktu usług." });
+                return RedirectToAction("Index", new { message = "Wystąpił błąd, spróbuj ponownie." });
             };
 
         }
