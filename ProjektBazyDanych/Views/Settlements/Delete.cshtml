@@ -58,7 +58,15 @@
 		</dt>
 
 		<dd>
-			@Html.DisplayFor(model => model.approved)
+			@if (Model.approved)
+			{
+				<div>Tak</div>
+
+			}
+			else
+			{
+				<div>Nie</div>
+			}
 		</dd>
 
 		<dt>

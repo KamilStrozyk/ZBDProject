@@ -20,7 +20,7 @@ namespace ProjektBazyDanych.Controllers
         {
             foreach (var item in db.Spieces)
             {
-                item.howMany = item.Animals.Where(x => x.spiece==item.id).Count();
+                item.howMany = item.Animals.Where(x => x.spiece == item.id).Count();
             }
             await db.SaveChangesAsync();
             return View(await db.Spieces.ToListAsync());
@@ -35,7 +35,7 @@ namespace ProjektBazyDanych.Controllers
             }
             Spiece spiece = await db.Spieces.FindAsync(id);
             spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.id).Count();
-            foreach(var item in spiece.Foods)
+            foreach (var item in spiece.Foods)
             {
                 item.requirement = item.Spieces.Select(x => x.appetite * x.howMany).Sum();
             }
@@ -127,7 +127,7 @@ namespace ProjektBazyDanych.Controllers
             }
             return View(spiece);
         }
-     
+
 
         // POST: Spieces/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -155,17 +155,17 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Food> availableFood = db.Foods.
                 Where(x => !spieceFood.
                 Contains(x.name));
-        
 
-            ViewBag.name = new SelectList(availableFood,"name", "name") ;
+
+            ViewBag.name = new SelectList(availableFood, "name", "name");
             return View(spiece);
 
         }
 
         //POST: Spieces/AddFood/5
-        [HttpPost,ActionName("AddFood")]
+        [HttpPost, ActionName("AddFood")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddFood(int? name, int? id)
+        public async Task<ActionResult> AddFood(string name, int? id)
         {
             if (id == null)
             {
@@ -177,14 +177,14 @@ namespace ProjektBazyDanych.Controllers
             }
             if (ModelState.IsValid)
             {
-                Food food = await db.Foods.FindAsync(name);
+                Food food = await db.Foods.Where(x => x.name == name).SingleOrDefaultAsync();
                 Spiece spiece = await db.Spieces.FindAsync(id);
                 spiece.Foods.Add(food);
                 food.Spieces.Add(spiece);
                 db.Entry(spiece).State = EntityState.Modified;
                 db.Entry(food).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Details",new { id = spiece.name });
+                return RedirectToAction("Details", new { id = spiece.id });
             }
             else
             {
@@ -193,7 +193,7 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<Food> availableFood = db.Foods.
                     Where(x => !spieceFood.
                     Contains(x.name));
-               
+
                 ViewBag.name = new SelectList(availableFood, "name", "name");
                 return View(spiece);
             }
@@ -214,7 +214,7 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Food> availableFood = db.Foods.
                 Where(x => spieceFood.
                 Contains(x.name));
-            
+
 
             ViewBag.name = new SelectList(availableFood, "name", "name");
             return View(spiece);
@@ -224,7 +224,7 @@ namespace ProjektBazyDanych.Controllers
         //POST: Spieces/DeleteFood/5
         [HttpPost, ActionName("DeleteFood")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteFood(int? name, int? id)
+        public async Task<ActionResult> DeleteFood(string name, int? id)
         {
             if (id == null)
             {
@@ -236,12 +236,12 @@ namespace ProjektBazyDanych.Controllers
             }
             if (ModelState.IsValid)
             {
-                Food food = await db.Foods.FindAsync(name);
+                Food food = await db.Foods.Where(x => x.name == name).SingleOrDefaultAsync();
                 Spiece spiece = await db.Spieces.FindAsync(id);
                 spiece.Foods.Remove(food);
                 food.Spieces.Remove(spiece);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Details", new { id = spiece.name });
+                return RedirectToAction("Details", new { id = spiece.id });
             }
             else
             {

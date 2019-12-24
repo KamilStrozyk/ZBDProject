@@ -21,7 +21,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: Foods/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -60,7 +60,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: Foods/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -103,7 +103,7 @@ namespace ProjektBazyDanych.Controllers
         }
 
         // GET: Foods/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -121,7 +121,7 @@ namespace ProjektBazyDanych.Controllers
         // POST: Foods/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             Food food = await db.Foods.FindAsync(id);
             db.Foods.Remove(food);
