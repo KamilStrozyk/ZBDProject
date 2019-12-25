@@ -93,7 +93,8 @@
 				<div class="modal-body">
 					<p>Nazwa choroby:</p>
 					@*<input id="dis" type="text" value="Choroba" />*@
-					<input type="text" name="name" id="name" />
+					<input type="text" name="name" id="DIAname" style="display:none" />
+					@Html.DropDownList("DiseaesList", null, new { @id = "DIADropdownList", @class = "form-control" })
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
@@ -119,7 +120,8 @@
 				<div class="modal-body">
 					<p>Nazwa produktu:</p>
 					@*<input id="dis" type="text" value="Choroba" />*@
-					<input type="text" name="name" id="name" />
+					<input type="text" name="name" id="CFRname"  style="display:none" />
+					@Html.DropDownList("FoodList", null, new { @id = "CFRDropdownList", @class = "form-control" })
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
@@ -145,7 +147,8 @@
 				<div class="modal-body">
 					<p>Nazwa punktu usług:</p>
 					@*<input id="dis" type="text" value="Choroba" />*@
-					<input type="text" name="name" id="name" />
+					<input type="text" name="name" id="TSPIname" style="display:none" />
+					@Html.DropDownList("ServicePointList", null, new { @id = "TSPIDropdownList", @class = "form-control" })
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
@@ -157,7 +160,7 @@
 		</div>
 	</div>
 </div>
-@if (ViewBag.Message != "" )
+@if (ViewBag.Message != "")
 {
 
 
@@ -193,9 +196,28 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
+	$(document).ready(function () {
+		$('#TSPIDropdownList').change(function () {
+			$('#TSPIname').val($(this).val());
+		});
+	});
+	$(document).ready(function () {
+		$('#DIADropdownList').change(function () {
+			$('#DIAname').val($(this).val());
+		});
+	});
+	$(document).ready(function () {
+		$('#CFRDropdownList').change(function () {
+			$('#CFRname').val($(this).val());
+		});
+	});
+
 	$(window).load(function () {
 		jQuery.noConflict();
 		$('#modalmess').modal('show');
+		$('#CFRname').val($('#CFRDropdownList').val());
+		$('#DIAname').val($('#DIADropdownList').val());
+		$('#TSPIname').val($('#TSPIDropdownList').val());
 	});
 	$(function () {
 		$('.disC').click(function () {
