@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Zoo Manager</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - Zoo Manager</title>
+	<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/Content/Site.css" />
+	<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+	<script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
 </head>
 <body>
 	<div class="navbar navbar-expand-md sticky-top mt-0 navbar-dark bg-dark px-auto">
@@ -48,7 +48,53 @@
 					</li>
 					<li class="nav-item ml-5">@Html.ActionLink("Panel Administratora", "Index", "Users", null, new { @class = "nav-link" })</li>
 				</ul>
+				@*<ul class="nav navbar-nav navbar-nav-center">
 
+						<li class="input-group form-center  " style="margin-left:3px;">
+							<input type="text" class="form-control bg-dark text-white" placeholder="Szukana fraza" name="word">
+
+							<button class="btn btn-outline-light" type="submit" style="border-radius: 0px 5px 5px 0px;">
+								<span class="glyphicon-search">Szukaj</span>
+
+							</button>
+
+						</li>
+
+
+					</ul>*@
+				<ul class="nav navbar-nav navbar-nav-center">
+
+
+
+					<li style="margin-left:4px;" class="btn-center">
+
+
+					</li>
+					<li class="input-group form-control-inline form-center " style="margin-left:3px; margin-top: 8px;">
+						<input type="text" class="form-control dropdown-menu-search search-elem-s2 " placeholder="Szukaj" id="word">
+
+						<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split text-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 0px 5px 5px 0px;">
+							<span class="glyphicon glyphicon-chevron-down"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li>@Html.ActionLink("Zwierzęta", "Index", "Animals", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Gatunki", "Index", "Spieces", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Choroby", "Index", "Diseases", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Historia Chorób", "Index", "DiseaseHistories", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Wybiegi", "Index", "Runways", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Punkty Usług", "Index", "ServicePoints", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Nadzorcy", "Index", "Supervisors", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Pracownicy", "Index", "ServicePointWorkers", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Jedzenie", "Index", "Foods", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Dostawcy", "Index", "Suppliers", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Dostawy", "Index", "Shipments", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+							<li>@Html.ActionLink("Rozliczenia", "Index", "Settlements", null, new { @style = "color:black; hover:none", @class = " dropdown-item collapse-elem-t", @onclick = "this.href += '?keyword=' + document.getElementById('word').value;" })</li>
+						</ul>
+
+					</li>
+
+
+				</ul>
 			</div>
 
 

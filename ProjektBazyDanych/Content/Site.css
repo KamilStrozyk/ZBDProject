@@ -89,12 +89,18 @@ input::-webkit-inner-spin-button {
 	width: 15%;
 	position: fixed;
 	padding-top: 70px;
-	margin:auto;
+	margin: auto;
 	top: 0;
 	right: 0;
 	height: 100vh;
 	z-index: 999;
 	color: white;
 	background-color: #212529;
-	text-align:center;
+	text-align: center;
+}
+
+.collapse-elem-t:hover {
+	background-color: #e4e4e4;
+	transition: linear 0.1156s;
+	text-decoration: none;
 }
