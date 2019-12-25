@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -49,6 +50,12 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "name,requirement,currentAmount")] Food food)
         {
+
+            do
+            {
+                food.id = new Random().Next();
+            } while (db.Foods.Where(x => x.id == food.id).ToList().Count > 0);
+
             if (ModelState.IsValid)
             {
                 db.Foods.Add(food);
