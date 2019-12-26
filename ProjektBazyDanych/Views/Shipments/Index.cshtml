@@ -6,7 +6,10 @@
 }
 
 <h1>Dostawy</h1>
-
+@if (ViewBag.keyword != null)
+{
+	<h4 style="color:forestgreen">Wyniki wyszukiwania dla: @ViewBag.keyword</h4>
+}
 <p>
 	@Html.ActionLink("Dodaj nową", "Create", null, new { @class = "btn btn-dark mb-3" })
 </p>

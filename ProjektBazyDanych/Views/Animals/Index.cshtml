@@ -6,8 +6,11 @@
 }
 
 <h2>Zwierzęta</h2>
-
- @Html.ActionLink("Dodaj nowe", "Create",null,new { @class = "btn btn-dark mb-3" })
+@if (ViewBag.keyword != null)
+{
+<h4 style="color:forestgreen">Wyniki wyszukiwania dla: @ViewBag.keyword</h4>
+}
+@Html.ActionLink("Dodaj nowe", "Create",null,new { @class = "btn btn-dark mb-3" })
 
 <table class="table table-dark table-striped">
     <tr>

@@ -1,20 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Strona główna";
+	ViewBag.Title = "Strona główna";
 }
 
 <div class="jumbotron">
-    <h1>Zoo Manager</h1>
-    <p class="lead">Witaj w menadżerze Zoo. Życzymy przyjemnej pracy!</p>
+	<h1>Zoo Manager</h1>
+	<p class="lead">Witaj w menadżerze Zoo. Życzymy przyjemnej pracy!</p>
 </div>
-
+@if (ViewBag.keyword != null)
+{
+	<h4 style="color:forestgreen">Wyniki wyszukiwania dla: @ViewBag.keyword</h4>
+}
 <div class="row">
-    <div class="col-md-4 mb-2">
-        <img src="images/home1.jpg" class="img-fluid" />
-    </div>
-    <div class="col-md-4 mb-2">
-        <img src="images/home2.jpg" class="img-fluid"/>
-    </div>
-    <div class="col-md-4 mb-2">
-        <img src="images/home3.jpg" class="img-fluid" />
-    </div>
+	<div class="col-md-4 mb-2">
+		<img src="images/home1.jpg" class="img-fluid" />
+	</div>
+	<div class="col-md-4 mb-2">
+		<img src="images/home2.jpg" class="img-fluid" />
+	</div>
+	<div class="col-md-4 mb-2">
+		<img src="images/home3.jpg" class="img-fluid" />
+	</div>
 </div>
