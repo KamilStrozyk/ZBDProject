@@ -16,13 +16,20 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: Runways
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
             foreach (var item in db.Runways)
             {
                 item.animalCount = item.Animals.Count;
             }
-            return View(await db.Runways.ToListAsync());
+            await db.SaveChangesAsync();
+            var runways = db.Runways.ToList();
+            if (keyword != null)
+            {
+                runways = db.Runways.Where(x => x.name.Contains(keyword) || x.area.ToString().Contains(keyword) || x.animalCount.ToString().Contains(keyword)).ToList();
+                ViewBag.keyword = keyword;
+            }
+            return View(runways);
         }
 
         // GET: Runways/Details/5
@@ -149,7 +156,7 @@ namespace ProjektBazyDanych.Controllers
             IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                 Where(x => !runwaySupervisors.
                 Contains(x.id));
-          
+
 
             ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
             return View(runway);
@@ -171,7 +178,7 @@ namespace ProjektBazyDanych.Controllers
             }
             if (ModelState.IsValid)
             {
-                Supervisor supervisor = db.Supervisors.Where(x=>x.lastName==lastName).FirstOrDefault();
+                Supervisor supervisor = db.Supervisors.Where(x => x.lastName == lastName).FirstOrDefault();
                 Runway runway = await db.Runways.FindAsync(runwayId);
                 runway.Supervisors.Add(supervisor);
                 supervisor.Runways.Add(runway);
@@ -187,7 +194,7 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                     Where(x => !runwaySupervisors.
                     Contains(x.id));
-              
+
 
                 ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
                 return View(runway);
@@ -196,7 +203,7 @@ namespace ProjektBazyDanych.Controllers
         //GET: Runways/DeleteSupervisor/5
         public async Task<ActionResult> DeleteSupervisor(int? id)
         {
-            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -206,12 +213,12 @@ namespace ProjektBazyDanych.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
             IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                 Where(x => runwaySupervisors.
                 Contains(x.id));
-           
+
             ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
             return View(runway);
 
@@ -246,7 +253,7 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
                     Where(x => !runwaySupervisors.
                     Contains(x.id));
-              
+
                 ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");
                 return View(runway);
             }

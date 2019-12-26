@@ -16,9 +16,14 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: DiseaseHistories
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
             var diseaseHistories = db.DiseaseHistories.Include(d => d.Animal).Include(d => d.Disease);
+            if (keyword != null)
+            {
+                diseaseHistories = db.DiseaseHistories.Where(x => x.beginDate.ToString().Contains(keyword) || x.endDate.ToString().Contains(keyword) || x.Disease.name.Contains(keyword) || x.Animal.name.Contains(keyword)).Include(d => d.Animal).Include(d => d.Disease);
+                ViewBag.keyword = keyword;
+            }
             return View(await diseaseHistories.ToListAsync());
         }
 
@@ -120,7 +125,7 @@ namespace ProjektBazyDanych.Controllers
             string animal = Request.Form["animalID"];
             diseaseHistory.diseaseId = db.Diseases.Where(x => x.name == disease).FirstOrDefault().id;
             diseaseHistory.animalID = db.Animals.Where(x => x.name == animal).FirstOrDefault().id;
-           
+
             if (diseaseHistory.beginDate > DateTime.Today)
             {
                 ModelState.AddModelError("beginDate", "Data nie może być większa od obecnej");

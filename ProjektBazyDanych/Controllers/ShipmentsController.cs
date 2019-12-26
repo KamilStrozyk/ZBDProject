@@ -13,10 +13,15 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: Shipments
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
             var shipments = db.Shipments.Include(s => s.Settlements).Include(s => s.Supplier);
-            return View(await shipments.ToListAsync());
+            if (keyword != null)
+            {
+                shipments = db.Shipments.Where(x => x.shipmentDate.ToString().Contains(keyword) || x.amount.ToString().Contains(keyword) || x.Supplier.name.Contains(keyword)).Include(s => s.Settlements).Include(s => s.Supplier);
+                ViewBag.keyword = keyword;
+            }
+            return View(shipments.ToList());
         }
 
         // GET: Shipments/Details/5
@@ -54,12 +59,12 @@ namespace ProjektBazyDanych.Controllers
             {
                 ModelState.AddModelError("shipmentDate", "Data nie może być większa od obecnej");
             }
-            //int id = 0;
-            //do
-            //{
-            //    id = new Random().Next();
-            //} while (db.Shipments.Select(x => x.id).ToList().Contains(id));
-            //shipment.id = id;
+            int id = 0;
+            do
+            {
+                id = new Random().Next();
+            } while (db.Shipments.Select(x => x.id).ToList().Contains(id));
+            shipment.id = id;
             if (ModelState.IsValid)
             {
                 db.Shipments.Add(shipment);

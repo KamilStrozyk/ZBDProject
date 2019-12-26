@@ -16,9 +16,15 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: Supervisors
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
-            return View(await db.Supervisors.ToListAsync());
+            var supervisors = db.Supervisors.ToList();
+            if (keyword != null)
+            {
+                supervisors = db.Supervisors.Where(x => x.firstName.Contains(keyword) || x.lastName.Contains(keyword) || x.age.ToString().Contains(keyword) || x.salary.ToString().Contains(keyword) || x.employed.ToString().Contains(keyword) ).ToList();
+                ViewBag.keyword = keyword;
+            }
+            return View(supervisors);
         }
 
         // GET: Supervisors/Details/5
@@ -29,7 +35,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Supervisor supervisor = await db.Supervisors.FindAsync(id);
-            foreach(var item in supervisor.Runways)
+            foreach (var item in supervisor.Runways)
             {
                 item.animalCount = item.Animals.Count();
             }
@@ -163,7 +169,7 @@ namespace ProjektBazyDanych.Controllers
             if (ModelState.IsValid)
             {
                 Supervisor supervisor = await db.Supervisors.FindAsync(id);
-                Runway runway =  db.Runways. Where(x => x.name == name).FirstOrDefault();
+                Runway runway = db.Runways.Where(x => x.name == name).FirstOrDefault();
                 runway.Supervisors.Add(supervisor);
                 supervisor.Runways.Add(runway);
                 db.Entry(runway).State = EntityState.Modified;
@@ -206,7 +212,7 @@ namespace ProjektBazyDanych.Controllers
                 Where(x => supervisorRunways.
                 Contains(x.id));
             string firstRunway;
-         
+
             ViewBag.name = new SelectList(availableRunways, "name", "name");
             return View(supervisor);
 

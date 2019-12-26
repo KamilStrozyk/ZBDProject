@@ -16,10 +16,15 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
         ISettlementLogic settlementLogic = new SettlementLogic();
         // GET: Settlements
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
             var settlements = db.Settlements.Include(s => s.Shipment);
-            return View(await settlements.ToListAsync());
+            if (keyword != null)
+            {
+                settlements = db.Settlements.Where(x => x.creationDate.ToString().Contains(keyword) || x.modificationDate.ToString().Contains(keyword) || x.month.ToString().Contains(keyword) || x.year.ToString().Contains(keyword) || x.sum.ToString().Contains(keyword) || x.Shipment.Supplier.name.Contains(keyword) || x.Shipment.shipmentDate.ToString().Contains(keyword)).Include(s => s.Shipment);
+                ViewBag.keyword = keyword;
+            }
+            return View(settlements);
         }
 
         // GET: Settlements/Details/5

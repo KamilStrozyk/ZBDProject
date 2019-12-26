@@ -12,13 +12,20 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: Foods
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
-            foreach(var item in db.Foods)
+            foreach (var item in db.Foods)
             {
-                item.requirement= item.Spieces.Select(x => x.appetite * x.howMany).Sum();
+                item.requirement = item.Spieces.Select(x => x.appetite * x.howMany).Sum();
             }
-            return View(await db.Foods.ToListAsync());
+            await db.SaveChangesAsync();
+            var foods = db.Foods.ToList();
+            if (keyword != null)
+            {
+                foods = db.Foods.Where(x => x.name.Contains(keyword) || x.requirement.ToString().Contains(keyword)).ToList();
+                ViewBag.keyword = keyword;
+            }
+            return View(foods);
         }
 
         // GET: Foods/Details/5

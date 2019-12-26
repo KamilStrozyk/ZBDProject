@@ -16,14 +16,21 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: Spieces
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
             foreach (var item in db.Spieces)
             {
                 item.howMany = item.Animals.Where(x => x.spiece == item.id).Count();
             }
             await db.SaveChangesAsync();
-            return View(await db.Spieces.ToListAsync());
+
+            var species = db.Spieces.ToList();
+            if (keyword != null)
+            {
+                species = db.Spieces.Where(x => x.name.Contains(keyword) || x.howMany.ToString().Contains(keyword) ||  x.appetite.ToString().Contains(keyword)).ToList();
+                ViewBag.keyword = keyword;
+            }
+            return View(species);
         }
 
         // GET: Spieces/Details/5

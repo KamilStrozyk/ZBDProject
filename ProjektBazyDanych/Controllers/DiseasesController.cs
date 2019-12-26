@@ -11,9 +11,15 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: Diseases
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
-            return View(await db.Diseases.ToListAsync());
+            var diseases = db.Diseases.ToList();
+            if (keyword != null)
+            {
+                diseases = db.Diseases.Where(x => x.name.Contains(keyword)).ToList();
+                ViewBag.keyword = keyword;
+            }
+            return View(diseases);
         }
 
         // GET: Diseases/Details/5

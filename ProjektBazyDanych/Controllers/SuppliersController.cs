@@ -15,9 +15,15 @@ namespace ProjektBazyDanych.Controllers
     {
         private connectionString db = new connectionString();
         // GET: Suppliers
-        public ActionResult Index()
+        public ActionResult Index(string keyword)
         {
-            return View(db.Suppliers.ToList());
+            var suppliers = db.Suppliers.ToList();
+            if (keyword != null)
+            {
+                suppliers = db.Suppliers.Where(x => x.name.Contains(keyword)).ToList();
+                ViewBag.keyword = keyword;
+            }
+            return View(suppliers);
         }
 
         // GET: Suppliers/Details/5
@@ -48,6 +54,12 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "name")] Supplier supplier)
         {
+
+            do
+            {
+                supplier.id = new Random().Next();
+            } while (db.Suppliers.Where(x => x.id == supplier.id).ToList().Count > 0);
+
             if (ModelState.IsValid)
             {
                 db.Suppliers.Add(supplier);

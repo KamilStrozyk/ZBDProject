@@ -16,9 +16,16 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: ServicePointWorkers
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
-            return View(await db.ServicePointWorkers.ToListAsync());
+            var servicePointWorkers = db.ServicePointWorkers.ToList();
+            if (keyword != null)
+            {
+                servicePointWorkers = db.ServicePointWorkers.Where(x => x.firstName.Contains(keyword) || x.lastName.Contains(keyword) || x.age.ToString().Contains(keyword) || x.salary.ToString().Contains(keyword) || x.employed.ToString().Contains(keyword)).ToList();
+                ViewBag.keyword = keyword;
+            }
+
+            return View(servicePointWorkers);
         }
 
         // GET: ServicePointWorkers/Details/5

@@ -16,9 +16,16 @@ namespace ProjektBazyDanych.Controllers
         private connectionString db = new connectionString();
 
         // GET: Animals
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string keyword)
         {
             var animals = db.Animals.Include(a => a.Runway).Include(a => a.Spiece1);
+
+            if (keyword != null)
+            {
+                animals = db.Animals.Where(x => x.name.Contains(keyword) || x.age.ToString().Contains(keyword) || x.inZooSince.ToString().Contains(keyword) || x.origin.Contains(keyword) || x.sex.Contains(keyword) || x.Spiece1.name.Contains(keyword) || x.Runway.name.Contains(keyword)).Include(a => a.Runway).Include(a => a.Spiece1);
+                ViewBag.keyword = keyword;
+            }
+
             return View(await animals.ToListAsync());
         }
 
@@ -42,7 +49,7 @@ namespace ProjektBazyDanych.Controllers
         // GET: Animals/Create
         public ActionResult Create()
         {
-           
+
             ViewBag.runway = new SelectList(db.Runways, "name", "name");
             ViewBag.spiece = new SelectList(db.Spieces, "name", "name");
             return View();
@@ -55,9 +62,16 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,name,age,sex,origin,inZooSince")] Animal animal)
         {
-            string spiece=Request.Form["spiece"];
+            string spiece = Request.Form["spiece"];
             string runway = Request.Form["runway"];
-            animal.runwayID=db.Runways.Where(x=>x.name==runway).FirstOrDefault().id;
+            try
+            {
+                animal.runwayID = db.Runways.Where(x => x.name == runway).FirstOrDefault().id;
+            }
+            catch
+            {
+                ModelState.AddModelError("runwayID", "Proszę uzupełnić wybieg");
+            }
             animal.spiece = db.Spieces.Where(x => x.name == spiece).FirstOrDefault().id;
             if (animal.inZooSince > DateTime.Today)
             {
