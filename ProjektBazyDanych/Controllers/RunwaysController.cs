@@ -251,7 +251,7 @@ namespace ProjektBazyDanych.Controllers
                 Runway runway = await db.Runways.FindAsync(runwayId);
                 var runwaySupervisors = runway.Supervisors.Select(x => x.id).ToList();
                 IEnumerable<Supervisor> availableSupervisors = db.Supervisors.
-                    Where(x => !runwaySupervisors.
+                    Where(x => runwaySupervisors.
                     Contains(x.id));
 
                 ViewBag.lastName = new SelectList(availableSupervisors, "lastName", "lastName");

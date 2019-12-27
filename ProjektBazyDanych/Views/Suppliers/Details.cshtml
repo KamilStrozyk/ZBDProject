@@ -65,7 +65,7 @@
 
 
 					<table class="table table-dark table-striped">
-						@{var settlement = Model.Shipments.FirstOrDefault().Settlements.FirstOrDefault();
+						@{var settlement = new Settlement();
 
 							<tr>
 								<th>
@@ -127,6 +127,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new {@class="btn btn-dark"}) |
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new {@class="btn btn-dark"}) |
     @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
 </p>

@@ -90,7 +90,7 @@ namespace ProjektBazyDanych.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.shipmentId = settlementLogic.CreateShipmentList();
+            ViewBag.shipmentId = settlementLogic.CreateShipmentList(settlement.shipmentId.ToString());
             return View(settlement);
         }
 
@@ -102,14 +102,14 @@ namespace ProjektBazyDanych.Controllers
         public async Task<ActionResult> Edit([Bind(Include = "id,shipmentId,creationDate,modificationDate,year,month,sum,approved")] Settlement settlement)
         {
             settlement.modificationDate = DateTime.Now;
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && db.Settlements.Where(x => x.shipmentId == settlement.shipmentId && x.id!=settlement.id).ToList().Count == 0)
             {
                 db.Entry(settlement).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.shipmentId = settlementLogic.CreateShipmentList();
+            ModelState.AddModelError("shipmentId", "Istnieje już rozliczenie dla tej dostawy");
+            ViewBag.shipmentId = settlementLogic.CreateShipmentList(settlement.shipmentId.ToString());
             return View(settlement);
         }
 

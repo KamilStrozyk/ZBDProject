@@ -63,7 +63,7 @@
 								@Html.DisplayFor(modelItem => item.howMany)
 							</td>
 							<td>
-								@Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = item.name }, new { @class = "white-link" }) 
+								@Html.ActionLink("Szczegóły", "Details", "Spieces", new { id = item.id }, new { @class = "white-link" }) 
 							</td>
 						</tr>
 					}
@@ -127,7 +127,7 @@
 </div>
 <hr />
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.name }, new {@class="btn btn-dark"}) 
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new {@class="btn btn-dark"}) 
     @Html.ActionLink("Aktualizuj zapotrzebowanie", "CountFood", new { name = Model.name }, new {@class="btn btn-dark"}) |
     @Html.ActionLink("Powrót do listy", "Index", null,new { @class = "btn " })
 </p>

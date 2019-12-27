@@ -44,7 +44,7 @@ namespace ProjektBazyDanych.Controllers
             spiece.howMany = spiece.Animals.Where(x => x.spiece == spiece.id).Count();
             foreach (var item in spiece.Foods)
             {
-                item.requirement = item.Spieces.Select(x => x.appetite * x.howMany).Sum();
+                item.requirement = item.Spieces.Select(x => x.appetite * x.howMany/x.Foods.Count()).Sum();
             }
             await db.SaveChangesAsync();
 
@@ -253,7 +253,7 @@ namespace ProjektBazyDanych.Controllers
             else
             {
                 Spiece spiece = await db.Spieces.FindAsync(id);
-                ViewBag.name = new SelectList(db.Foods.Where(x => !spiece.Foods.Contains(x)), "name", "name");
+                ViewBag.name = new SelectList(db.Foods.Where(x => spiece.Foods.Contains(x)), "name", "name");
                 return View(spiece);
             }
         }

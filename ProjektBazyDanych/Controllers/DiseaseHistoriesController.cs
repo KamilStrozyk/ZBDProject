@@ -85,6 +85,23 @@ namespace ProjektBazyDanych.Controllers
                 ModelState.AddModelError("animalID", "Wpis z takimi parametrami już istnieje");
                 ModelState.AddModelError("diseaseId", "Wpis z takimi parametrami już istnieje");
             }
+            Animal dbAnimal = db.Animals.Where(x => x.id == diseaseHistory.animalID).FirstOrDefault(); ;
+            TimeSpan animalAge = new TimeSpan(365 * dbAnimal.age, 0, 0, 0);
+            DateTime birth = DateTime.Today - animalAge; 
+            if (diseaseHistory.beginDate < birth)
+            {
+                ModelState.AddModelError("beginDate", "Zwierzę nie może zachorować zanim się urodziło");
+            }
+            if (db.DiseaseHistories.
+               Where(x => x.animalID == diseaseHistory.animalID
+               && x.diseaseId == diseaseHistory.diseaseId
+               && (x.endDate == null || x.endDate > diseaseHistory.beginDate)
+               && x.id != diseaseHistory.id).Any())
+            {
+                ModelState.AddModelError("beginDate", "Zwierzę nie morze dwa razy zachorować na tę samą chorobę!");
+                ModelState.AddModelError("animalID", "Zwierzę nie morze dwa razy zachorować na tę samą chorobę!");
+                ModelState.AddModelError("diseaseId", "Zwierzę nie morze dwa razy zachorować na tę samą chorobę!");
+            }
             if (ModelState.IsValid)
             {
                 db.DiseaseHistories.Add(diseaseHistory);
@@ -149,6 +166,23 @@ namespace ProjektBazyDanych.Controllers
                 ModelState.AddModelError("beginDate", "Wpis z takimi parametrami już istnieje");
                 ModelState.AddModelError("animalID", "Wpis z takimi parametrami już istnieje");
                 ModelState.AddModelError("diseaseId", "Wpis z takimi parametrami już istnieje");
+            }
+            Animal dbAnimal = db.Animals.Where(x => x.id == diseaseHistory.id).FirstOrDefault(); ;
+            TimeSpan animalAge = new TimeSpan(365 * dbAnimal.age, 0, 0, 0);
+            DateTime birth = DateTime.Today - animalAge;
+            if (diseaseHistory.beginDate < birth)
+            {
+                ModelState.AddModelError("beginDate", "Zwierzę nie może zachorować zanim się urodziło");
+            }
+            if (db.DiseaseHistories.
+                Where(x=>x.animalID==diseaseHistory.animalID
+                && x.diseaseId==diseaseHistory.diseaseId
+                && (x.endDate==null || x.endDate > diseaseHistory.beginDate)
+                && x.id != diseaseHistory.id).Any())
+            {
+                ModelState.AddModelError("beginDate", "Zwierzę nie morze dwa razy zachorować na tę samą chorobę!");
+                ModelState.AddModelError("animalID", "Zwierzę nie morze dwa razy zachorować na tę samą chorobę!");
+                ModelState.AddModelError("diseaseId", "Zwierzę nie morze dwa razy zachorować na tę samą chorobę!");
             }
             if (ModelState.IsValid)
             {

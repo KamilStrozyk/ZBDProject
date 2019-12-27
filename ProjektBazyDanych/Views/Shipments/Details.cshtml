@@ -11,7 +11,7 @@
 	<h4>Dostawa</h4>
 	<hr />
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-3">
 			<dl class="dl-horizontal">
 				<dt>
 					@Html.DisplayNameFor(model => model.shipmentDate)
@@ -38,7 +38,7 @@
 
 			</dl>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-9">
 			<dt class="mb-3">
 				Rozliczenia dla tej dostawy
 			</dt>
@@ -104,7 +104,7 @@
 						</td>
 
 						<td>
-							@Html.ActionLink("Szczegóły", "Details", "Settlements", new { id = item.id }, new { @class = "white-link" })
+							@Html.ActionLink("Szczegóły", "Details", "Settlements", new { id = item.id.Trim() }, new { @class = "white-link" })
 						</td>
 
 					</tr>

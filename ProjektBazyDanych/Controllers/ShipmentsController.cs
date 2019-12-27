@@ -55,6 +55,16 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,shipmentDate,supplierName,amount")] Shipment shipment)
         {
+            string supplier = Request.Form["supplierName"];
+            
+            try
+            {
+                shipment.supplierId = db.Suppliers.Where(x => x.name == supplier).FirstOrDefault().id;
+            }
+            catch
+            {
+                ModelState.AddModelError("supplierId", "Proszę uzupełnić dostawcę");
+            }
             if (shipment.shipmentDate > DateTime.Today)
             {
                 ModelState.AddModelError("shipmentDate", "Data nie może być większa od obecnej");
@@ -91,7 +101,7 @@ namespace ProjektBazyDanych.Controllers
                 return HttpNotFound();
             }
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
-            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierId);
+            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.Supplier.name);
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
             return View(shipment);
         }
@@ -103,6 +113,16 @@ namespace ProjektBazyDanych.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,shipmentDate,supplierName,amount")] Shipment shipment)
         {
+            string supplier = Request.Form["supplierName"];
+
+            try
+            {
+                shipment.supplierId = db.Suppliers.Where(x => x.name == supplier).FirstOrDefault().id;
+            }
+            catch
+            {
+                ModelState.AddModelError("supplierId", "Proszę uzupełnić dostawcę");
+            }
             if (shipment.shipmentDate > DateTime.Today)
             {
                 ModelState.AddModelError("shipmentDate", "Data nie może być większa od obecnej");
@@ -114,7 +134,7 @@ namespace ProjektBazyDanych.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
-            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.supplierId);
+            ViewBag.supplierName = new SelectList(db.Suppliers, "name", "name", shipment.Supplier.name);
             ViewBag.id = new SelectList(db.Settlements, "shipmentId", "shipmentId", shipment.id);
             return View(shipment);
         }
@@ -245,7 +265,7 @@ namespace ProjektBazyDanych.Controllers
             else
             {
                 Shipment shipment = await db.Shipments.FindAsync(id);
-                ViewBag.name = new SelectList(db.Foods.Where(x => !shipment.Foods.Contains(x)), "name", "name");
+                ViewBag.name = new SelectList(db.Foods.Where(x => shipment.Foods.Contains(x)), "name", "name");
                 return View(shipment);
             }
         }
