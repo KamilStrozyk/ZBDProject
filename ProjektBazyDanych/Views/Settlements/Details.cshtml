@@ -86,6 +86,9 @@
 					<td>
 						@Html.DisplayFor(modelItem => Model.Shipment.amount)
 					</td>
+                    <td>
+                        @Html.ActionLink("Szczegóły", "Details","Shipments", new { id = Model.Shipment.id }, new { @class = "white-link" })
+                    </td>
 				</tr>
 
 
@@ -96,10 +99,10 @@
 	</div>
 </div>
 <p>
-	@Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new { @class = "btn btn-dark" })
+	@Html.ActionLink("Edytuj", "Edit", new { id = Model.id.Trim() }, new { @class = "btn btn-dark" })
 	@if (Model.approved == false)
 	{
-		@Html.ActionLink("Zatwierdź", "Approve", new { id = Model.id }, new { @class = "btn btn-dark" })
+		@Html.ActionLink("Zatwierdź", "Approve", new { id = Model.id.Trim() }, new { @class = "btn btn-dark" })
 	}
 	|
 	@Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn " })

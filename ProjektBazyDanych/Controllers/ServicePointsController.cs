@@ -276,7 +276,7 @@ namespace ProjektBazyDanych.Controllers
                 IEnumerable<ServicePointWorker> availableServicePointWorkers = db.ServicePointWorkers.
                     Where(x => servicePointServicePointWorkers.
                     Contains(x.id));
-                string firstServicePointWorker;
+                
               
 
                 ViewBag.lastName = new SelectList(availableServicePointWorkers, "lastName", "lastName");

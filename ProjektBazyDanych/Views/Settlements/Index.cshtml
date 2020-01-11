@@ -74,9 +74,9 @@
 				@item.Shipment.shipmentDate.ToShortDateString()
 			</td>
 			<td>
-				@Html.ActionLink("Edytuj", "Edit", new { id = item.id }, new { @class = "white-link" }) |
-				@Html.ActionLink("Szczegóły", "Details", new { id = item.id }, new { @class = "white-link" }) |
-				@Html.ActionLink("Usuń", "Delete", new { id = item.id }, new { @class = "white-link" })
+				@Html.ActionLink("Edytuj", "Edit", new { id = item.id.Trim() }, new { @class = "white-link" }) |
+				@Html.ActionLink("Szczegóły", "Details", new { id = item.id.Trim() }, new { @class = "white-link" }) |
+				@Html.ActionLink("Usuń", "Delete", new { id = item.id.Trim() }, new { @class = "white-link" })
 			</td>
 		</tr>
 	}

@@ -28,7 +28,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.spiece, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("spiece", null, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("spiece", null, htmlAttributes: new { @class = "form-control" ,@Value = @Model.Spiece1.name})
             @Html.ValidationMessageFor(model => model.spiece, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -70,7 +70,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.runwayID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("runway", null, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("runway", null, htmlAttributes: new { @class = "form-control",@Value = @Model.Runway.name })
             @Html.ValidationMessageFor(model => model.runwayID, "", new { @class = "text-danger" })
         </div>
     </div>

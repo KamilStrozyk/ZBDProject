@@ -16,7 +16,7 @@ namespace ProjektBazyDanych.Controllers
         {
             foreach (var item in db.Foods)
             {
-                item.requirement = item.Spieces.Select(x => x.appetite * x.howMany).Sum();
+                item.requirement = item.Spieces.Select(x => x.appetite * x.howMany/x.Foods.Count()).Sum();
             }
             await db.SaveChangesAsync();
             var foods = db.Foods.ToList();
@@ -36,7 +36,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Food food = await db.Foods.FindAsync(id);
-            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany).Sum();
+            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany/x.Foods.Count()).Sum();
             if (food == null)
             {
                 return HttpNotFound();
@@ -62,7 +62,10 @@ namespace ProjektBazyDanych.Controllers
             {
                 food.id = new Random().Next();
             } while (db.Foods.Where(x => x.id == food.id).ToList().Count > 0);
-
+            if (db.Foods.Any(x => x.name == food.name && x.id != food.id))
+            {
+                ModelState.AddModelError("name", "Takie jedzenie już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Foods.Add(food);
@@ -81,7 +84,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Food food = await db.Foods.FindAsync(id);
-            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany).Sum();
+            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany/x.Foods.Count()).Sum();
             if (food == null)
             {
                 return HttpNotFound();
@@ -94,8 +97,12 @@ namespace ProjektBazyDanych.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "name,requirement,currentAmount")] Food food)
+        public async Task<ActionResult> Edit([Bind(Include = "id,name,requirement,currentAmount")] Food food)
         {
+            if (db.Foods.Any(x => x.name == food.name && x.id != food.id))
+            {
+                ModelState.AddModelError("name", "Takie jedzenie już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(food).State = EntityState.Modified;
@@ -109,11 +116,13 @@ namespace ProjektBazyDanych.Controllers
         public async Task<ActionResult> CountFood(string name)
         {
             var result = db.countFoodRequirement(name);
-            Food food = await db.Foods.FindAsync(name);
+            
+            Food food = db.Foods.Where(x=>x.name.Equals(name)).FirstOrDefault();
+        
             db.Entry(food).State = EntityState.Modified;
             food.requirement = result;
             await db.SaveChangesAsync();
-            return RedirectToAction("Details", new { id = food.name });
+            return RedirectToAction("Details", new { id = food.id });
         }
 
         // GET: Foods/Delete/5
@@ -124,7 +133,7 @@ namespace ProjektBazyDanych.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Food food = await db.Foods.FindAsync(id);
-            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany).Sum();
+            food.requirement = food.Spieces.Select(x => x.appetite * x.howMany/x.Foods.Count()).Sum();
             if (food == null)
             {
                 return HttpNotFound();

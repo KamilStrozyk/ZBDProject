@@ -10,5 +10,6 @@ namespace ProjektBazyDanych.Logic.Interface
     interface ISettlementLogic
     {
         SelectList CreateShipmentList();
+        SelectList CreateShipmentList(string id);
     }
 }

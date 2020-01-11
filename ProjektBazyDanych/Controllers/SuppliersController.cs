@@ -59,7 +59,10 @@ namespace ProjektBazyDanych.Controllers
             {
                 supplier.id = new Random().Next();
             } while (db.Suppliers.Where(x => x.id == supplier.id).ToList().Count > 0);
-
+            if (db.Suppliers.Any(x => x.name == supplier.name && x.id != supplier.id))
+            {
+                ModelState.AddModelError("name", "Taki dostawca już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Suppliers.Add(supplier);
@@ -90,8 +93,12 @@ namespace ProjektBazyDanych.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name")] Supplier supplier)
+        public ActionResult Edit([Bind(Include = "id,name")] Supplier supplier)
         {
+            if (db.Suppliers.Any(x => x.name == supplier.name && x.id != supplier.id))
+            {
+                ModelState.AddModelError("name", "Taki dostawca już istnieje");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(supplier).State = EntityState.Modified;

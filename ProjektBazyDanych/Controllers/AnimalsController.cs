@@ -72,10 +72,23 @@ namespace ProjektBazyDanych.Controllers
             {
                 ModelState.AddModelError("runwayID", "Proszę uzupełnić wybieg");
             }
-            animal.spiece = db.Spieces.Where(x => x.name == spiece).FirstOrDefault().id;
+            try
+            {
+                animal.spiece = db.Spieces.Where(x => x.name == spiece).FirstOrDefault().id;
+            }
+            catch
+            {
+                ModelState.AddModelError("spiece", "Proszę uzupełnić gatunek");
+            }
             if (animal.inZooSince > DateTime.Today)
             {
                 ModelState.AddModelError("inZooSince", "Data nie może być większa od obecnej");
+            }
+            TimeSpan inZoo = DateTime.Today - animal.inZooSince;
+            var yearsInZoo = inZoo.TotalDays / 365.0;
+            if (yearsInZoo > Convert.ToDouble(animal.age))
+            {
+                ModelState.AddModelError("inZooSince", "Wiek zwierzęcia nie może przekraczać czasu jego pobytu w zoo");
             }
             if (ModelState.IsValid)
             {
@@ -101,8 +114,8 @@ namespace ProjektBazyDanych.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.runway = new SelectList(db.Runways, "name", "name", animal.runwayID);
-            ViewBag.spiece = new SelectList(db.Spieces, "name", "name", animal.spiece);
+            ViewBag.runway = new SelectList(db.Runways, "name", "name", animal.Runway.name);
+            ViewBag.spiece = new SelectList(db.Spieces, "name", "name", animal.Spiece1.name);
             return View(animal);
         }
 
@@ -128,8 +141,8 @@ namespace ProjektBazyDanych.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.runwayID = new SelectList(db.Runways, "name", "name", animal.runwayID);
-            ViewBag.spiece = new SelectList(db.Spieces, "name", "name", animal.spiece);
+            ViewBag.runwayID = new SelectList(db.Runways, "name", "name", animal.Runway.name);
+            ViewBag.spiece = new SelectList(db.Spieces, "name", "name", animal.Spiece1.name);
             return View(animal);
         }
 
