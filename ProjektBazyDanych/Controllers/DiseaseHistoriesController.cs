@@ -87,7 +87,15 @@ namespace ProjektBazyDanych.Controllers
             }
             Animal dbAnimal = db.Animals.Where(x => x.id == diseaseHistory.animalID).FirstOrDefault(); ;
             TimeSpan animalAge = new TimeSpan(365 * dbAnimal.age, 0, 0, 0);
-            DateTime birth = DateTime.Today - animalAge; 
+            DateTime birth = DateTime.Today;
+            try
+            {
+                birth = DateTime.Today - animalAge;
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("beginDate", "Zwierzę nie może zachorować zanim się urodziło");
+            };
             if (diseaseHistory.beginDate < birth)
             {
                 ModelState.AddModelError("beginDate", "Zwierzę nie może zachorować zanim się urodziło");
@@ -169,15 +177,24 @@ namespace ProjektBazyDanych.Controllers
             }
             Animal dbAnimal = db.Animals.Where(x => x.id == diseaseHistory.id).FirstOrDefault(); ;
             TimeSpan animalAge = new TimeSpan(365 * dbAnimal.age, 0, 0, 0);
-            DateTime birth = DateTime.Today - animalAge;
+            DateTime birth = DateTime.Today;
+            try
+            {
+                birth = DateTime.Today - animalAge;
+            } catch(Exception e)
+            {
+                ModelState.AddModelError("beginDate", "Zwierzę nie może zachorować zanim się urodziło");
+            };
+                
+            
             if (diseaseHistory.beginDate < birth)
             {
                 ModelState.AddModelError("beginDate", "Zwierzę nie może zachorować zanim się urodziło");
             }
             if (db.DiseaseHistories.
-                Where(x=>x.animalID==diseaseHistory.animalID
-                && x.diseaseId==diseaseHistory.diseaseId
-                && (x.endDate==null || x.endDate > diseaseHistory.beginDate)
+                Where(x => x.animalID == diseaseHistory.animalID
+                && x.diseaseId == diseaseHistory.diseaseId
+                && (x.endDate == null || x.endDate > diseaseHistory.beginDate)
                 && x.id != diseaseHistory.id).Any())
             {
                 ModelState.AddModelError("beginDate", "Zwierzę nie morze dwa razy zachorować na tę samą chorobę!");

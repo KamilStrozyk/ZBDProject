@@ -20,6 +20,7 @@ namespace ProjektBazyDanych
         [Display(Name = "Has³o zaszyfrowane")]
         public string passwordHash { get; set; }
         [Display(Name = "Has³o")]
+        [DataType(DataType.Password)]
         public string passwordSalt { get; set; }
         [Display(Name = "Email")]
         public string email { get; set; }

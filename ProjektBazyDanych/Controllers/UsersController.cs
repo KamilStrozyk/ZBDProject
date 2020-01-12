@@ -2,6 +2,7 @@
 using ProjektBazyDanych.Repository;
 using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -148,7 +149,7 @@ namespace ProjektBazyDanych.Controllers
             try
             {
                 var result = db.countFoodRequirement(name);
-                Food food = await db.Foods.FindAsync(name);
+                Food food = db.Foods.Where(x =>x.name == name).SingleOrDefault();
                 db.Entry(food).State = EntityState.Modified;
                 food.requirement = result;
             }
